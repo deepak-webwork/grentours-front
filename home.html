@@ -1,0 +1,4733 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta name="description"
+        content="Green Tours – India's trusted travel company. Holiday packages, group tours & international tours.">
+    <title>Tour Packages, Holiday Group Tours India &amp; International – Green Tours</title>
+    <link rel="icon" href="assets/img/favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap & Icons -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/swiper-bundle.min.css" rel="stylesheet">
+    <!-- AOS Scrolling Animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+    <style>
+        /* =============================================
+   GLOBAL RESET & BASE
+============================================= */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #333;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* =============================================
+   TOP BAR  (dark, like Flamingo)
+============================================= */
+        .ft-topbar {
+            background: #1a1a2e;
+            color: #ccc;
+            padding: 6px 0;
+            font-size: 12px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .ft-topbar-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ft-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .ft-topbar-left a,
+        .ft-topbar-left span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #fff;
+            font-size: 11.5px;
+        }
+
+        .ft-topbar-left a:hover {
+            color: #24b25a;
+        }
+
+        .ft-topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ft-topbar-right .social-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ft-topbar-right .social-links a {
+            color: #fff;
+            font-size: 16px;
+            transition: color .2s;
+        }
+
+        .ft-topbar-right .social-links a:hover {
+            color: #24b25a;
+        }
+
+        .ft-country-switch {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 4px;
+            padding: 3px 10px;
+            font-size: 11.5px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .ft-send-enquiry {
+            background: #24b25a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background .2s;
+        }
+
+        .ft-send-enquiry:hover {
+            background: #0a93c0;
+        }
+
+        /* =============================================
+   HEADER  (white, icon + text nav like Flamingo)
+============================================= */
+        .ft-header {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+        }
+
+        .ft-header-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 62px;
+        }
+
+        .ft-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .ft-logo img {
+            height: 40px;
+        }
+
+        .ft-logo-text {
+            margin-left: 6px;
+        }
+
+        .ft-logo-text span {
+            display: block;
+            font-size: 22px;
+            font-weight: 700;
+            color: #24b25a;
+            line-height: 1;
+        }
+
+        .ft-logo-text small {
+            font-size: 9px;
+            color: #888;
+            letter-spacing: .5px;
+        }
+
+        /* Nav with icons above labels */
+        .ft-nav {
+            display: flex;
+            align-items: stretch;
+            height: 62px;
+            gap: 4px;
+        }
+
+        .ft-nav-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 12px 8px 12px;
+            cursor: pointer;
+            color: #444;
+            transition: color .2s;
+            min-width: 64px;
+            border-bottom: 3px solid transparent;
+            font-size: 11.5px;
+            font-weight: 500;
+            gap: 4px;
+            white-space: nowrap;
+            user-select: none;
+            height: 100%;
+        }
+
+        .ft-nav-item:hover {
+            color: #24b25a;
+            border-bottom-color: #24b25a;
+        }
+
+        .ft-nav-item.active {
+            color: #24b25a;
+            border-bottom-color: #24b25a;
+        }
+
+        .ft-nav-item i {
+            font-size: 18px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ft-nav-item .nav-label {
+            font-size: 11px;
+            line-height: 1;
+        }
+
+        .ft-nav-item .dd-icon {
+            font-size: 9px;
+            margin-left: 2px;
+        }
+
+        /* dropdown */
+        .ft-nav-item .ft-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border: 1px solid #eee;
+            border-top: 3px solid #24b25a;
+            border-radius: 0 0 8px 8px;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+            z-index: 100;
+            padding: 6px 0;
+        }
+
+        .ft-nav-item:hover .ft-dropdown {
+            display: block;
+        }
+
+        .ft-dropdown li a {
+            display: block;
+            padding: 9px 18px;
+            font-size: 12.5px;
+            color: #333;
+            transition: background .15s, color .15s;
+        }
+
+        .ft-dropdown li a:hover {
+            background: #f0faf3;
+            color: #24b25a;
+        }
+
+        /* Header right: My Booking + More */
+        .ft-header-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ft-nav-more {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            height: 62px;
+            color: #444;
+            cursor: pointer;
+            font-size: 11px;
+            border-bottom: 3px solid transparent;
+            gap: 2px;
+        }
+
+        .ft-nav-more:hover {
+            color: #24b25a;
+            border-bottom-color: #24b25a;
+        }
+
+        .ft-nav-more i {
+            font-size: 20px;
+        }
+
+        .ft-mobile-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* =============================================
+   SEARCH BAR  (full-width, simple text input)
+============================================= */
+        .ft-search-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+
+        .ft-search-inner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ft-search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f8f8;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 9px 14px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .ft-search-box:focus-within {
+            border-color: #24b25a;
+            box-shadow: 0 0 0 3px rgba(36, 178, 90, .08);
+            background: #fff;
+        }
+
+        .ft-search-box i {
+            color: #999;
+            font-size: 17px;
+        }
+
+        .ft-search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            color: #333;
+        }
+
+        .ft-search-box input::placeholder {
+            color: #aaa;
+        }
+
+        .ft-search-btn {
+            background: #24b25a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background .2s;
+            white-space: nowrap;
+        }
+
+        .ft-search-btn:hover {
+            background: #0a93c0;
+        }
+
+        /* =============================================
+   MAIN 2-COLUMN LAYOUT  (left content + right sidebar)
+============================================= */
+        .ft-main-layout {
+            margin-top: 16px;
+            margin-bottom: 0;
+            align-items: start;
+        }
+
+        /* =============================================
+   LEFT COLUMN – white card sections
+============================================= */
+        .ft-card-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .06);
+            position: relative;
+        }
+
+        .ft-card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section header row */
+        .ft-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .ft-section-header h2 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .ft-section-header a {
+            font-size: 12px;
+            color: #24b25a;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .ft-section-header a:hover {
+            text-decoration: underline;
+        }
+
+        /* =============================================
+   THEME CARDS  (horizontal scroll + nav arrows)
+ ============================================= */
+        .ft-theme-scroll-wrap {
+            display: block;
+        }
+
+        .ft-theme-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            flex: 1;
+            padding: 4px 2px 8px;
+        }
+
+        .ft-theme-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ft-theme-arrow {
+            position: absolute;
+            top: 60%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 50%;
+            border: none;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            color: #333;
+            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .ft-theme-arrow:hover {
+            transform: translateY(-50%) scale(1.08) !important;
+            background: #fff !important;
+            color: #24b25a !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
+        }
+
+        #themePrev {
+            left: 2px;
+        }
+
+        #themeNext {
+            right: 2px;
+        }
+
+        .ft-theme-card {
+            flex-shrink: 0;
+            text-align: center;
+            cursor: pointer;
+            width: 90px;
+        }
+
+        .ft-theme-card:hover .ft-theme-img {
+            border-color: #24b25a;
+            transform: scale(1.05);
+        }
+
+        .ft-theme-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 8px;
+            border: 2.5px solid #eee;
+            transition: border-color .2s, transform .25s;
+        }
+
+        .ft-theme-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ft-theme-card p {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+
+        .ft-theme-card span {
+            font-size: 10.5px;
+            color: #999;
+        }
+
+        /* =============================================
+   PACKAGE CARDS  (horizontal card: image left + info right)
+============================================= */
+        .ft-pkg-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .ft-pkg-tab {
+            padding: 7px 18px;
+            font-size: 12.5px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #555;
+            background: #fff;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            transition: all .15s;
+        }
+
+        .ft-pkg-tab.active {
+            background: #24b25a;
+            color: #fff;
+        }
+
+        .ft-pkg-slider {
+            /* position: relative; removed to allow absolute positioning relative to .ft-card-section */
+        }
+
+        .ft-pkg-row {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding-bottom: 6px;
+        }
+
+        .ft-pkg-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ft-pkg-slide-btn {
+            position: absolute;
+            top: 60%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            color: #333;
+            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .ft-pkg-slide-btn:hover {
+            transform: translateY(-50%) scale(1.08) !important;
+            background: #fff !important;
+            color: #24b25a !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .ft-pkg-slide-btn.prev-btn {
+            left: 2px;
+        }
+
+        .ft-pkg-slide-btn.next-btn {
+            right: 2px;
+        }
+
+        /* Horizontal package card (image on left, text on right) */
+        .ft-pkg-card {
+            flex-shrink: 0;
+            width: 270px;
+            background: #fff;
+            border: 1.5px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: box-shadow .25s, transform .25s;
+            cursor: pointer;
+        }
+
+        .ft-pkg-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+            transform: translateY(-2px);
+        }
+
+        .ft-pkg-card-img {
+            height: 130px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ft-pkg-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s;
+        }
+
+        .ft-pkg-card:hover .ft-pkg-card-img img {
+            transform: scale(1.06);
+        }
+
+        .ft-pkg-badge-wrap {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .ft-pkg-badge {
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+        }
+
+        .ft-pkg-badge.red {
+            background: #24b25a;
+            color: #fff;
+        }
+
+        .ft-pkg-badge.blue {
+            background: #1e40af;
+            color: #fff;
+        }
+
+        .ft-pkg-badge.green {
+            background: #16a34a;
+            color: #fff;
+        }
+
+        .ft-pkg-badge.orange {
+            background: #ea580c;
+            color: #fff;
+        }
+
+        .ft-pkg-card-body {
+            padding: 8px 10px;
+        }
+
+        .ft-pkg-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #222;
+            line-height: 1.3;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .ft-pkg-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+            margin-bottom: 6px;
+        }
+
+        .ft-pkg-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #777;
+        }
+
+        .ft-pkg-meta-item i {
+            font-size: 12px;
+            color: #24b25a;
+        }
+
+        .ft-pkg-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 6px;
+        }
+
+        .ft-pkg-price-label {
+            font-size: 10px;
+            color: #999;
+            margin-bottom: 1px;
+        }
+
+        .ft-pkg-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #24b25a;
+        }
+
+        .ft-pkg-price span {
+            font-size: 10px;
+            font-weight: 400;
+            color: #aaa;
+        }
+
+        .ft-view-btn {
+            background: #24b25a;
+            color: #fff;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+            transition: background .2s;
+        }
+
+        .ft-view-btn:hover {
+            background: #0a93c0;
+        }
+
+        /* =============================================
+   DESTINATION SLIDER (SS-like UI)
+============================================= */
+        .ft-dest-slider {
+            /* position: relative; removed to allow absolute positioning relative to .ft-card-section */
+        }
+
+        .ft-dest-row {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding: 4px 2px;
+        }
+
+        .ft-dest-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ft-dest-card {
+            flex-shrink: 0;
+            width: calc((100% - 48px) / 5);
+            min-width: 140px;
+            cursor: pointer;
+        }
+
+        .ft-dest-img-wrap {
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .ft-dest-card:hover .ft-dest-img-wrap {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .14);
+        }
+
+        .ft-dest-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s;
+        }
+
+        .ft-dest-card:hover .ft-dest-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .ft-dest-meta-wrap {
+            padding: 0 2px;
+        }
+
+        .ft-dest-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2px;
+        }
+
+        .ft-dest-name {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.2;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .ft-dest-price-wrap {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-end;
+            line-height: 1;
+        }
+
+        .ft-dest-price-label {
+            font-size: 8px;
+            color: #24b25a;
+            font-weight: 600;
+            margin-bottom: 1px;
+        }
+
+        .ft-dest-price {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #24b25a;
+            white-space: nowrap;
+        }
+
+        .ft-dest-packages {
+            font-size: 9px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .ft-dest-slide-btn {
+            position: absolute;
+            top: 58%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            color: #333;
+            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .ft-dest-slide-btn:hover {
+            transform: translateY(-50%) scale(1.08) !important;
+            background: #fff !important;
+            color: #24b25a !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .ft-dest-slide-btn.prev-btn {
+            left: 2px;
+        }
+
+        .ft-dest-slide-btn.next-btn {
+            right: 2px;
+        }
+
+        /* ── Easy Visa Destinations Section ── */
+        .easy-visa-section {
+            background: transparent;
+        }
+
+        .easy-visa-area {
+            width: 100%;
+        }
+
+        .visa-tabs {
+            display: flex;
+            gap: 4px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+
+        .visa-tab {
+            border: 1px solid #e7e0da;
+            background: #fff;
+            color: #555;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .visa-tab:hover,
+        .visa-tab.active {
+            background: #24b25a;
+            border-color: #24b25a;
+            color: #fff;
+            box-shadow: 0 6px 15px rgba(36, 178, 90, 0.15);
+        }
+
+        .easy-visa-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .visa-scroll {
+            flex: 1;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .visa-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .visa-inner {
+            display: flex;
+            gap: 12px;
+            padding: 4px 2px 10px;
+            position: relative;
+        }
+
+        .visa-card {
+            flex-shrink: 0;
+            width: calc((100% - 48px) / 5);
+            min-width: 140px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .visa-card-img {
+            height: 180px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+            transition: transform .3s, box-shadow .3s;
+            border: none;
+        }
+
+        .visa-card:hover .visa-card-img {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .14);
+        }
+
+        .visa-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s;
+        }
+
+        .visa-card:hover .visa-card-img img {
+            transform: scale(1.05);
+        }
+
+        .visa-card-info {
+            padding: 0 2px;
+        }
+
+        .visa-card-name {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.2;
+            margin-bottom: 3px;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .visa-card-count {
+            font-size: 9px;
+            color: #888;
+            margin: 0;
+        }
+
+        @media (max-width: 767px) {
+            .visa-tabs {
+                gap: 8px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 4px;
+                scrollbar-width: none;
+            }
+
+            .visa-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .visa-tab {
+                padding: 9px 5px;
+                font-size: 8px;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+
+            .visa-card {
+                flex-basis: 120px;
+                min-width: 120px;
+                width: 120px;
+            }
+
+            .visa-card-img {
+                width: 120px;
+                height: 154px;
+            }
+
+            .easy-visa-wrapper {
+                gap: 8px;
+            }
+        }
+
+        /* =============================================
+   RIGHT SIDEBAR
+============================================= */
+        .ft-sidebar>*+* {
+            margin-top: 16px;
+        }
+
+        /* Promo Banner Card */
+        .ft-promo-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+        }
+
+        .ft-promo-img {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ft-promo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ft-promo-brand {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, .92);
+            border-radius: 6px;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ft-promo-brand img {
+            height: 22px;
+        }
+
+        .ft-promo-body {
+            padding: 14px;
+        }
+
+        .ft-promo-dest {
+            font-size: 38px;
+            font-weight: 900;
+            color: #24b25a;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 6px;
+        }
+
+        .ft-promo-dates {
+            font-size: 10.5px;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .ft-promo-dates strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .ft-promo-price-wrap {
+            margin-bottom: 12px;
+        }
+
+        .ft-promo-starting {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .ft-promo-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .ft-promo-price sup {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .ft-promo-price sub {
+            font-size: 10px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .ft-promo-nights {
+            font-size: 11.5px;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .ft-promo-amenities {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 0;
+            border-top: 1px solid #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .ft-amenity {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            min-width: 44px;
+        }
+
+        .ft-amenity i {
+            font-size: 18px;
+            color: #24b25a;
+        }
+
+        .ft-amenity span {
+            font-size: 9px;
+            color: #777;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .ft-promo-cta {
+            width: 100%;
+            background: #24b25a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 11px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background .2s;
+        }
+
+        .ft-promo-cta:hover {
+            background: #0a93c0;
+        }
+
+        .ft-promo-disclaimer {
+            font-size: 9.5px;
+            color: #aaa;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* Sidebar ad / partner banner */
+        .ft-sidebar-banner {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+            position: relative;
+        }
+
+        .ft-sidebar-banner img {
+            width: 100%;
+            display: block;
+        }
+
+        .ft-sidebar-ad {
+            background: #fff;
+            border-radius: 12px;
+            /* padding: 16px; */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+        }
+
+        .ft-sidebar-ad h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .ft-sidebar-ad p {
+            font-size: 11.5px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .ft-sidebar-ad-img {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            /* height: 120px; */
+        }
+
+        .ft-sidebar-ad-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ft-sidebar-cta {
+            width: 100%;
+            border: 2px solid #24b25a;
+            background: transparent;
+            color: #24b25a;
+            border-radius: 7px;
+            padding: 9px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all .2s;
+        }
+
+        .ft-sidebar-cta:hover {
+            background: #24b25a;
+            color: #fff;
+        }
+
+        /* Enquiry Form Card */
+        .ft-enquiry-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+        }
+
+        .ft-enquiry-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ft-enquiry-card h4 i {
+            color: #24b25a;
+        }
+
+        .ft-form-group {
+            margin-bottom: 10px;
+        }
+
+        .ft-form-group label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .ft-form-group input,
+        .ft-form-group select,
+        .ft-form-group textarea {
+            width: 100%;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 7px;
+            padding: 9px 12px;
+            font-size: 12.5px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            outline: none;
+            transition: border-color .2s;
+            background: #fafafa;
+        }
+
+        .ft-form-group input:focus,
+        .ft-form-group select:focus,
+        .ft-form-group textarea:focus {
+            border-color: #24b25a;
+            background: #fff;
+        }
+
+        .ft-form-group textarea {
+            resize: none;
+        }
+
+        .ft-form-submit {
+            width: 100%;
+            background: #24b25a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 11px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background .2s;
+            margin-top: 4px;
+        }
+
+        .ft-form-submit:hover {
+            background: #0a93c0;
+        }
+
+        /* =============================================
+   FULL WIDTH SECTIONS (below grid)
+============================================= */
+        .ft-full-inner {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px 22px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .06);
+        }
+
+        /* WHY CHOOSE US */
+        .ft-why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .ft-why-item {
+            text-align: center;
+            padding: 20px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #f0f0f0;
+            transition: border-color .25s, box-shadow .25s, transform .25s;
+        }
+
+        .ft-why-item:hover {
+            border-color: #24b25a;
+            box-shadow: 0 4px 16px rgba(36, 178, 90, .1);
+            transform: translateY(-3px);
+        }
+
+        .ft-why-icon {
+            width: 58px;
+            height: 58px;
+            background: #f0faf3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 26px;
+            color: #24b25a;
+            transition: background .25s, color .25s;
+        }
+
+        .ft-why-item:hover .ft-why-icon {
+            background: #24b25a;
+            color: #fff;
+        }
+
+        .ft-why-item h5 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #222;
+        }
+
+        .ft-why-item p {
+            font-size: 11.5px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* Stats strip */
+        .ft-stats-strip {
+            background: linear-gradient(135deg, #24b25a 0%, #0a93c0 100%);
+            color: #fff;
+            padding: 28px 0;
+            margin-bottom: 16px;
+        }
+
+        .ft-stats-inner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .ft-stat {
+            text-align: center;
+            padding: 0 20px;
+            border-right: 1px solid rgba(255, 255, 255, .2);
+        }
+
+        .ft-stat:last-child {
+            border-right: none;
+        }
+
+        .ft-stat .num {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .ft-stat .lbl {
+            font-size: 12px;
+            opacity: .88;
+        }
+
+        /* Testimonials */
+        .ft-testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .ft-testi-item {
+            background: #fff;
+            border: 1.5px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 18px;
+            transition: box-shadow .25s;
+        }
+
+        .ft-testi-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+        }
+
+        .ft-testi-stars {
+            color: #f59e0b;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .ft-testi-text {
+            font-size: 12.5px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+
+        .ft-testi-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ft-testi-author img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .ft-testi-author strong {
+            font-size: 12.5px;
+            color: #222;
+            display: block;
+        }
+
+        .ft-testi-author small {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        /* NEWSLETTER */
+        .ft-newsletter {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2c2c54 100%);
+            padding: 40px 0;
+            margin-bottom: 16px;
+        }
+
+        .ft-newsletter-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .ft-newsletter h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .ft-newsletter p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .75);
+            margin-bottom: 22px;
+        }
+
+        .ft-newsletter-form {
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
+        }
+
+        .ft-newsletter-form input {
+            flex: 1;
+            padding: 13px 16px;
+            border: none;
+            outline: none;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .ft-newsletter-form button {
+            background: #24b25a;
+            color: #fff;
+            border: none;
+            padding: 13px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background .2s;
+        }
+
+        .ft-newsletter-form button:hover {
+            background: #0a93c0;
+        }
+
+        /* =============================================
+   FOOTER
+ ============================================= */
+        .ft-footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 48px 0 0;
+        }
+
+        .ft-footer-inner {
+            padding-bottom: 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 36px;
+        }
+
+        .ft-footer-logo {
+            height: 36px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 14px;
+        }
+
+        .ft-footer-desc {
+            font-size: 12.5px;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .ft-footer-social {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ft-footer-social a {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #9ca3af;
+            transition: all .2s;
+        }
+
+        .ft-footer-social a:hover {
+            background: #24b25a;
+            color: #fff;
+        }
+
+        .ft-footer-contact-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .ft-footer-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .ft-btn-whatsapp {
+            background: #24b25a;
+            color: #fff;
+            border: 1px solid #24b25a;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.15);
+        }
+
+        .ft-btn-whatsapp:hover {
+            background: #1ebd59;
+            border-color: #1ebd59;
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .ft-btn-phone {
+            background: #24b25a;
+            color: #fff;
+            border: 1px solid #24b25a;
+            box-shadow: 0 4px 12px rgba(36, 178, 90, 0.15);
+        }
+
+        .ft-btn-phone:hover {
+            background: #1f9c4e;
+            border-color: #1f9c4e;
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(36, 178, 90, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .ft-footer-col h5 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .ft-footer-col ul li {
+            margin-bottom: 9px;
+        }
+
+        .ft-footer-col ul li a {
+            font-size: 12.5px;
+            color: #9ca3af;
+            transition: color .2s;
+        }
+
+        .ft-footer-col ul li a:hover {
+            color: #24b25a;
+        }
+
+        .ft-footer-contact li {
+            display: flex;
+            gap: 9px;
+            margin-bottom: 12px;
+        }
+
+        .ft-footer-contact li i {
+            color: #24b25a;
+            font-size: 14px;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        /* sidebar sticky */
+        .ft-sidebar-sticky {
+            position: sticky;
+            top: 78px;
+        }
+
+        .ft-footer-contact li span {
+            font-size: 12px;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        .ft-footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            padding: 16px;
+            text-align: center;
+            font-size: 12px;
+            color: #fff1;
+        }
+
+        .ft-footer-bottom a {
+            color: #24b25a;
+        }
+
+        /* Trust bar */
+        .ft-trust {
+            background: #fff;
+            border-top: 1px solid #eee;
+            padding: 14px 0;
+        }
+
+        .ft-trust-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .ft-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .ft-trust-item i {
+            font-size: 18px;
+            color: #24b25a;
+        }
+
+        /* Sticky bottom bar (mobile) */
+        .ft-sticky-bottom {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px 16px;
+            gap: 10px;
+            z-index: 990;
+        }
+
+        .ft-sticky-bottom .s-btn {
+            flex: 1;
+            border: none;
+            border-radius: 7px;
+            padding: 11px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .ft-sticky-bottom .s-primary {
+            background: #24b25a;
+            color: #fff;
+        }
+
+        .ft-sticky-bottom .s-call {
+            background: #16a34a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* WhatsApp float */
+        .ft-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, .5);
+            z-index: 980;
+            transition: transform .2s;
+        }
+
+        .ft-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        /* =============================================
+   RESPONSIVE
+============================================= */
+        @media (max-width: 1100px) {
+            .ft-dest-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .ft-dest-grid .ft-dest-item:first-child {
+                grid-column: span 2;
+            }
+
+            .ft-why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ft-testi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .ft-stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ft-stat {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, .2);
+                padding: 12px;
+            }
+
+            .ft-stat:nth-child(3),
+            .ft-stat:last-child {
+                border-bottom: none;
+            }
+
+            .ft-footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .ft-nav {
+                display: none;
+            }
+
+            .ft-mobile-btn {
+                display: block;
+            }
+
+            .ft-sticky-bottom {
+                display: flex;
+            }
+
+            body {
+                padding-bottom: 64px;
+            }
+
+            .ft-whatsapp {
+                bottom: 76px;
+            }
+
+            .sm-hidden {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .ft-dest-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .ft-dest-grid .ft-dest-item:first-child {
+                grid-column: span 1;
+                height: 110px;
+            }
+
+            .ft-why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ft-testi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ft-footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .ft-stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ft-topbar-left span {
+                display: none;
+            }
+
+            .ft-country-switch {
+                display: none;
+            }
+        }
+
+        /* =============================================
+           LATEST TRAVEL BLOG SECTION
+        ============================================= */
+        .blog-section {
+            position: relative;
+            margin-top: 16px;
+        }
+
+        .blog-section .container {
+            overflow: hidden;
+        }
+
+        .trav-blog-wrap {
+            padding: 16px 0 24px;
+        }
+
+        .trav-blog-card {
+            width: 100%;
+            background: #fff;
+            border: 1px solid #efefef;
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.25s, transform 0.25s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .trav-blog-card:hover {
+            box-shadow: 0 6px 24px rgba(36, 178, 90, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .trav-blog-img {
+            width: 100%;
+            height: 155px;
+            overflow: hidden;
+        }
+
+        .trav-blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s;
+        }
+
+        .trav-blog-card:hover .trav-blog-img img {
+            transform: scale(1.05);
+        }
+
+        .trav-blog-body {
+            padding: 12px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .trav-blog-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .trav-blog-summary {
+            font-size: 12.5px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .trav-blog-meta {
+            font-size: 12px;
+            color: #24b25a;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        /* =============================================
+           TRAVEL REELS SECTION
+        ============================================= */
+        /* =============================================
+           TRAVEL REELS & EXPLORE SECTION
+        ============================================= */
+        .reels-section {
+            position: relative;
+            margin-top: 24px;
+        }
+
+        .reels-explore-panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 24px;
+            border: 1px solid #f0f0f0;
+        }
+
+        @media (max-width: 991px) {
+            .reels-explore-panel {
+                flex-direction: column;
+            }
+        }
+
+        .panel-divider {
+            width: 1px;
+            background-color: #e6e6e6;
+            align-self: stretch;
+        }
+
+        @media (max-width: 991px) {
+            .panel-divider {
+                width: 100%;
+                height: 1px;
+                background-color: #e6e6e6;
+                margin: 8px 0;
+            }
+        }
+
+        .panel-left,
+        .panel-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+            margin: 0 0 16px 0;
+            text-transform: capitalize;
+        }
+
+        .shuffle-reels-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #24b25a 0%, #0a93c0 100%);
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(36, 178, 90, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            outline: none;
+        }
+
+        .shuffle-reels-btn:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(10, 147, 192, 0.3);
+            background: linear-gradient(135deg, #1b8b44 0%, #08779b 100%);
+            color: #fff;
+        }
+
+        .shuffle-reels-btn:active {
+            transform: translateY(1px);
+        }
+
+        .shuffle-reels-btn i {
+            font-size: 11px;
+            transition: transform 0.4s ease;
+        }
+
+        .shuffle-reels-btn:hover i {
+            transform: rotate(180deg);
+        }
+
+        .vertical-reels-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 575px) {
+            .vertical-reels-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .v-reel-card {
+            position: relative;
+            aspect-ratio: 9/16;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            background: #000;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
+
+        .v-reel-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .v-reel-thumbnail {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .v-reel-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .v-reel-card:hover .v-reel-thumbnail img {
+            transform: scale(1.04);
+        }
+
+        /* YouTube play button overlays */
+        .yt-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .yt-play-btn svg {
+            width: 44px;
+            height: 30px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+        }
+
+        .v-reel-card:hover .yt-play-btn,
+        .l-video-card:hover .yt-play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Semi-transparent caption at bottom of vertical reels */
+        .v-reel-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 4px;
+            padding: 6px 4px;
+            text-align: center;
+            z-index: 4;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .v-reel-label span {
+            display: block;
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #000;
+            line-height: 1.25;
+            text-align: center;
+        }
+
+        /* Premium watermark on top-right of vertical reels */
+        .v-reel-watermark {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0.85;
+            transition: opacity 0.2s ease;
+        }
+
+        .v-reel-card:hover .v-reel-watermark {
+            opacity: 1;
+        }
+
+        /* Landscape explore videos */
+        .landscape-videos-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+        }
+
+        .landscape-videos-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .landscape-videos-scroll::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .landscape-videos-scroll::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .landscape-videos-scroll::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+        .l-video-card {
+            flex: 0 0 240px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .l-video-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .l-video-thumbnail {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .l-video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .l-video-card:hover .l-video-thumbnail img {
+            transform: scale(1.04);
+        }
+
+        .l-video-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .l-video-info h4 {
+            font-size: 12px;
+            font-weight: 700;
+            color: #222;
+            margin: 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .l-video-info p {
+            font-size: 11px;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- Reels Modal Styling --- */
+        .reels-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .reels-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 15, 30, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .reels-modal-content {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            z-index: 10;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .reels-modal.active {
+            display: flex;
+        }
+
+        .reels-modal.active .reels-modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .reels-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 15;
+            font-size: 16px;
+        }
+
+        .reels-modal-close:hover {
+            background: #fff;
+            color: #000;
+            transform: rotate(90deg);
+        }
+
+        .reels-modal-body {
+            display: flex;
+            height: 560px;
+        }
+
+        @media (max-width: 767px) {
+            .reels-modal-body {
+                flex-direction: column;
+                height: auto;
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+        }
+
+        .reels-video-container {
+            flex: 1.1;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+        }
+
+        @media (max-width: 767px) {
+            .reels-video-container {
+                height: 350px;
+                flex: none;
+            }
+        }
+
+        .reels-video-container iframe,
+        .reels-video-container video {
+            width: 100%;
+            height: 100%;
+            max-width: 315px;
+            aspect-ratio: 9/16;
+            background: #000;
+            border: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+        }
+
+        .reels-video-info {
+            flex: 0.9;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1a1a2e;
+        }
+
+        @media (max-width: 767px) {
+            .reels-video-info {
+                padding: 20px;
+                flex: none;
+            }
+        }
+
+        .reels-video-info h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .reels-video-info p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .reels-modal-cta {
+            margin-top: auto;
+        }
+
+        .reels-modal-cta .ft-btn-primary {
+            display: inline-block;
+            background: #24b25a;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            border: none;
+            text-transform: capitalize;
+            box-shadow: 0 4px 15px rgba(36, 178, 90, 0.3);
+        }
+
+        .reels-modal-cta .ft-btn-primary:hover {
+            background: #1b8b44;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(36, 178, 90, 0.4);
+            color: #fff;
+        }
+
+        /* ── Creative About Us Section Styling ── */
+        .ft-about-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(240, 235, 230, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .ft-about-card:hover {
+            box-shadow: 0 16px 56px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Left Column: Video Card Cover */
+        .about-video-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .about-video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(36, 178, 90, 0.2);
+        }
+
+        .about-video-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .about-video-card:hover .about-video-img {
+            transform: scale(1.04);
+        }
+
+        .about-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        /* Pulsing green play button */
+        .about-play-btn {
+            width: 64px;
+            height: 64px;
+            background: #24b25a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(36, 178, 90, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
+            padding-left: 3px;
+            /* visual center for play icon */
+        }
+
+        /* Ripple pulse animation */
+        .about-play-btn::before,
+        .about-play-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: rgba(36, 178, 90, 0.4);
+            z-index: -1;
+            animation: aboutPulse 2s infinite;
+        }
+
+        .about-play-btn::after {
+            animation-delay: 1s;
+        }
+
+        @keyframes aboutPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .about-video-card:hover .about-play-btn {
+            background: #fff;
+            color: #24b25a;
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(255, 255, 255, 0.6);
+        }
+
+        .about-video-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #24b25a;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Middle Column: Narrative */
+        .about-narrative {
+            padding-right: 15px;
+        }
+
+        .about-title-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #24b25a;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .about-quote {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.45;
+            margin: 0 0 16px 0;
+            position: relative;
+            padding-bottom: 12px;
+            border: none;
+        }
+
+        .quote-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2.5px;
+            background: #24b25a;
+            border-radius: 2px;
+        }
+
+        .about-p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Expanded text slide animation */
+        .about-extended-text {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(-8px);
+        }
+
+        .about-extended-text.active {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+
+        .about-readmore-btn {
+            background: none;
+            border: none;
+            color: #24b25a;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .about-readmore-btn:hover {
+            color: #0a93c0;
+        }
+
+        .about-readmore-btn i {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Right Column: Statistics Grid */
+        .about-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: #fdfcfb;
+            border: 1px solid rgba(230, 225, 220, 0.4);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            background: #fff;
+            border-color: rgba(36, 178, 90, 0.2);
+        }
+
+        .stat-icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon-wrap {
+            transform: scale(1.1);
+        }
+
+        /* Stat Colors matching the image but styled premium */
+        .bg-heart-light {
+            background: rgba(255, 75, 110, 0.1);
+            color: #ff4b6e;
+        }
+
+        .bg-people-light {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+        }
+
+        .bg-award-light {
+            background: rgba(10, 147, 192, 0.1);
+            color: #0a93c0;
+        }
+
+        .bg-geo-light {
+            background: rgba(36, 178, 90, 0.1);
+            color: #24b25a;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 800;
+            color: #333;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        @media (max-width: 991px) {
+            .about-narrative {
+                padding-right: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .about-quote {
+                font-size: 16px;
+            }
+
+            .quote-bar {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .about-readmore-btn {
+                margin: 0 auto;
+            }
+        }
+
+        /* =============================================
+           COMPACT MICE TOURISM SIDEBAR CARD
+        ============================================= */
+        .ft-mice-card {
+            background: #0a93c0;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease;
+        }
+
+        .ft-mice-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .ft-mice-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 8px;
+        }
+
+        .ft-mice-header .mice-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mice-big-logo {
+            display: inline-flex;
+            gap: 4px;
+            font-family: 'Montserrat', sans-serif !important;
+            user-select: none;
+            padding-bottom: 2px;
+        }
+
+        .mice-big-logo span {
+            font-size: 46px;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            font-family: 'Montserrat', sans-serif !important;
+            text-transform: uppercase;
+        }
+
+        .mice-big-logo .logo-solid-white {
+            color: #fff !important;
+            text-shadow: none !important;
+            -webkit-text-stroke: none !important;
+        }
+
+        .mice-big-logo .logo-outline-white {
+            color: transparent !important;
+            -webkit-text-stroke: 2px #fff !important;
+            text-shadow: none !important;
+        }
+
+        .mice-sub-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.95);
+            margin: 0;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .ft-mice-tag {
+            font-size: 9px;
+            font-weight: 800;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 3px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .ft-mice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .ft-mice-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .ft-mice-item:hover {
+            background: #fff;
+            border-color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .ft-mice-item:hover span {
+            color: #0a93c0 !important;
+        }
+
+        .ft-mice-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .ft-mice-item:hover .ft-mice-icon {
+            background: rgba(10, 147, 192, 0.1) !important;
+            color: #0a93c0 !important;
+        }
+
+        .ft-mice-item span {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #fff;
+            transition: color 0.2s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================
+     TOP BAR
+======================================== -->
+    <div class="ft-topbar">
+        <div class="container-xl">
+            <div class="ft-topbar-wrap">
+                <div class="ft-topbar-left">
+                    <a href="tel:+912261234567"><i class="bi bi-telephone-fill"></i> +91 22 6123 4567</a>
+                    <a href="mailto:info@greentours.in"><i class="bi bi-envelope-fill"></i> info@greentours.in</a>
+                    <span class="d-none d-md-flex"><i class="bi bi-clock-fill"></i> Mon–Sat: 9 AM – 7 PM</span>
+                </div>
+                <div class="ft-topbar-right">
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+
+                    <button class="ft-send-enquiry d-none d-md-inline-block">Send Inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+     HEADER  (icon + label nav)
+======================================== -->
+    <header class="ft-header">
+        <div class="container-xl">
+            <div class="ft-header-wrap">
+                <!-- Logo -->
+                <a href="home.html" class="ft-logo">
+                    <img src="assets/img/logo.png" alt="Green Tours Logo">
+                </a>
+
+
+
+                <!-- Right nav items -->
+                <div class="ft-header-right">
+
+                    <!-- Icon Navigation -->
+                    <nav>
+                        <ul class="ft-nav mb-0">
+                            <li class="ft-nav-item active">
+                                <i class="bi bi-house"></i>
+                                <span class="nav-label">Home</span>
+                            </li>
+                            <li class="ft-nav-item">
+                                <i class="fas fa-suitcase-rolling"></i>
+                                <span class="nav-label">Holiday Packages</span>
+
+                            </li>
+                            <li class="ft-nav-item">
+                                <i class="bi bi-compass"></i>
+                                <span class="nav-label">Theme Tours</span>
+
+                            </li>
+                            <li class="ft-nav-item">
+                                <i class="fas fa-plane-departure"></i>
+                                <span class="nav-label">Flights</span>
+                            </li>
+                            <li class="ft-nav-item">
+                                <i class="fas fa-passport"></i>
+                                <span class="nav-label">Visas</span>
+                            </li>
+                            <li class="ft-nav-item">
+                                <i class="bi bi-journal-text"></i>
+                                <span class="nav-label">Blogs</span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div><!-- /container-xl -->
+    </header>
+
+    <!-- ========================================
+     SEARCH BAR
+======================================== -->
+    <div class="ft-search-bar" data-aos="fade-up">
+        <div class="container-xl">
+            <div class="ft-search-inner">
+                <div class="ft-search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Where would you like to go? Type City, Country, Theme, Tours...">
+                </div>
+                <button class="ft-search-btn"><i class="bi bi-search"></i> Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+     MAIN 2-COLUMN LAYOUT
+======================================== -->
+    <div class="ft-main-layout">
+        <div class="container-xl">
+            <div class="row g-3">
+            <!-- ====== RIGHT SIDEBAR col-lg-4 ====== -->
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="ft-sidebar ft-sidebar-sticky">
+
+                        <!-- MICE Corporate Travel Card -->
+                        <div class="ft-mice-card" data-aos="fade-up">
+                            <div class="ft-mice-header">
+                                <div class="mice-top-row">
+                                    <div class="mice-big-logo">
+                                        <span class="logo-solid-white">M</span><span class="logo-outline-white">I</span><span class="logo-outline-white">C</span><span class="logo-outline-white">E</span>
+                                    </div>
+                                    <span class="ft-mice-tag">MICE</span>
+                                </div>
+                                <h4 class="mice-sub-title">Corporate Solutions</h4>
+                            </div>
+                            
+                            <div class="ft-mice-grid">
+                                <div class="ft-mice-item">
+                                    <div class="ft-mice-icon"><i class="bi bi-briefcase-fill"></i></div>
+                                    <span>Meetings</span>
+                                </div>
+                                <div class="ft-mice-item">
+                                    <div class="ft-mice-icon"><i class="bi bi-trophy-fill"></i></div>
+                                    <span>Incentives</span>
+                                </div>
+                                <div class="ft-mice-item">
+                                    <div class="ft-mice-icon"><i class="bi bi-megaphone-fill"></i></div>
+                                    <span>Conferences</span>
+                                </div>
+                                <div class="ft-mice-item">
+                                    <div class="ft-mice-icon"><i class="bi bi-globe2"></i></div>
+                                    <span>Exhibitions</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Promo card: Featured Package (like Flamingo's Bali card) -->
+                        <div class="ft-promo-card">
+                            <div class="ft-promo-img">
+                                <img src="assets/img/bali-20526.png" alt="Bali">
+                            </div>
+
+                        </div>
+
+                        <!-- Partner/Airline Banner -->
+                        <div class="ft-sidebar-ad">
+                            <div class="ft-sidebar-ad-img">
+                                <img src="assets/img/AIR_Banner_f2_1.webp" alt="Europe Offer">
+                            </div>
+
+                        </div>
+
+                        <!-- Quick Enquiry Form -->
+                        <!-- <div class="ft-enquiry-card">
+                            <h4><i class="bi bi-send-fill"></i> Quick Enquiry</h4>
+                            <div class="ft-form-group">
+                                <label>Your Name *</label>
+                                <input type="text" placeholder="Enter full name">
+                            </div>
+                            <div class="ft-form-group">
+                                <label>Mobile Number *</label>
+                                <input type="tel" placeholder="+91 XXXXX XXXXX">
+                            </div>
+                            <div class="ft-form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="name@email.com">
+                            </div>
+                            <div class="ft-form-group">
+                                <label>Interested In</label>
+                                <select>
+                                    <option>Select Tour</option>
+                                    <option>Europe Tours</option>
+                                    <option>Bali / Asia Tours</option>
+                                    <option>Maldives</option>
+                                    <option>Chardham Yatra</option>
+                                    <option>Dubai / Middle East</option>
+                                    <option>Honeymoon Package</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="ft-form-group">
+                                <label>Departure Month</label>
+                                <select>
+                                    <option>Select Month</option>
+                                    <option>June 2026</option>
+                                    <option>July 2026</option>
+                                    <option>August 2026</option>
+                                    <option>September 2026</option>
+                                    <option>October 2026</option>
+                                </select>
+                            </div>
+                            <div class="ft-form-group">
+                                <label>Message</label>
+                                <textarea rows="3" placeholder="Any specific requirements..."></textarea>
+                            </div>
+                            <button class="ft-form-submit">Send Enquiry →</button>
+                        </div> -->
+
+
+
+                    </div><!-- /ft-sidebar -->
+                </div><!-- /col-lg-4 -->
+                <!-- ====== LEFT COLUMN col-lg-8 ====== -->
+                <div class="col-lg-8">
+                    <div class="ft-left-col">
+
+                        <!-- EXPLORE BY THEME -->
+                        <div class="ft-card-section" data-aos="fade-up">
+                            <div class="ft-section-header">
+                                <h2>Explore Tour Packages by Theme</h2>
+                                <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="ft-theme-scroll-wrap">
+                                <button class="ft-theme-arrow" id="themePrev"><i
+                                        class="bi bi-chevron-left"></i></button>
+                                <div class="ft-theme-scroll" id="themeScrollEl">
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/chardham-theme.jpg"
+                                                alt="Chardham">
+                                        </div>
+                                        <p>Chardham Tours</p><span>3+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/trending-scandinavia.jpg"
+                                                alt="Super Seller">
+                                        </div>
+                                        <p>Super Seller Packages</p><span>21+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/summer-tours.jpg"
+                                                alt="Summer">
+                                        </div>
+                                        <p>Summer 2026 Tour</p><span>62+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/honeymoo-tours.jpg"
+                                                alt="Honeymoon">
+                                        </div>
+                                        <p>Honeymoon</p><span>59+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/chef-cooking.jpg"
+                                                alt="Maharaj">
+                                        </div>
+                                        <p>Maharaj Tour</p><span>5+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/short-breaks-tours.jpg"
+                                                alt="Short Breaks">
+                                        </div>
+                                        <p>Short Breaks</p><span>7+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="assets/img/home1/destination-card-img9.jpg" alt="Exotic">
+                                        </div>
+                                        <p>Exotic Tours</p><span>13+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/self-drive-001.jpg"
+                                                alt="Self Drive">
+                                        </div>
+                                        <p>Self Drive</p><span>6+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="assets/img/home1/destination-card-img7.jpg" alt="Group Tours">
+                                        </div>
+                                        <p>Group Tours</p><span>14+ Tours</span>
+                                    </div>
+                                    <div class="ft-theme-card">
+                                        <div class="ft-theme-img">
+                                            <img src="assets/img/home1/destination-card-img9.jpg" alt="Fixed Departure">
+                                        </div>
+                                        <p>Fixed Departure</p><span>18+ Tours</span>
+                                    </div>
+                                </div>
+                                <button class="ft-theme-arrow" id="themeNext"><i
+                                        class="bi bi-chevron-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- TRAVEL OFFERS -->
+                        <div class="ft-card-section" data-aos="fade-up">
+                            <div class="ft-section-header">
+                                <h2>Travel Offers by Green Tours</h2>
+                                <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                            </div>
+
+                            <!-- Tabs: Tour Packages | Hotels -->
+                            <div class="ft-pkg-tabs">
+                                <button class="ft-pkg-tab active" onclick="switchTab(this,'tours')">Tour
+                                    Packages</button>
+                                <button class="ft-pkg-tab" onclick="switchTab(this,'hotels')">Hotels</button>
+                            </div>
+
+                            <!-- Tour Packages row -->
+                            <div class="ft-pkg-slider" id="toursRow">
+                                <button class="ft-pkg-slide-btn prev-btn" id="pkgPrev"><i
+                                        class="bi bi-chevron-left"></i></button>
+                                <div class="ft-pkg-row" id="pkgScrollEl">
+
+                                    <!-- Card 1 -->
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img1.png" alt="Switzerland">
+                                            <div class="ft-pkg-badge-wrap">
+                                                <span class="ft-pkg-badge red">Best Seller</span>
+                                                <span class="ft-pkg-badge blue">8 Nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Switzerland – Jewel of Europe Tour Package
+                                            </div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i>
+                                                    Europe</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-moon-stars"></i> 8N /
+                                                    9D</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-people"></i> Group</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Starting From</div>
+                                                    <div class="ft-pkg-price">₹ 1,25,000 <span>/ person</span></div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2 -->
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img2.png" alt="Bali">
+                                            <div class="ft-pkg-badge-wrap">
+                                                <span class="ft-pkg-badge orange">Hot Deal</span>
+                                                <span class="ft-pkg-badge blue">6 Nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Enchanting Bali Honeymoon Special Package
+                                            </div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i> Bali</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-moon-stars"></i> 6N /
+                                                    7D</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-heart"></i> Couple</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Starting From</div>
+                                                    <div class="ft-pkg-price">₹ 52,000 <span>/ couple</span></div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 3 -->
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img3.png" alt="Maldives">
+                                            <div class="ft-pkg-badge-wrap">
+                                                <span class="ft-pkg-badge green">New</span>
+                                                <span class="ft-pkg-badge blue">4 Nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Magical Maldives – Water Villa Experience
+                                            </div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i>
+                                                    Maldives</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-moon-stars"></i> 4N /
+                                                    5D</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-heart"></i> Couple</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Starting From</div>
+                                                    <div class="ft-pkg-price">₹ 68,000 <span>/ couple</span></div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 4 -->
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/destination-card-img1.jpg" alt="Chardham">
+                                            <div class="ft-pkg-badge-wrap">
+                                                <span class="ft-pkg-badge red">Pilgrimage</span>
+                                                <span class="ft-pkg-badge blue">11 Nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Chardham Yatra 2026 – Complete Package</div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i>
+                                                    India</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-moon-stars"></i> 11N /
+                                                    12D</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-people"></i> Group</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Starting From</div>
+                                                    <div class="ft-pkg-price">₹ 32,000 <span>/ person</span></div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 5 -->
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img5.png" alt="Dubai">
+                                            <div class="ft-pkg-badge-wrap">
+                                                <span class="ft-pkg-badge orange">Top Pick</span>
+                                                <span class="ft-pkg-badge blue">5 Nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Dubai Delights – Luxury Family Experience
+                                            </div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i>
+                                                    Dubai</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-moon-stars"></i> 5N /
+                                                    6D</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-people"></i>
+                                                    Family</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Starting From</div>
+                                                    <div class="ft-pkg-price">₹ 48,000 <span>/ person</span></div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 6 -->
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img4.png" alt="Scandinavia">
+                                            <div class="ft-pkg-badge-wrap">
+                                                <span class="ft-pkg-badge green">Summer Special</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Scandinavia – Norway Fjords Summer Tour</div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i>
+                                                    Europe</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-moon-stars"></i> 10N /
+                                                    11D</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-people"></i> Group</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Starting From</div>
+                                                    <div class="ft-pkg-price">₹ 1,85,000 <span>/ person</span></div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /ft-pkg-row -->
+                                <button class="ft-pkg-slide-btn next-btn" id="pkgNext"><i
+                                        class="bi bi-chevron-right"></i></button>
+                            </div>
+
+                            <!-- Hotels row (hidden initially) -->
+                            <div style="display:none" id="hotelsRow">
+                                <div class="ft-pkg-row">
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img7.png" alt="">
+                                            <div class="ft-pkg-badge-wrap"><span class="ft-pkg-badge red">5 Star</span>
+                                            </div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Grand Palace Hotel, Zurich</div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i>
+                                                    Switzerland</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-star-fill"
+                                                        style="color:#f59e0b"></i> 5 Star</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Per Night</div>
+                                                    <div class="ft-pkg-price">₹ 18,000</div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ft-pkg-card">
+                                        <div class="ft-pkg-card-img">
+                                            <img src="assets/img/home1/package-card-img8.png" alt="">
+                                            <div class="ft-pkg-badge-wrap"><span class="ft-pkg-badge orange">4
+                                                    Star</span></div>
+                                        </div>
+                                        <div class="ft-pkg-card-body">
+                                            <div class="ft-pkg-card-title">Bali Beach Resort & Villas</div>
+                                            <div class="ft-pkg-meta">
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-geo-alt"></i> Bali</span>
+                                                <span class="ft-pkg-meta-item"><i class="bi bi-star-fill"
+                                                        style="color:#f59e0b"></i> 4 Star</span>
+                                            </div>
+                                            <div class="ft-pkg-card-footer">
+                                                <div>
+                                                    <div class="ft-pkg-price-label">Per Night</div>
+                                                    <div class="ft-pkg-price">₹ 8,500</div>
+                                                </div>
+                                                <button class="ft-view-btn">view details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- /Travel Offers -->
+
+                        <!-- TOP DESTINATIONS GRID -->
+                        <div class="ft-card-section" data-aos="fade-up">
+                            <div class="ft-section-header">
+                                <h2>Top Trending Travel Destinations</h2>
+                                <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="ft-dest-slider">
+                                <button class="ft-dest-slide-btn prev-btn" id="destPrev"><i
+                                        class="bi bi-chevron-left"></i></button>
+                                <div class="ft-dest-row" id="destScrollEl">
+
+                                    <!-- Destination 1: South Africa -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img1.jpg" alt="South Africa">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">South Africa</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹90,810</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">18+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 2: Japan -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img2.jpg" alt="Japan">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">Japan</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹2,35,650</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">9+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 3: All Of Europe -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img3.jpg" alt="All Of Europe">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">All Of Europe</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹2,28,030</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">20+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 4: New Zealand -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img4.jpg" alt="New Zealand">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">New Zealand</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹1,28,800</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">39+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 5: Vietnam -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img5.jpg" alt="Vietnam">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">Vietnam</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹20,880</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">29+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 6: UAE - Dubai -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img6.jpg" alt="UAE - Dubai">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">UAE - Dubai</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹58,940</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">16+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 7: Singapore -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img7.jpg" alt="Singapore">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">Singapore</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹52,140</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">13+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 8: Bali -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img8.jpg" alt="Bali">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">Bali</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹13,210</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">17+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Destination 9: Australia -->
+                                    <div class="ft-dest-card">
+                                        <div class="ft-dest-img-wrap">
+                                            <img src="assets/img/home1/destination-card-img9.jpg" alt="Australia">
+                                        </div>
+                                        <div class="ft-dest-meta-wrap">
+                                            <div class="ft-dest-meta-row">
+                                                <span class="ft-dest-name">Australia</span>
+                                                <span class="ft-dest-price-wrap">
+                                                    <span class="ft-dest-price-label">From</span>
+                                                    <span class="ft-dest-price">₹45,500</span>
+                                                </span>
+                                            </div>
+                                            <div class="ft-dest-packages">36+ Packages</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button class="ft-dest-slide-btn next-btn" id="destNext"><i
+                                        class="bi bi-chevron-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- EASY VISA DESTINATIONS -->
+                        <div class="ft-card-section" data-aos="fade-up">
+                            <div class="ft-section-header" style="flex-wrap: wrap; gap: 10px;">
+                                <h2>Easy Visa Destinations</h2>
+                                <div class="visa-tabs" role="tablist" aria-label="Visa destination filters">
+                                    <button type="button" class="visa-tab active" data-visa-filter="e-visa">Countries -
+                                        with E Visa</button>
+                                    <button type="button" class="visa-tab" data-visa-filter="stamped">Countries required
+                                        Stamped Visa</button>
+                                    <button type="button" class="visa-tab" data-visa-filter="arrival">Visa on arrival
+                                        countries</button>
+                                </div>
+                            </div>
+                            <div class="easy-visa-area">
+                                <div class="easy-visa-wrapper">
+                                    <button class="ft-dest-slide-btn prev-btn" id="visaPrev"><i
+                                            class="bi bi-chevron-left"></i></button>
+                                    <div class="visa-scroll" id="visaScroll">
+                                        <div class="visa-inner">
+                                            <a href="#" class="visa-card" data-visa-category="e-visa">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img1.jpg"
+                                                        alt="South Africa"></div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">South Africa</p>
+                                                    <p class="visa-card-count">21+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="stamped">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img2.jpg" alt="Japan">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Japan</p>
+                                                    <p class="visa-card-count">8+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="stamped">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img3.jpg" alt="Europe">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Europe</p>
+                                                    <p class="visa-card-count">24+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="e-visa">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img4.jpg"
+                                                        alt="New Zealand"></div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">New Zealand</p>
+                                                    <p class="visa-card-count">34+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="arrival">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img5.jpg" alt="Vietnam">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Vietnam</p>
+                                                    <p class="visa-card-count">12+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="arrival">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img6.jpg" alt="Bali">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Bali</p>
+                                                    <p class="visa-card-count">18+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="e-visa">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img7.jpg" alt="Turkey">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Turkey</p>
+                                                    <p class="visa-card-count">15+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="stamped">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img8.jpg" alt="Tanzania">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Tanzania</p>
+                                                    <p class="visa-card-count">5+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="arrival">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img9.jpg"
+                                                        alt="Fiji & Bora Bora"></div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Fiji & Bora Bora</p>
+                                                    <p class="visa-card-count">2+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="e-visa">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img1.jpg"
+                                                        alt="South Africa"></div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">South Africa</p>
+                                                    <p class="visa-card-count">21+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="stamped">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img2.jpg" alt="Japan">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Japan</p>
+                                                    <p class="visa-card-count">8+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="stamped">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img3.jpg" alt="Europe">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Europe</p>
+                                                    <p class="visa-card-count">24+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="e-visa">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img4.jpg"
+                                                        alt="New Zealand"></div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">New Zealand</p>
+                                                    <p class="visa-card-count">34+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="arrival">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img5.jpg" alt="Vietnam">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Vietnam</p>
+                                                    <p class="visa-card-count">12+ Tours</p>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="visa-card" data-visa-category="arrival">
+                                                <div class="visa-card-img"><img
+                                                        src="assets/img/home1/destination-card-img6.jpg" alt="Bali">
+                                                </div>
+                                                <div class="visa-card-info">
+                                                    <p class="visa-card-name">Bali</p>
+                                                    <p class="visa-card-count">18+ Tours</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <button class="ft-dest-slide-btn next-btn" id="visaNext"><i
+                                            class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div><!-- /ft-left-col -->
+                </div><!-- /col-lg-8 -->
+
+    
+
+            </div><!-- /row -->
+        </div><!-- /container-xl -->
+    </div><!-- /ft-main-layout -->
+
+    <!-- ========================================
+     TRAVEL REELS & INSPIRATION
+    ======================================== -->
+    <div class="reels-section mb-55" data-aos="fade-up">
+        <div class="container-xl">
+            <div class="reels-explore-panel">
+
+                <!-- Left Column: Travel Reels -->
+                <div class="panel-left">
+                    <div class="panel-header"
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 style="margin: 0;">Travel reels</h3>
+                        <button class="shuffle-reels-btn" onclick="playRandomShort()">
+                            <i class="bi bi-shuffle"></i> Play Random Short
+                        </button>
+                    </div>
+                    <div class="vertical-reels-row">
+                        <!-- Card 1 -->
+                        <div class="v-reel-card"
+                            onclick="openReelModal('o7_F1bU4yQc', 'South Africa Trip', 'South Africa Trip #shorts #southafrica', false)">
+                            <div class="v-reel-thumbnail">
+                                <img src="assets/img/home1/destination-card-img1.jpg" alt="South Africa">
+                                <div class="v-reel-watermark">
+                                    <img src="assets/img/logo.png" alt="GreenTours"
+                                        style="height: 11px; filter: brightness(0) invert(1);">
+                                </div>
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="v-reel-label">
+                                    <span>South Africa Trip<br>#shorts #southafrica</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="v-reel-card"
+                            onclick="openReelModal('m-WvQkRsw8A', 'Australia & New Zealand Tour', 'Australia & New Zealand NRI Special Tour', false)">
+                            <div class="v-reel-thumbnail">
+                                <img src="assets/img/home1/destination-card-img9.jpg" alt="Australia & New Zealand">
+                                <div class="v-reel-watermark">
+                                    <img src="assets/img/logo.png" alt="GreenTours"
+                                        style="height: 11px; filter: brightness(0) invert(1);">
+                                </div>
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="v-reel-label">
+                                    <span>Australia &amp; New<br>Zealand NRI Special<br>Tour</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="v-reel-card"
+                            onclick="openReelModal('K_QyWc6wL5Y', 'Sayonara Sayonara Japan Life', 'Sayonara Sayonara Indians Living Japan Life', false)">
+                            <div class="v-reel-thumbnail">
+                                <img src="assets/img/home1/destination-card-img2.jpg" alt="Japan Life">
+                                <div class="v-reel-watermark">
+                                    <img src="assets/img/logo.png" alt="GreenTours"
+                                        style="height: 11px; filter: brightness(0) invert(1);">
+                                </div>
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="v-reel-label">
+                                    <span>Sayonara Sayonara<br>Indians Living Japan<br>Life</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="v-reel-card"
+                            onclick="openReelModal('wN4_rA1L15I', 'Things To Do In Iceland', 'Things To Do In Iceland #shorts #iceland', false)">
+                            <div class="v-reel-thumbnail">
+                                <img src="assets/img/home1/destination-card-img3.jpg" alt="Iceland">
+                                <div class="v-reel-watermark">
+                                    <img src="assets/img/logo.png" alt="GreenTours"
+                                        style="height: 11px; filter: brightness(0) invert(1);">
+                                </div>
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="v-reel-label">
+                                    <span>Things To Do In Iceland</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vertical Divider -->
+                <div class="panel-divider"></div>
+
+                <!-- Right Column: Explore Travel Videos -->
+                <div class="panel-right">
+                    <div class="panel-header">
+                        <h3>Explore Travel Videos</h3>
+                    </div>
+                    <div class="landscape-videos-scroll">
+                        <!-- Landscape Card 1 -->
+                        <div class="l-video-card"
+                            onclick="openReelModal('V-E64c2U9Ew', 'Queensland Adventure with Meeta Shah', 'Everything you need to know about Queensland, Australia. Learn about key highlights, beaches, rainforests, and wildlife with our travel expert.', true)">
+                            <div class="l-video-thumbnail">
+                                <img src="assets/img/home1/destination-card-img4.jpg" alt="Queensland Adventure">
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="l-video-info">
+                                <h4>Queensland Adventure with Meeta ...</h4>
+                                <p>Everything You Need to Know About Queensland. Complete itinerary, guide, and
+                                    experiences...</p>
+                            </div>
+                        </div>
+
+                        <!-- Landscape Card 2 -->
+                        <div class="l-video-card"
+                            onclick="openReelModal('79bY0_y92tU', 'Japan Podcast with Siddharth Shah', 'Siddharth Shah interviews Meghna Patadia, a Japan travel expert. Meghna shares her love for Japan, top cultural spots, and food recommendations.', true)">
+                            <div class="l-video-thumbnail">
+                                <img src="assets/img/home1/destination-card-img5.jpg" alt="Japan Podcast">
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="l-video-info">
+                                <h4>Japan Podcast with Siddharth Sha...</h4>
+                                <p>Siddharth Shah interviews Meghna Patadia, a Japan travel expert. Meghna shares her
+                                    love for Japan and...</p>
+                            </div>
+                        </div>
+
+                        <!-- Landscape Card 3 -->
+                        <div class="l-video-card"
+                            onclick="openReelModal('U1J-FvL9dD4', 'Top 8 Locations in Singapore', 'Embark on a journey to Singapore. Flamingo Travels\' top 8 must-visit attractions, sights, and hidden gems.', true)">
+                            <div class="l-video-thumbnail">
+                                <img src="assets/img/home1/destination-card-img7.jpg" alt="Singapore Locations">
+                                <div class="yt-play-btn">
+                                    <svg viewBox="0 0 68 48">
+                                        <path
+                                            d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                                            fill="#f00"></path>
+                                        <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="l-video-info">
+                                <h4>Top 8 Locations in Singapore</h4>
+                                <p>Embark on a journey to Singapore. Flamingo Travels' top 8 must-visit attractions and
+                                    sights...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Reels Modal -->
+    <div id="reelsModal" class="reels-modal">
+        <div class="reels-modal-backdrop" onclick="closeReelModal()"></div>
+        <div class="reels-modal-content">
+            <button class="reels-modal-close" onclick="closeReelModal()"><i class="bi bi-x-lg"></i></button>
+            <div class="reels-modal-body">
+                <div class="reels-video-container">
+                    <iframe id="reelsVideoPlayer" src="" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="reels-video-info">
+                    <h3 id="reelsModalTitle">Reel Title</h3>
+                    <p id="reelsModalDesc">Reel description goes here...</p>
+                    <div class="reels-modal-cta">
+                        <a href="https://wa.me/912261234567" target="_blank" class="ft-btn-primary">Book This
+                            Experience</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MICE Enquiry Modal -->
+    <div class="reels-modal" id="miceModal">
+        <div class="reels-modal-backdrop" onclick="closeMiceModal()"></div>
+        <div class="reels-modal-content" style="max-width: 500px; border-radius: 12px; background: #fff; border: 1px solid #ddd; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+            <button class="reels-modal-close" onclick="closeMiceModal()" style="color: #333; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1);"><i class="bi bi-x-lg"></i></button>
+            <div style="padding: 24px;">
+                <span class="ft-mice-tag" style="margin-bottom: 8px; display: inline-block;">MICE TRAVEL</span>
+                <h3 style="font-size: 18px; font-weight: 700; color: #222; margin-bottom: 6px;">Plan Corporate Event</h3>
+                <p style="margin-bottom: 18px; color: #666; font-size: 11.5px; line-height: 1.5;">Provide details of your business travel or event and our MICE experts will craft a bespoke, premium itinerary for you.</p>
+                
+                <form id="miceEnquiryForm" onsubmit="handleMiceSubmit(event)">
+                    <div class="ft-form-group mb-3">
+                        <label style="color: #555; font-weight: 600; font-size: 11px; margin-bottom: 4px; display: block;">Company Name *</label>
+                        <input type="text" required style="border: 1.5px solid #e0e0e0; border-radius: 7px; padding: 9px 12px; font-size: 12.5px; width: 100%; color: #333; outline: none; background: #fafafa;" placeholder="e.g. Acme Corp">
+                    </div>
+                    <div class="ft-form-group mb-3">
+                        <label style="color: #555; font-weight: 600; font-size: 11px; margin-bottom: 4px; display: block;">Contact Person *</label>
+                        <input type="text" required style="border: 1.5px solid #e0e0e0; border-radius: 7px; padding: 9px 12px; font-size: 12.5px; width: 100%; color: #333; outline: none; background: #fafafa;" placeholder="Your Full Name">
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <div class="ft-form-group">
+                                <label style="color: #555; font-weight: 600; font-size: 11px; margin-bottom: 4px; display: block;">Work Email *</label>
+                                <input type="email" required style="border: 1.5px solid #e0e0e0; border-radius: 7px; padding: 9px 12px; font-size: 12.5px; width: 100%; color: #333; outline: none; background: #fafafa;" placeholder="name@company.com">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ft-form-group">
+                                <label style="color: #555; font-weight: 600; font-size: 11px; margin-bottom: 4px; display: block;">Phone Number *</label>
+                                <input type="tel" required style="border: 1.5px solid #e0e0e0; border-radius: 7px; padding: 9px 12px; font-size: 12.5px; width: 100%; color: #333; outline: none; background: #fafafa;" placeholder="+91 XXXXX XXXXX">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <div class="ft-form-group">
+                                <label style="color: #555; font-weight: 600; font-size: 11px; margin-bottom: 4px; display: block;">Event Type *</label>
+                                <select required style="border: 1.5px solid #e0e0e0; border-radius: 7px; padding: 9px 12px; font-size: 12.5px; width: 100%; color: #333; outline: none; background: #fafafa; cursor: pointer;">
+                                    <option value="">Select Event Type</option>
+                                    <option value="meeting">Meeting / Summit</option>
+                                    <option value="incentive">Incentive Travel</option>
+                                    <option value="conference">Conference / Seminar</option>
+                                    <option value="exhibition">Exhibition / Expo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ft-form-group">
+                                <label style="color: #555; font-weight: 600; font-size: 11px; margin-bottom: 4px; display: block;">Attendees *</label>
+                                <select required style="border: 1.5px solid #e0e0e0; border-radius: 7px; padding: 9px 12px; font-size: 12.5px; width: 100%; color: #333; outline: none; background: #fafafa; cursor: pointer;">
+                                    <option value="">Select Range</option>
+                                    <option value="10-50">10 - 50 Pax</option>
+                                    <option value="50-200">50 - 200 Pax</option>
+                                    <option value="200-500">200 - 500 Pax</option>
+                                    <option value="500+">500+ Pax</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="ft-mice-cta" style="margin-top: 10px; width: 100%;">Submit Inquiry <i class="bi bi-send-fill"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+     ABOUT US
+    ======================================== -->
+    <div class="ft-about-section mb-55 mt-3" data-aos="fade-up">
+        <div class="container-xl">
+            <div class="ft-about-card">
+                <div class="row align-items-center g-4">
+
+                    <!-- Left: Interactive Video/Awards Cover -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="about-video-card"
+                            onclick="openReelModal('V-E64c2U9Ew', 'GreenTours Achievement & Journey', 'Discover our history, awards, and how we cater to thousands of happy families worldwide.', true)">
+                            <img src="assets/img/home1/about_awards.png" alt="GreenTours Award Ceremony"
+                                class="about-video-img">
+                            <div class="about-video-overlay">
+                                <div class="about-play-btn">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+                                <span class="about-video-badge">Awards & Milestones</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle: Inspiring Narrative & Philosophy -->
+                    <div class="col-lg-4 col-md-6 text-center text-md-start" data-aos="fade-up" data-aos-delay="200">
+                        <div class="about-narrative">
+                            <span class="about-title-label">ABOUT US</span>
+                            <blockquote class="about-quote">
+                                "Travel brings knowledge, Knowledge brings opportunity, Opportunity brings prosperity"
+                                <span class="quote-bar"></span>
+                            </blockquote>
+                            <div class="about-text-wrap">
+                                <p class="about-p">
+                                    Started in 1996 from a small set up of 3 team members, today we are a big team of
+                                    250 plus team members. We are famous as a premier International Tour Operator,
+                                    especially for arranging customized itineraries, providing premium accommodations,
+                                    and catering to specialized vegetarian and Jain meals...
+                                </p>
+                                <div class="about-extended-text" id="aboutExtendedText">
+                                    <p class="about-p">
+                                        Our mission is to create hassle-free, deeply memorable travel experiences. By
+                                        focusing on customer comfort, local expertise, and curated culinary
+                                        arrangements, we ensure that every tour feels like a warm, personalized journey.
+                                        From individual escapes to grand group departures, our dedicated travel experts
+                                        handle every detail with absolute precision.
+                                    </p>
+                                </div>
+                                <button class="about-readmore-btn" id="aboutReadMoreBtn" onclick="toggleAboutText()">
+                                    Read More <i class="bi bi-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: High-Impact 2x2 Stats Grid -->
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="about-stats-grid">
+
+                            <!-- Stat 1: Happy Families -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrap bg-heart-light">
+                                    <i class="bi bi-hearts"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-number">2,10,000+</h3>
+                                    <p class="stat-label">Happy Families</p>
+                                </div>
+                            </div>
+
+                            <!-- Stat 2: Employees -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrap bg-people-light">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-number">250+</h3>
+                                    <p class="stat-label">Employees</p>
+                                </div>
+                            </div>
+
+                            <!-- Stat 3: Experience -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrap bg-award-light">
+                                    <i class="bi bi-patch-check-fill"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-number">30+</h3>
+                                    <p class="stat-label">Years of Experience</p>
+                                </div>
+                            </div>
+
+                            <!-- Stat 4: Locations -->
+                            <div class="stat-card">
+                                <div class="stat-icon-wrap bg-geo-light">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 class="stat-number">59+</h3>
+                                    <p class="stat-label">Locations</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+     LATEST TRAVEL BLOG
+    ======================================== -->
+    <div class="blog-section mb-55" data-aos="fade-up">
+        <div class="container">
+            <div class="trav-blog-wrap">
+                <div class="ft-section-header">
+                    <h2>Latest Travel Blog</h2>
+                    <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+                <div class="swiper trav-blog-slider">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <a href="#" class="trav-blog-card">
+                                <div class="trav-blog-img">
+                                    <img src="assets/img/home1/blog-card-img1.png"
+                                        alt="10 Days Itinerary for Switzerland">
+                                </div>
+                                <div class="trav-blog-body">
+                                    <p class="trav-blog-title">10 Days Itinerary for Switzerland – Perfect Trip Plan for
+                                        First-Time Visitors</p>
+                                    <p class="trav-blog-summary">If you want a calm, scenic, and well-paced trip, this
+                                        10 days Switzerland itinerary is your perfect guide.</p>
+                                    <p class="trav-blog-meta"><span>Nov 14, 2025</span> &bull; Green Tours</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#" class="trav-blog-card">
+                                <div class="trav-blog-img">
+                                    <img src="assets/img/home1/blog-card-img2.png" alt="Switzerland in Winter 2026">
+                                </div>
+                                <div class="trav-blog-body">
+                                    <p class="trav-blog-title">Switzerland in Winter 2026: A Fairytale Experience of
+                                        Snow, Alps &amp; More</p>
+                                    <p class="trav-blog-summary">Switzerland in winter 2026 is pure magic — snow-dusted
+                                        Alps, cosy chalets, and festive markets await you.</p>
+                                    <p class="trav-blog-meta"><span>Nov 12, 2025</span> &bull; Green Tours</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#" class="trav-blog-card">
+                                <div class="trav-blog-img">
+                                    <img src="assets/img/home1/blog-card-img3.png" alt="Christmas in Dubai 2025">
+                                </div>
+                                <div class="trav-blog-body">
+                                    <p class="trav-blog-title">Christmas in Dubai 2025: Lights, Luxury &amp; Festive
+                                        Shopping!</p>
+                                    <p class="trav-blog-summary">Experience the magic of Christmas in Dubai 2025, where
+                                        the desert glitters with festive lights and world-class celebrations.</p>
+                                    <p class="trav-blog-meta"><span>Nov 09, 2025</span> &bull; Green Tours</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#" class="trav-blog-card">
+                                <div class="trav-blog-img">
+                                    <img src="assets/img/home1/blog-card-img4.png" alt="Bhutan in December 2025">
+                                </div>
+                                <div class="trav-blog-body">
+                                    <p class="trav-blog-title">Bhutan In December 2025 – Weather, Insider Tips &amp;
+                                        Best Time to Visit</p>
+                                    <p class="trav-blog-summary">Experience the magic of a trip to Bhutan in December
+                                        2025, with crisp mountain air and vibrant festivals.</p>
+                                    <p class="trav-blog-meta"><span>Nov 05, 2025</span> &bull; Green Tours</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#" class="trav-blog-card">
+                                <div class="trav-blog-img">
+                                    <img src="assets/img/home1/blog-card-img1.png" alt="Budget Trip To Vietnam">
+                                </div>
+                                <div class="trav-blog-body">
+                                    <p class="trav-blog-title">How to Plan A Budget Trip To Vietnam Under ₹60,000!</p>
+                                    <p class="trav-blog-summary">Dreaming of travelling to Vietnam on a budget? Here's
+                                        everything you need to plan a perfect affordable trip.</p>
+                                    <p class="trav-blog-meta"><span>Oct 31, 2025</span> &bull; Green Tours</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <a href="#" class="trav-blog-card">
+                                <div class="trav-blog-img">
+                                    <img src="assets/img/home1/blog-card-img2.png" alt="Best Places in Europe">
+                                </div>
+                                <div class="trav-blog-body">
+                                    <p class="trav-blog-title">Best Places to Visit in Europe in 2026 – A Complete
+                                        Travel Guide</p>
+                                    <p class="trav-blog-summary">Discover the top destinations in Europe for 2026 — from
+                                        romantic Paris to the historic streets of Rome and beyond.</p>
+                                    <p class="trav-blog-meta"><span>Oct 25, 2025</span> &bull; Green Tours</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================
+     TRUST BADGES
+======================================== -->
+    <div class="ft-trust sm-hidden" data-aos="fade-up">
+        <div class="container-xl">
+            <div class="ft-trust-inner">
+                <div class="ft-trust-item"><i class="bi bi-patch-check-fill"></i> IATA Certified</div>
+                <div class="ft-trust-item"><i class="bi bi-award-fill"></i> TAAI Member</div>
+                <div class="ft-trust-item"><i class="bi bi-shield-fill-check"></i> ISO 9001:2015</div>
+                <div class="ft-trust-item"><i class="bi bi-trophy-fill"></i> Award Winning</div>
+                <div class="ft-trust-item"><i class="bi bi-people-fill"></i> 5 Lakh+ Travellers</div>
+                <div class="ft-trust-item"><i class="bi bi-star-fill"></i> 4.8/5 Rating</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+     FOOTER
+======================================= -->
+    <footer class="ft-footer" data-aos="fade-up">
+        <div class="container-xl">
+            <div class="ft-footer-inner">
+                <div>
+                    <img src="assets/img/logo.png" alt="Green Tours" class="ft-footer-logo">
+                    <div class="ft-footer-desc">
+                        Green Tours is India's leading travel company with 50+ years of expertise in crafting memorable
+                        holiday experiences. Specialists in Group Tours, Honeymoon Packages, Fixed Departures &amp;
+                        Corporate Travel.
+                    </div>
+                    <!-- <div class="ft-footer-social">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div> -->
+                    <div class="ft-footer-contact-btns sm-hidden">
+                        <a href="https://wa.me/911234567890" target="_blank" class="ft-footer-btn ft-btn-whatsapp">
+                            <i class="bi bi-whatsapp"></i> +91 1234567890
+                        </a>
+                        <a href="tel:+911234567890" class="ft-footer-btn ft-btn-phone">
+                            <i class="bi bi-telephone"></i> +91 1234567890
+                        </a>
+                    </div>
+                </div>
+                <div class="ft-footer-col">
+                    <h5>Holiday Packages</h5>
+                    <ul>
+                        <li><a href="#">India Tours</a></li>
+                        <li><a href="#">Europe Tours</a></li>
+                        <li><a href="#">Asia Tours</a></li>
+                        <li><a href="#">Middle East</a></li>
+                        <li><a href="#">USA &amp; Canada</a></li>
+                        <li><a href="#">Australia &amp; NZ</a></li>
+                        <li><a href="#">Maldives</a></li>
+                    </ul>
+                </div>
+                <div class="ft-footer-col">
+                    <h5>Tour Themes</h5>
+                    <ul>
+                        <li><a href="#">Group Tours</a></li>
+                        <li><a href="#">Honeymoon</a></li>
+                        <li><a href="#">Self Drive</a></li>
+                        <li><a href="#">Short Breaks</a></li>
+                        <li><a href="#">Summer 2026</a></li>
+                        <li><a href="#">Fixed Departures</a></li>
+                        <li><a href="#">Chardham Yatra</a></li>
+                    </ul>
+                </div>
+                <div class="ft-footer-col">
+                    <h5>Contact Us</h5>
+                    <ul class="ft-footer-contact">
+                        <li><i class="bi bi-geo-alt-fill"></i><span>Green Tours House, Marine Lines,<br>Mumbai – 400
+                                020</span></li>
+                        <li><i class="bi bi-telephone-fill"></i><span>+91 22 6123 4567<br>+91 99 1234 5678</span></li>
+                        <li><i class="bi bi-envelope-fill"></i><span>info@greentours.in</span></li>
+                        <li><i class="bi bi-clock-fill"></i><span>Mon–Sat: 9:00 AM – 7:00 PM</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft-footer-bottom">
+            <div class="container-xl">
+                © 2026 Green Tours. All rights reserved. |
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms &amp; Conditions</a> |
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky mobile bar -->
+    <div class="ft-sticky-bottom">
+        <button class="s-btn s-primary">Get Free Quote</button>
+        <button class="s-btn s-call"><i class="bi bi-telephone-fill"></i> Call Us</button>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/912261234567" class="ft-whatsapp" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- ========================================
+     SCRIPTS
+======================================== -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <!-- AOS Scrolling Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 850,
+            easing: 'ease-out-quad',
+            once: true,
+            offset: 80
+        });
+    </script>
+
+    <script>
+        // Theme scroll arrows
+        const themeEl = document.getElementById('themeScrollEl');
+        document.getElementById('themePrev')?.addEventListener('click', () => themeEl.scrollBy({ left: -280, behavior: 'smooth' }));
+        document.getElementById('themeNext')?.addEventListener('click', () => themeEl.scrollBy({ left: 280, behavior: 'smooth' }));
+
+        // Package scroll arrows
+        const pkgEl = document.getElementById('pkgScrollEl');
+        document.getElementById('pkgPrev')?.addEventListener('click', () => pkgEl.scrollBy({ left: -290, behavior: 'smooth' }));
+        document.getElementById('pkgNext')?.addEventListener('click', () => pkgEl.scrollBy({ left: 290, behavior: 'smooth' }));
+
+        // Destination scroll arrows
+        const destEl = document.getElementById('destScrollEl');
+        if (destEl) {
+            const getScrollAmount = () => {
+                const firstCard = destEl.firstElementChild;
+                if (!firstCard) return destEl.offsetWidth;
+                const gap = 12; // matches gap: 12px in CSS
+                const cardW = firstCard.offsetWidth + gap;
+                const visCount = Math.max(1, Math.round((destEl.offsetWidth + gap) / cardW));
+                return cardW * visCount;
+            };
+            document.getElementById('destPrev')?.addEventListener('click', () => {
+                destEl.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+            });
+            document.getElementById('destNext')?.addEventListener('click', () => {
+                destEl.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            });
+        }
+
+        // Visa Destinations Filter & Slider
+        (function () {
+            const scrollEl = document.getElementById('visaScroll');
+            const tabs = document.querySelectorAll('.visa-tab');
+            const cards = document.querySelectorAll('.visa-card');
+
+            function applyFilter(filter) {
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-visa-category');
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                if (scrollEl) {
+                    scrollEl.scrollLeft = 0;
+                }
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const filter = tab.getAttribute('data-visa-filter');
+                    applyFilter(filter);
+                });
+            });
+
+            // Initialize default filter
+            applyFilter('e-visa');
+
+            if (scrollEl) {
+                const getScrollAmount = () => {
+                    const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+                    const firstCard = visibleCards[0] || scrollEl.firstElementChild;
+                    if (!firstCard) return scrollEl.offsetWidth;
+                    const gap = 18; // matches gap: 18px in CSS (.visa-inner)
+                    const cardW = firstCard.offsetWidth + gap;
+                    const visCount = Math.max(1, Math.round((scrollEl.offsetWidth + gap) / cardW));
+                    return cardW * visCount;
+                };
+
+                document.getElementById('visaPrev')?.addEventListener('click', () => {
+                    scrollEl.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+                });
+                document.getElementById('visaNext')?.addEventListener('click', () => {
+                    scrollEl.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+                });
+            }
+        })();
+
+        // Tab switch: Tour Packages | Hotels
+        function switchTab(btn, type) {
+            document.querySelectorAll('.ft-pkg-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('toursRow').style.display = type === 'tours' ? 'block' : 'none';
+            document.getElementById('hotelsRow').style.display = type === 'hotels' ? 'block' : 'none';
+        }
+
+        // Sticky header shadow
+        window.addEventListener('scroll', () => {
+            document.querySelector('.ft-header').style.boxShadow =
+                window.scrollY > 40 ? '0 4px 18px rgba(0,0,0,.14)' : '0 2px 8px rgba(0,0,0,.07)';
+        });
+
+        // Mobile nav toggle
+        document.querySelector('.ft-mobile-btn')?.addEventListener('click', () => {
+            const nav = document.querySelector('.ft-nav');
+            if (!nav) return;
+            if (nav.style.display === 'flex') {
+                nav.style.display = '';
+            } else {
+                Object.assign(nav.style, {
+                    display: 'flex', flexDirection: 'column',
+                    position: 'fixed', top: '62px', left: '0', right: '0',
+                    background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,.15)',
+                    padding: '10px 0', zIndex: '998', height: 'auto',
+                    overflowY: 'auto', maxHeight: 'calc(100vh - 62px)'
+                });
+            }
+        });
+
+        // Travel Blog Slider
+        new Swiper(".trav-blog-slider", {
+            slidesPerView: 4,
+            speed: 800,
+            spaceBetween: 16,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                280: { slidesPerView: 1.3 },
+                576: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                992: { slidesPerView: 4 },
+                1200: { slidesPerView: 4 }
+            }
+        });
+
+        // Curated YouTube Shorts for travel inspiration
+        const travelShorts = [
+            {
+                id: 'o7_F1bU4yQc',
+                title: 'Fairytale Switzerland 🏔️',
+                desc: 'Gliding over the scenic valleys, turquoise lakes, and snow-capped peaks of the Swiss Alps.'
+            },
+            {
+                id: 'm-WvQkRsw8A',
+                title: 'Magical Cappadocia 🎈',
+                desc: 'Sunrise hot air balloon rides over the historic volcanic fairy chimneys and valleys of Turkey.'
+            },
+            {
+                id: 'K_QyWc6wL5Y',
+                title: 'Tropical Bali 🌊',
+                desc: 'Turquoise waves crashing against rugged cliffs and beautiful coastal beaches in Nusa Penida, Bali.'
+            },
+            {
+                id: 'F18KzC_xQhQ',
+                title: 'Maldives Paradise 🌴',
+                desc: 'Sparkling crystal-clear waters, white sandy beaches, and luxurious overwater villas of Maldives.'
+            },
+            {
+                id: '79bY0_y92tU',
+                title: 'Glacier Express Train 🚂',
+                desc: 'Experience the panoramic alpine train journey through majestic snowy valleys and high mountain passes in Switzerland.'
+            },
+            {
+                id: 'U1J-FvL9dD4',
+                title: 'Pamukkale Travertines 💦',
+                desc: 'Marveling at the spectacular milky-white thermal spring terraces and ancient ruins of Turkey.'
+            },
+            {
+                id: 'V-E64c2U9Ew',
+                title: 'Stunning Positano 🇮🇹',
+                desc: 'Wandering along the colorful cliffside houses, narrow streets, and dramatic coastal views of Italy\'s Amalfi Coast.'
+            },
+            {
+                id: 'wN4_rA1L15I',
+                title: 'Mystical Iceland ❄️',
+                desc: 'Stunning vistas of majestic waterfalls, volcanic black sand beaches, and otherworldly nature.'
+            }
+        ];
+
+        // Reels Modal controls
+        function openReelModal(videoId, title, description, isLandscape = false) {
+            const modal = document.getElementById('reelsModal');
+            const iframe = document.getElementById('reelsVideoPlayer');
+            const titleEl = document.getElementById('reelsModalTitle');
+            const descEl = document.getElementById('reelsModalDesc');
+
+            titleEl.textContent = title;
+            descEl.textContent = description;
+
+            // Adjust player styles dynamically based on orientation
+            if (isLandscape) {
+                iframe.style.maxWidth = '100%';
+                iframe.style.aspectRatio = '16/9';
+            } else {
+                iframe.style.maxWidth = '315px';
+                iframe.style.aspectRatio = '9/16';
+            }
+
+            // Format YouTube Embed URL with autoplay enabled
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&enablejsapi=1`;
+
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeReelModal() {
+            const modal = document.getElementById('reelsModal');
+            const iframe = document.getElementById('reelsVideoPlayer');
+
+            modal.classList.remove('active');
+            iframe.src = '';
+
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        // Play a random YouTube Short from the travel playlist
+        function playRandomShort() {
+            const randomIndex = Math.floor(Math.random() * travelShorts.length);
+            const short = travelShorts[randomIndex];
+            openReelModal(short.id, short.title, short.desc, false);
+        }
+
+        // Toggle About Us inline extended text smoothly
+        function toggleAboutText() {
+            const textEl = document.getElementById('aboutExtendedText');
+            const btnEl = document.getElementById('aboutReadMoreBtn');
+
+            if (textEl.classList.contains('active')) {
+                textEl.classList.remove('active');
+                btnEl.innerHTML = 'Read More <i class="bi bi-chevron-down"></i>';
+            } else {
+                textEl.classList.add('active');
+                btnEl.innerHTML = 'Read Less <i class="bi bi-chevron-up"></i>';
+            }
+        }
+
+        // MICE Modal controls
+        function openMiceModal() {
+            const modal = document.getElementById('miceModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+            }
+        }
+
+        function closeMiceModal() {
+            const modal = document.getElementById('miceModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        function handleMiceSubmit(e) {
+            e.preventDefault();
+            alert('Thank you! Your corporate MICE enquiry has been received. Our corporate travel specialists will contact you shortly with a tailored proposal.');
+            closeMiceModal();
+            e.target.reset();
+        }
+    </script>
+</body>
+
+</html>
