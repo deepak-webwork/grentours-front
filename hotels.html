@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta name="description"
+        content="Green Tours – India's trusted travel company. Holiday packages, group tours & international tours.">
+    <title>Holiday Tour Packages Search & Listings – Green Tours</title>
+    <link rel="icon" href="assets/img/favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap & Icons -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/swiper-bundle.min.css" rel="stylesheet">
+    <!-- AOS Scrolling Animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="assets/css/home-style.css" rel="stylesheet">
+    <link href="assets/css/hotels-style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ========================================
+      TOP BAR (Copied from home.html)
+    ======================================== -->
+    <div class="ft-topbar">
+        <div class="container-xl">
+            <div class="ft-topbar-wrap">
+                <div class="ft-topbar-inquiry">
+                    <i class="bi bi-telephone-fill"></i>
+                    <span>For inquiry: <strong>+91 98250 81806</strong></span>
+                </div>
+                <div class="ft-topbar-actions">
+                    <div class="ft-country-switcher">
+                        <div class="ft-country-btn active" data-country="IND">
+                            <svg class="flag-icon" viewBox="0 0 3 2" width="16" height="11">
+                                <rect width="3" height="2" fill="#128807"/>
+                                <rect width="3" height="1.333" fill="#fff"/>
+                                <rect width="3" height="0.667" fill="#F93"/>
+                                <circle cx="1.5" cy="1" r="0.2" fill="none" stroke="#000080" stroke-width="0.03"/>
+                            </svg>
+                            <span>IND</span>
+                        </div>
+                        <div class="ft-country-btn" data-country="USA">
+                            <svg class="flag-icon" viewBox="0 0 741 390" width="16" height="11">
+                                <rect width="741" height="390" fill="#b22234"/>
+                                <path d="M0 30h741M0 90h741M0 150h741M0 210h741M0 270h741M0 330h741" stroke="#fff" stroke-width="30"/>
+                                <rect width="296" height="210" fill="#3c3b6e"/>
+                            </svg>
+                            <span>USA</span>
+                        </div>
+                    </div>
+                    <button class="ft-top-inquiry-btn">Send Inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+      HEADER (Copied from home.html)
+    ======================================== -->
+    <header class="ft-header-double">
+        <!-- TOP HEADER: Logo & Search Bar -->
+        <div class="ft-header-top">
+            <div class="container-xl">
+                <div class="ft-header-top-wrap">
+                    <!-- Logo -->
+                    <a href="home.html" class="ft-logo">
+                        <img src="assets/img/logo.png" alt="Green Tours Logo">
+                    </a>
+
+                    <!-- Integrated Header Search Bar -->
+                    <div class="ft-header-search">
+                        <div class="ft-search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" id="headerSearchInput" placeholder="Search City, Country, Tours...">
+                        </div>
+                    </div>
+
+                    <!-- Header Action Buttons (Login/Profile) -->
+                    <div class="ft-header-actions">
+                        <a href="#" class="ft-header-action-item wishlist-btn" title="Wishlist">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        <a href="#" class="ft-header-action-item login-btn">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Login / Sign Up</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Hamburger Menu Button -->
+                    <button class="ft-mobile-btn">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM NAVBAR: Navigation List -->
+        <nav class="ft-navbar-bottom">
+            <div class="container-xl">
+                <div class="ft-navbar-bottom-wrap">
+                    <ul class="ft-nav ft-nav-list mb-0">
+                        <li class="ft-nav-li has-mega">
+                            <span class="ft-nav-link">
+                                <i class="bi bi-briefcase ft-nav-icon"></i>
+                                <span class="ft-nav-text">Holiday Packages</span>
+                                <i class="bi bi-chevron-down ft-nav-arrow"></i>
+                            </span>
+                            <!-- Mega Menu -->
+                            <div class="ft-mega-menu">
+                                <div class="ft-mega-grid">
+                                    <!-- India Column (Spans 2 Grid Columns for 2-column layout) -->
+                                    <div class="ft-mega-col span-2">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-geo-alt"></i> India</h5>
+                                            <ul class="ft-mega-list multi-col">
+                                                <li><a href="packages.html?theme=all">Goa</a></li>
+                                                <li><a href="packages.html?theme=all">Kerala</a></li>
+                                                <li><a href="packages.html?theme=all">Bhutan</a></li>
+                                                <li><a href="packages.html?theme=all">Gujarat</a></li>
+                                                <li><a href="packages.html?theme=all">Leh</a></li>
+                                                <li><a href="packages.html?theme=all">Himachal</a></li>
+                                                <li><a href="packages.html?theme=all">Uttarakhand</a></li>
+                                                <li><a href="packages.html?theme=all">Rajasthan</a></li>
+                                                <li><a href="packages.html?theme=all">Nepal</a></li>
+                                                <li><a href="packages.html?theme=all">Sikkim</a></li>
+                                                <li><a href="packages.html?theme=all">Kashmir</a></li>
+                                                <li><a href="packages.html?theme=all">Andaman</a></li>
+                                                <li><a href="packages.html?theme=all">Maharashtra</a></li>
+                                                <li><a href="packages.html?theme=all">Karnataka & South India</a></li>
+                                                <li class="highlight"><a href="packages.html?theme=bestseller">Golden Triangle <span class="badge-hot">Hot</span></a></li>
+                                                <li><a href="packages.html?theme=all">Madhya Pradesh</a></li>
+                                                <li><a href="packages.html?theme=all">Northeast</a></li>
+                                                <li><a href="packages.html?theme=all">Odisha</a></li>
+                                                <li><a href="packages.html?theme=all">Hyderabad</a></li>
+                                                <li><a href="packages.html?theme=all">North Kerala</a></li>
+                                                <li><a href="packages.html?theme=all">Uttar Pradesh</a></li>
+                                                <li><a href="packages.html?theme=all">Lakshadweep Island</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Asia Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-globe"></i> Asia</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Vietnam</a></li>
+                                                <li><a href="packages.html?theme=all">China</a></li>
+                                                <li><a href="packages.html?theme=all">Hong Kong</a></li>
+                                                <li><a href="packages.html?theme=all">Japan</a></li>
+                                                <li><a href="packages.html?theme=all">Macau</a></li>
+                                                <li><a href="packages.html?theme=all">Philippines</a></li>
+                                                <li><a href="packages.html?theme=all">Bali</a></li>
+                                                <li><a href="packages.html?theme=all">South Korea</a></li>
+                                                <li class="highlight"><a href="packages.html?theme=bestseller">Singapore Malaysia <span class="badge-popular">Popular</span></a></li>
+                                                <li class="highlight"><a href="packages.html?theme=all">Singapore Bali</a></li>
+                                                <li><a href="packages.html?theme=all">Maldives</a></li>
+                                                <li><a href="packages.html?theme=all">Sri Lanka</a></li>
+                                                <li><a href="packages.html?theme=all">Singapore</a></li>
+                                                <li><a href="packages.html?theme=all">Malaysia</a></li>
+                                                <li><a href="packages.html?theme=all">Thailand</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Central Europe Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-compass"></i> Central Europe</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Finland</a></li>
+                                                <li><a href="packages.html?theme=all">France</a></li>
+                                                <li><a href="packages.html?theme=all">Germany</a></li>
+                                                <li><a href="packages.html?theme=all">Iceland</a></li>
+                                                <li><a href="packages.html?theme=all">Italy</a></li>
+                                                <li><a href="packages.html?theme=all">Norway</a></li>
+                                                <li><a href="packages.html?theme=all">Portugal</a></li>
+                                                <li><a href="packages.html?theme=all">Spain</a></li>
+                                                <li><a href="packages.html?theme=all">Switzerland</a></li>
+                                                <li><a href="packages.html?theme=all">UK - Scotland</a></li>
+                                                <li><a href="packages.html?theme=all">Netherlands</a></li>
+                                                <li class="highlight"><a href="packages.html?theme=bestseller">Switzerland - Paris <span class="badge-bestseller">Best Seller</span></a></li>
+                                                <li><a href="packages.html?theme=all">All Of Europe</a></li>
+                                                <li><a href="packages.html?theme=all">Austria</a></li>
+                                                <li><a href="packages.html?theme=all">Ireland</a></li>
+                                                <li><a href="packages.html?theme=all">Scandinavia</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- East Europe Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-castle"></i> East Europe</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Baltic</a></li>
+                                                <li><a href="packages.html?theme=all">Croatia</a></li>
+                                                <li><a href="packages.html?theme=all">Czech Republic</a></li>
+                                                <li><a href="packages.html?theme=all">Greece</a></li>
+                                                <li><a href="packages.html?theme=all">Hungary</a></li>
+                                                <li><a href="packages.html?theme=all">Poland</a></li>
+                                                <li><a href="packages.html?theme=all">Russia</a></li>
+                                                <li><a href="packages.html?theme=all">Turkey</a></li>
+                                                <li class="highlight"><a href="packages.html?theme=all">Greece - Turkey</a></li>
+                                                <li><a href="packages.html?theme=all">All of East Europe</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Africa Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-tree"></i> Africa</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Botswana</a></li>
+                                                <li><a href="packages.html?theme=all">Egypt</a></li>
+                                                <li><a href="packages.html?theme=all">Mauritius</a></li>
+                                                <li><a href="packages.html?theme=all">Seychelles</a></li>
+                                                <li><a href="packages.html?theme=all">Zambia</a></li>
+                                                <li><a href="packages.html?theme=all">Zimbabwe</a></li>
+                                                <li><a href="packages.html?theme=all">South Africa</a></li>
+                                                <li><a href="packages.html?theme=all">Kenya</a></li>
+                                                <li><a href="packages.html?theme=all">Tanzania</a></li>
+                                                <li><a href="packages.html?theme=all">Uganda</a></li>
+                                                <li><a href="packages.html?theme=all">Morocco</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Middle East Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-sunset"></i> Middle East</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Baku - Azerbaijan</a></li>
+                                                <li><a href="packages.html?theme=all">Israel - Jordan</a></li>
+                                                <li><a href="packages.html?theme=all">Oman Muscat</a></li>
+                                                <li><a href="packages.html?theme=all">UAE - Dubai</a></li>
+                                                <li><a href="packages.html?theme=all">Georgia</a></li>
+                                                <li><a href="packages.html?theme=all">Armenia</a></li>
+                                                <li><a href="packages.html?theme=all">Uzbekistan</a></li>
+                                                <li><a href="packages.html?theme=all">Kazakhstan</a></li>
+                                                <li><a href="packages.html?theme=all">Saudi Arabia</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- America & Oceania Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-map"></i> America</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Central America</a></li>
+                                                <li><a href="packages.html?theme=all">USA - United States</a></li>
+                                                <li><a href="packages.html?theme=all">Canada</a></li>
+                                                <li><a href="packages.html?theme=all">Alaska</a></li>
+                                                <li><a href="packages.html?theme=all">South America</a></li>
+                                                <li><a href="packages.html?theme=all">Mexico</a></li>
+                                                <li><a href="packages.html?theme=all">Hawaii</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="ft-mega-section" style="margin-top: 12px;">
+                                            <h5 class="ft-mega-title"><i class="bi bi-geo"></i> Oceania</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="packages.html?theme=all">Australia</a></li>
+                                                <li><a href="packages.html?theme=all">New Zealand</a></li>
+                                                <li><a href="packages.html?theme=all">Fiji & Bora Bora</a></li>
+                                                <li class="highlight"><a href="packages.html?theme=all">Australia - New Zealand</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Spotlight Column -->
+                                    <div class="ft-mega-col ft-mega-spotlight-col">
+                                        <h5 class="ft-mega-title"><i class="bi bi-fire text-danger"></i> Featured Deals</h5>
+                                        <div class="ft-mega-spotlight-stack">
+                                            <div class="ft-mega-spotlight-card">
+                                                <span class="spotlight-badge bg-emerald">Best Seller</span>
+                                                <img src="assets/img/home1/package-card-img1.png" alt="Switzerland">
+                                                <div class="spotlight-content">
+                                                    <h4>Switzerland Jewel</h4>
+                                                    <div class="spotlight-meta">
+                                                        <span class="days"><i class="bi bi-clock"></i> 8N/9D</span>
+                                                        <span class="rating"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                                                    </div>
+                                                    <div class="spotlight-action">
+                                                        <span class="spotlight-price">₹1,25,000</span>
+                                                        <a href="packages.html?theme=bestseller" class="spotlight-btn">View <i class="bi bi-arrow-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ft-mega-spotlight-card">
+                                                <span class="spotlight-badge bg-rose">Trending</span>
+                                                <img src="assets/img/home1/package-card-img2.png" alt="Bali">
+                                                <div class="spotlight-content">
+                                                    <h4>Bali Escapes</h4>
+                                                    <div class="spotlight-meta">
+                                                        <span class="days"><i class="bi bi-clock"></i> 5N/6D</span>
+                                                        <span class="rating"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                                                    </div>
+                                                    <div class="spotlight-action">
+                                                        <span class="spotlight-price">₹35,000</span>
+                                                        <a href="packages.html?theme=all" class="spotlight-btn">View <i class="bi bi-arrow-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="ft-nav-li has-dropdown active">
+                            <span class="ft-nav-link">
+                                <i class="bi bi-umbrella ft-nav-icon"></i>
+                                <span class="ft-nav-text">Theme Tours</span>
+                                <i class="bi bi-chevron-down ft-nav-arrow"></i>
+                            </span>
+                            <ul class="ft-dropdown-menu tour-themed-dropdown">
+                                <li class="tour-dropdown-item type-spiritual">
+                                    <a href="packages.html?theme=spiritual">
+                                        <i class="bi bi-brightness-high"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Chardham Yatra</span>
+                                            <span class="item-desc">Spiritual Pilgrimage</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-spiritual">Spiritual</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-bestseller">
+                                    <a href="packages.html?theme=bestseller">
+                                        <i class="bi bi-star-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Super Seller Packages</span>
+                                            <span class="item-desc">Top Rated Vacations</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-bestseller-blue">Bestseller</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-summer">
+                                    <a href="packages.html?theme=summer">
+                                        <i class="bi bi-sun-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Summer Special Tours</span>
+                                            <span class="item-desc">Beat the heat</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-summer">Summer</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-honeymoon">
+                                    <a href="packages.html?theme=honeymoon">
+                                        <i class="bi bi-heart-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Honeymoon Specials</span>
+                                            <span class="item-desc">Romantic Getaways</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-honeymoon">Romantic</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-family">
+                                    <a href="packages.html?theme=family">
+                                        <i class="bi bi-people-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Family Group Tours</span>
+                                            <span class="item-desc">Fun together</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-family">Family</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-airplane ft-nav-icon"></i>
+                                <span class="ft-nav-text">Flights</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-file-earmark-person ft-nav-icon"></i>
+                                <span class="ft-nav-text">Visas</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-journal-text ft-nav-icon"></i>
+                                <span class="ft-nav-text">Blogs</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li has-dropdown">
+                            <span class="ft-nav-link">
+                                <i class="bi bi-map ft-nav-icon"></i>
+                                <span class="ft-nav-text">Travel Guide</span>
+                                <i class="bi bi-chevron-down ft-nav-arrow"></i>
+                            </span>
+                            <ul class="ft-dropdown-menu tour-themed-dropdown">
+                                <li class="tour-dropdown-item type-guide-a">
+                                    <a href="#">
+                                        <i class="bi bi-alphabet-uppercase"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Destinations A-Z</span>
+                                            <span class="item-desc">Full travel registry</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-guide-tips">
+                                    <a href="#">
+                                        <i class="bi bi-chat-text"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Travel Tips &amp; FAQ</span>
+                                            <span class="item-desc">Crucial trip advice</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-guide-luggage">
+                                    <a href="#">
+                                        <i class="bi bi-briefcase-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Luggage Checklist</span>
+                                            <span class="item-desc">Don't forget anything</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-guide-visa">
+                                    <a href="#">
+                                        <i class="bi bi-file-earmark-lock-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Visa Requirements Guide</span>
+                                            <span class="item-desc">Border policies</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-person ft-nav-icon"></i>
+                                <span class="ft-nav-text">My Booking</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-grid-3x3-gap ft-nav-icon"></i>
+                                <span class="ft-nav-text">More</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========================================
+      MAIN LAYOUT WRAPPER (2-COLUMN SYSTEM)
+    ======================================== -->
+    <div class="packages-wrapper">
+        <div class="container-xl">
+            <!-- Breadcrumbs -->
+            <div class="packages-breadcrumb">
+                <a href="home.html">Home</a> &nbsp;/&nbsp; 
+                <a href="#">Hotels & Resorts</a> &nbsp;/&nbsp; 
+                <span class="active" id="breadcrumbTheme">All Hotels</span>
+            </div>
+
+            <!-- Page Title Card -->
+            <div class="list-header-card" data-aos="fade-up">
+                <div class="list-header-info">
+                    <h1 id="listingsHeaderTitle">Premium Hotels & Resorts</h1>
+                    <p id="listingsHeaderSubtitle">Showing 1-12 hotels from 12 hotels</p>
+                </div>
+                <div class="list-header-controls">
+                    <div class="sort-select-wrapper">
+                        <label for="packageSort"><i class="bi bi-sort-down-alt"></i> Sort by:</label>
+                        <select id="packageSort">
+                            <option value="deals">Deals &amp; Popularity</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="stars">Star Rating: High to Low</option>
+                            <option value="rating">Reviews: Highest First</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2-Column Grid Layout -->
+            <div class="packages-grid">
+                
+                <!-- COLUMN 1: FILTERS (Left Side) -->
+                <aside class="filter-sidebar-col" id="filterSidebar">
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <h2><i class="bi bi-funnel-fill"></i> Filter Stays</h2>
+                            <button class="reset-filter-btn" id="resetFilters">Reset All</button>
+                        </div>
+
+                        <!-- Price Range Slider (Per Night) -->
+                        <div class="filter-group">
+                            <div class="filter-group-title">
+                                <span>Price Per Night</span>
+                                <i class="bi bi-chevron-up"></i>
+                            </div>
+                            <div class="filter-content">
+                                <div class="price-slider-wrap">
+                                    <div class="price-range-inputs">
+                                        <span>Min: <span class="price-val">₹1,000</span></span>
+                                        <span>Max: <span class="price-val" id="priceMaxLabel">₹50K</span></span>
+                                    </div>
+                                    <input type="range" class="custom-range-slider" id="priceRange" min="1000" max="50000" step="500" value="50000">
+                                </div>
+                                <div class="pill-grid">
+                                    <button class="pill-filter-btn" data-min="1000" data-max="5000">Under ₹5K</button>
+                                    <button class="pill-filter-btn" data-min="5000" data-max="15000">₹5K - ₹15K</button>
+                                    <button class="pill-filter-btn" data-min="15000" data-max="30000">₹15K - ₹30K</button>
+                                    <button class="pill-filter-btn" data-min="30000" data-max="50000">₹30K Above</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Star Rating Checklist -->
+                        <div class="filter-group">
+                            <div class="filter-group-title">
+                                <span>Star Rating</span>
+                                <i class="bi bi-chevron-up"></i>
+                            </div>
+                            <div class="filter-content">
+                                <div class="checkbox-list">
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="stars" value="5">
+                                            <span><i class="bi bi-star-fill text-warning"></i> 5 Star Luxury</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="stars" value="4">
+                                            <span><i class="bi bi-star-fill text-warning"></i> 4 Star Premium</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="stars" value="3">
+                                            <span><i class="bi bi-star-fill text-warning"></i> 3 Star Comfort</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Locations Checklist -->
+                        <div class="filter-group">
+                            <div class="filter-group-title">
+                                <span>Popular Destinations</span>
+                                <i class="bi bi-chevron-up"></i>
+                            </div>
+                            <div class="filter-content">
+                                <div class="checkbox-list" id="cityList">
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Zurich">
+                                            <span>Zurich</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Bali">
+                                            <span>Bali</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Maldives">
+                                            <span>Maldives</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Cairo">
+                                            <span>Cairo</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Kyoto">
+                                            <span>Kyoto</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Cape Town">
+                                            <span>Cape Town</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Dubai">
+                                            <span>Dubai</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Tokyo">
+                                            <span>Tokyo</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Udaipur">
+                                            <span>Udaipur</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="location" value="Srinagar">
+                                            <span>Srinagar</span>
+                                        </div>
+                                        <span class="checkbox-count">0</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Amenities Checklist -->
+                        <div class="filter-group">
+                            <div class="filter-group-title">
+                                <span>Hotel Amenities</span>
+                                <i class="bi bi-chevron-up"></i>
+                            </div>
+                            <div class="filter-content">
+                                <div class="checkbox-list">
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="amenity" value="wifi">
+                                            <span><i class="bi bi-wifi"></i> Free Wi-Fi</span>
+                                        </div>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="amenity" value="pool">
+                                            <span><i class="bi bi-water"></i> Swimming Pool</span>
+                                        </div>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="amenity" value="restaurant">
+                                            <span><i class="bi bi-egg-fried"></i> Restaurant</span>
+                                        </div>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="amenity" value="spa">
+                                            <span><i class="bi bi-person-circle"></i> Spa &amp; Wellness</span>
+                                        </div>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <div class="checkbox-left">
+                                            <input type="checkbox" name="amenity" value="ac">
+                                            <span><i class="bi bi-wind"></i> Air Conditioning</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+                <!-- COLUMN 2: HOTELS LIST (Center Grid) -->
+                <main class="packages-list-col">
+                    <div class="packages-list-container" id="packagesContainer">
+                        <!-- Dynamic content will render here via JS -->
+                    </div>
+                </main>
+
+                <!-- Ads sidebar removed - layout updated to clean 2-column feed -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+      COMPARISON FLOATING DRAWER
+    ======================================== -->
+    <div class="comparison-drawer" id="comparisonDrawer">
+        <div class="container-xl">
+            <div class="compare-drawer-wrap">
+                <div class="compare-items-list" id="compareItemsList">
+                    <!-- Added comparison items will go here -->
+                </div>
+                <div class="compare-actions-bar">
+                    <span id="compareCountLabel">0 / 3 packages selected</span>
+                    <button class="btn-compare-run" id="runComparisonBtn">Compare Packages</button>
+                    <button class="btn-compare-close" id="clearCompareBtn">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+      FOOTER (Copied from home.html)
+    ======================================== -->
+    <footer class="ft-footer">
+        <div class="container-xl">
+            <div class="ft-footer-inner">
+                <div>
+                    <img src="assets/img/logo.png" alt="Green Tours" class="ft-footer-logo">
+                    <div class="ft-footer-desc">
+                        Green Tours is India's leading travel company with 50+ years of expertise in crafting memorable
+                        holiday experiences. Specialists in Group Tours, Honeymoon Packages, Fixed Departures &amp;
+                        Corporate Travel.
+                    </div>
+                    <div class="ft-footer-contact-btns sm-hidden">
+                        <a href="https://wa.me/911234567890" target="_blank" class="ft-footer-btn ft-btn-whatsapp">
+                            <i class="bi bi-whatsapp"></i> +91 1234567890
+                        </a>
+                        <a href="tel:+911234567890" class="ft-footer-btn ft-btn-phone">
+                            <i class="bi bi-telephone"></i> +91 1234567890
+                        </a>
+                    </div>
+                </div>
+                <div class="ft-footer-col">
+                    <h5>Holiday Packages</h5>
+                    <ul>
+                        <li><a href="packages.html?theme=all">India Tours</a></li>
+                        <li><a href="packages.html?theme=bestseller">Europe Tours</a></li>
+                        <li><a href="packages.html?theme=all">Asia Tours</a></li>
+                        <li><a href="packages.html?theme=all">Middle East</a></li>
+                        <li><a href="packages.html?theme=all">USA &amp; Canada</a></li>
+                        <li><a href="packages.html?theme=all">Australia &amp; NZ</a></li>
+                        <li><a href="packages.html?theme=honeymoon">Maldives</a></li>
+                    </ul>
+                </div>
+                <div class="ft-footer-col">
+                    <h5>Tour Themes</h5>
+                    <ul>
+                        <li><a href="packages.html?theme=family">Group Tours</a></li>
+                        <li><a href="packages.html?theme=honeymoon">Honeymoon</a></li>
+                        <li><a href="packages.html?theme=exotic">Self Drive</a></li>
+                        <li><a href="packages.html?theme=all">Short Breaks</a></li>
+                        <li><a href="packages.html?theme=summer">Summer 2026</a></li>
+                        <li><a href="packages.html?theme=bestseller">Fixed Departures</a></li>
+                        <li><a href="packages.html?theme=spiritual">Chardham Yatra</a></li>
+                    </ul>
+                </div>
+                <div class="ft-footer-col">
+                    <h5>Contact Us</h5>
+                    <ul class="ft-footer-contact">
+                        <li><i class="bi bi-geo-alt-fill"></i><span>Green Tours House, Marine Lines,<br>Mumbai – 400 020</span></li>
+                        <li><i class="bi bi-telephone-fill"></i><span>+91 22 6123 4567<br>+91 99 1234 5678</span></li>
+                        <li><i class="bi bi-envelope-fill"></i><span>info@greentours.in</span></li>
+                        <li><i class="bi bi-clock-fill"></i><span>Mon–Sat: 9:00 AM – 7:00 PM</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ft-footer-bottom">
+            <div class="container-xl">
+                © 2026 Green Tours. All rights reserved. |
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms &amp; Conditions</a> |
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Footer Bar -->
+    <div class="ft-sticky-bottom">
+        <button class="s-btn s-primary" onclick="openMobileFilter()">Show Filter Sidebar</button>
+        <button class="s-btn s-call"><i class="bi bi-telephone-fill"></i> Call Us</button>
+    </div>
+
+    <!-- WhatsApp Floating Action -->
+    <a href="https://wa.me/912261234567" class="ft-whatsapp" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- Floating Mobile Filters Trigger Button -->
+    <button class="mobile-filter-trigger" id="floatingFilterBtn" onclick="toggleMobileFilters()">
+        <i class="bi bi-filter"></i> Filters
+    </button>
+
+    <!-- MICE Enquiry Modal (Copy of corporate popup mechanism) -->
+    <div class="reels-modal" id="miceModal" style="display: none;">
+        <div class="reels-modal-content" style="max-width: 480px; padding: 24px; border-radius: 16px;">
+            <button class="reels-modal-close" onclick="closeMiceModal()">&times;</button>
+            <h4 class="mb-3" style="font-weight: 700; color: #0f172a;"><i class="bi bi-briefcase-fill text-success"></i> Corporate MICE Proposal</h4>
+            <form onsubmit="handleMiceSubmit(event)">
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:12px; font-weight:600;">Corporate Entity Name *</label>
+                    <input type="text" class="form-control" placeholder="Company Pvt Ltd" required style="font-size:13px; border-radius:8px;">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:12px; font-weight:600;">Contact Person *</label>
+                    <input type="text" class="form-control" placeholder="Jane Doe" required style="font-size:13px; border-radius:8px;">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:12px; font-weight:600;">Work Email / Phone *</label>
+                    <input type="text" class="form-control" placeholder="jane@company.com / +91 XXXXX XXXXX" required style="font-size:13px; border-radius:8px;">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:12px; font-weight:600;">Estimated Travelers *</label>
+                    <select class="form-select" required style="font-size:13px; border-radius:8px;">
+                        <option value="">Select range</option>
+                        <option value="20-50">20 - 50 travelers</option>
+                        <option value="50-150">50 - 150 travelers</option>
+                        <option value="150+">More than 150 travelers</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size:12px; font-weight:600;">Requirement Summary</label>
+                    <textarea class="form-control" rows="3" placeholder="Destination preference, dates, budget details..." style="font-size:13px; border-radius:8px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100 py-2" style="font-weight:700; border-radius:30px; font-size:13px;">Send RFP</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================
+      SCRIPTS
+    ======================================== -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- AOS Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+        AOS.init({
+            duration: 700,
+            easing: 'ease-out',
+            once: true,
+            offset: 50
+        });
+
+        // 1. HOTELS RAW DATA SOURCE
+        const hotelList = [
+            {
+                id: 1,
+                title: "Grand Palace Hotel & Spa",
+                price: 18000,
+                rating: 4.9,
+                reviews: 124,
+                stars: 5,
+                image: "assets/img/home1/package-card-img7.png",
+                location: "Zurich, Switzerland",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Overlooking Lake Zurich, world-class luxury spa, Michelin-starred fine dining restaurant, and stunning rooftop bar."
+            },
+            {
+                id: 2,
+                title: "Bali Beach Resort & Villas",
+                price: 8500,
+                rating: 4.8,
+                reviews: 94,
+                stars: 4,
+                image: "assets/img/home1/package-card-img8.png",
+                location: "Bali, Indonesia",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Oceanfront luxury private pool villas, direct beach access, tropical outdoor pool, yoga sessions, and international beachfront cuisine."
+            },
+            {
+                id: 3,
+                title: "Maldives Overwater Resort & Spa",
+                price: 32000,
+                rating: 4.9,
+                reviews: 68,
+                stars: 5,
+                image: "assets/img/home1/package-card-img6.png",
+                location: "Maldives",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Private Overwater Villas with direct lagoon slide, all-inclusive luxury spa package, and underwater restaurant dining experience."
+            },
+            {
+                id: 4,
+                title: "The Cairo Oasis Palace",
+                price: 12000,
+                rating: 4.6,
+                reviews: 54,
+                stars: 4,
+                image: "assets/img/home1/package-card-img1.png",
+                location: "Cairo, Egypt",
+                amenities: ["wifi", "restaurant", "spa", "ac"],
+                highlights: "Spectacular views of the Great Pyramids, historic Egyptian architecture, landscaped oasis garden pool, and traditional local bazaar dining."
+            },
+            {
+                id: 5,
+                title: "Kyoto Imperial Heritage Inn",
+                price: 15500,
+                rating: 4.8,
+                reviews: 82,
+                stars: 4,
+                image: "assets/img/home1/destination-card-img2.jpg",
+                location: "Kyoto, Japan",
+                amenities: ["wifi", "restaurant", "ac"],
+                highlights: "Located in the heart of Gion district, traditional Japanese style tatami rooms, garden view dining, and steps away from Yasaka Shrine."
+            },
+            {
+                id: 6,
+                title: "Table Mountain Vista Suites",
+                price: 14000,
+                rating: 4.7,
+                reviews: 41,
+                stars: 5,
+                image: "assets/img/home1/destination-card-img3.jpg",
+                location: "Cape Town, South Africa",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Stunning cliffside view of Table Mountain and Camps Bay, infinity pool, luxury modern penthouse suites, and selected vintage wine tasting."
+            },
+            {
+                id: 7,
+                title: "Burj Al Sahab Residences",
+                price: 22000,
+                rating: 4.9,
+                reviews: 150,
+                stars: 5,
+                image: "assets/img/home1/package-card-img5.png",
+                location: "Dubai, UAE",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Iconic downtown Dubai location next to Burj Khalifa, rooftop infinity pool, 24/7 butler service, and private helicopter landing pads."
+            },
+            {
+                id: 8,
+                title: "The Swiss Alpine Chalet & Spa",
+                price: 26000,
+                rating: 4.9,
+                reviews: 73,
+                stars: 5,
+                image: "assets/img/home1/package-card-img4.png",
+                location: "Lucerne, Switzerland",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Authentic Swiss chalet architecture, heated indoor-outdoor hot tubs, snow mountain views, and luxury fireside lounge bar."
+            },
+            {
+                id: 9,
+                title: "Vietnam Lotus Garden Retreat",
+                price: 6500,
+                rating: 4.7,
+                reviews: 49,
+                stars: 4,
+                image: "assets/img/home1/package-card-img9.png",
+                location: "Hanoi, Vietnam",
+                amenities: ["wifi", "pool", "restaurant", "ac"],
+                highlights: "Charming boutique hotel in the French Quarter, garden-view spa rooms, rooftop cocktail lounge, and cooking masterclass programs."
+            },
+            {
+                id: 10,
+                title: "Kashmir Valley Houseboats",
+                price: 7500,
+                rating: 4.6,
+                reviews: 110,
+                stars: 4,
+                image: "assets/img/home1/destination-card-img1.jpg",
+                location: "Srinagar, India",
+                amenities: ["wifi", "restaurant", "ac"],
+                highlights: "Luxury hand-carved cedarwood houseboats anchored on Dal Lake, gourmet Kashmiri Wazwan cuisine, and complimentary morning Shikara tours."
+            },
+            {
+                id: 11,
+                title: "Taj Aravali Resort & Spa",
+                price: 19500,
+                rating: 4.9,
+                reviews: 188,
+                stars: 5,
+                image: "assets/img/home1/destination-card-img5.jpg",
+                location: "Udaipur, India",
+                amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+                highlights: "Sprawling luxury resort amidst the Aravali hills, grand central pool, luxury tents and suites, and historic Mewar dining halls."
+            },
+            {
+                id: 12,
+                title: "Tokyo Neon Skyline Hotel",
+                price: 16000,
+                rating: 4.7,
+                reviews: 95,
+                stars: 4,
+                image: "assets/img/home1/destination-card-img6.jpg",
+                location: "Tokyo, Japan",
+                amenities: ["wifi", "pool", "restaurant", "ac"],
+                highlights: "Stunning view of Tokyo Tower and Shinjuku skyline, indoor sky pool, futuristic digital smart suites, and modern sushi restaurant."
+            }
+        ];
+
+        // State variables
+        let currentWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+        // Formatting currency helper
+        function formatINR(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Initialize Filter Selections based on URL Params
+        function initURLFilters() {
+            const params = new URLSearchParams(window.location.search);
+            const searchQuery = params.get('search');
+            
+            if (searchQuery) {
+                document.getElementById('headerSearchInput').value = searchQuery;
+            }
+        }
+
+        // Dynamic Filter Counters
+        function updateFilterCounts() {
+            // Update Location counts
+            const locationCheckboxes = document.querySelectorAll('input[name="location"]');
+            locationCheckboxes.forEach(cb => {
+                const locVal = cb.value.toLowerCase();
+                const count = hotelList.filter(h => h.location.toLowerCase().includes(locVal)).length;
+                const countEl = cb.closest('.checkbox-item').querySelector('.checkbox-count');
+                if (countEl) countEl.textContent = count;
+            });
+
+            // Update Star rating counts
+            const starCheckboxes = document.querySelectorAll('input[name="stars"]');
+            starCheckboxes.forEach(cb => {
+                const starVal = parseInt(cb.value);
+                const count = hotelList.filter(h => h.stars === starVal).length;
+                const countEl = cb.closest('.checkbox-item').querySelector('.checkbox-count');
+                if (countEl) countEl.textContent = count;
+            });
+        }
+
+        // Ads database for hotels
+        const hotelAds = [
+            {
+                type: 'ad-deal',
+                themeClass: 'rose',
+                badge: 'MALDIVES VILLA VIBES',
+                headline: 'Get 30% Off + Free Speedboat Transfers',
+                subtext: 'Book any 5-Star Maldives resort stay this month and enjoy complimentary upgrade to Sunset Water Villa.',
+                code: 'MALDIVES30',
+                btnText: 'Unlock Deal',
+                image: 'assets/img/home1/package-card-img3.png',
+                action: 'alert("MALDIVES30 promo code copied! Use it at checkout to get 30% off.")'
+            },
+            {
+                type: 'ad-mice',
+                themeClass: 'slate',
+                badge: 'MICE & TEAM RETREATS',
+                headline: 'Special Corporate Packages & Banquet Halls',
+                subtext: 'Organize high-impact corporate retreats in Goa, Udaipur, or Lucerne with custom AV equipment, catering, and team activities.',
+                btnText: 'RFP Inquiry',
+                image: 'assets/img/home1/package-card-img6.png',
+                action: 'openMiceModal()'
+            },
+            {
+                type: 'ad-emerald',
+                themeClass: 'blue',
+                badge: 'GREEN TOURS REWARDS',
+                headline: 'Stay 4 Nights, Pay for 3 Nights!',
+                subtext: 'Join our loyalty program to unlock free room upgrades, late check-out, and complimentary buffet breakfast.',
+                btnText: 'Join VIP Free',
+                image: 'assets/img/home1/package-card-img1.png',
+                action: 'alert("Thank you for joining Green Tours VIP Stays club! Enjoy Stay 4 Pay 3 privileges.")'
+            }
+        ];
+
+        // Core Rendering Engine for Hotel Cards
+        function renderHotels() {
+            const container = document.getElementById('packagesContainer');
+            if (!container) return;
+
+            // Gather values
+            const searchQuery = document.getElementById('headerSearchInput').value.trim().toLowerCase();
+            const maxPrice = parseInt(document.getElementById('priceRange').value);
+            const sortVal = document.getElementById('packageSort').value;
+
+            // Checked filters
+            const selectedStars = Array.from(document.querySelectorAll('input[name="stars"]:checked')).map(cb => parseInt(cb.value));
+            const selectedLocations = Array.from(document.querySelectorAll('input[name="location"]:checked')).map(cb => cb.value.toLowerCase());
+            const selectedAmenities = Array.from(document.querySelectorAll('input[name="amenity"]:checked')).map(cb => cb.value);
+
+            // Filter hotels
+            let filtered = hotelList.filter(hotel => {
+                // Search keyword match
+                if (searchQuery) {
+                    const titleMatch = hotel.title.toLowerCase().includes(searchQuery);
+                    const locMatch = hotel.location.toLowerCase().includes(searchQuery);
+                    const highlightMatch = hotel.highlights.toLowerCase().includes(searchQuery);
+                    if (!titleMatch && !locMatch && !highlightMatch) return false;
+                }
+
+                // Price range filter
+                if (hotel.price > maxPrice) return false;
+
+                // Star Rating
+                if (selectedStars.length > 0 && !selectedStars.includes(hotel.stars)) return false;
+
+                // Location
+                if (selectedLocations.length > 0) {
+                    const matchesLoc = selectedLocations.some(loc => hotel.location.toLowerCase().includes(loc));
+                    if (!matchesLoc) return false;
+                }
+
+                // Amenities
+                if (selectedAmenities.length > 0) {
+                    const hasAll = selectedAmenities.every(am => hotel.amenities.includes(am));
+                    if (!hasAll) return false;
+                }
+
+                return true;
+            });
+
+            // Sort hotels
+            if (sortVal === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'stars') {
+                filtered.sort((a, b) => b.stars - a.stars);
+            } else if (sortVal === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            }
+
+            // Update listings header count subtitle
+            document.getElementById('listingsHeaderSubtitle').textContent = `Showing 1-${filtered.length} hotels from ${filtered.length} hotels`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="packages-empty-state" data-aos="fade-up">
+                        <i class="bi bi-search-heart"></i>
+                        <h3>No Hotels Found</h3>
+                        <p>We couldn't find any premium hotels matching your current filter selections. Please clear some filters and try again.</p>
+                        <button class="btn btn-outline-success mt-3 rounded-pill" onclick="resetAllFilters()">Clear All Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            // Build HTML
+            let htmlContent = '';
+            filtered.forEach((hotel, idx) => {
+                const isWishlisted = currentWishlist.includes(hotel.id);
+                
+                // Construct amenities html tags
+                const amenitiesHtml = hotel.amenities.map(am => {
+                    if (am === 'wifi') return `<span class="inclusion-item"><i class="bi bi-wifi"></i> Free Wi-Fi</span>`;
+                    if (am === 'pool') return `<span class="inclusion-item"><i class="bi bi-water"></i> Pool</span>`;
+                    if (am === 'restaurant') return `<span class="inclusion-item"><i class="bi bi-egg-fried"></i> Dining</span>`;
+                    if (am === 'spa') return `<span class="inclusion-item"><i class="bi bi-person-circle"></i> Spa &amp; Gym</span>`;
+                    if (am === 'ac') return `<span class="inclusion-item"><i class="bi bi-wind"></i> AC</span>`;
+                    return '';
+                }).join('');
+
+                htmlContent += `
+                    <article class="package-card-premium" data-aos="fade-up" data-aos-delay="${(idx % 4) * 50}">
+                        <!-- Image Column -->
+                        <div class="card-img-side">
+                            <img src="${hotel.image}" alt="${hotel.title}">
+                            <button class="card-wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="toggleHotelWishlist(${hotel.id}, this)" title="Add to Wishlist">
+                                <i class="bi ${isWishlisted ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Details Middle Column -->
+                        <div class="card-details-side">
+                            <div>
+                                <div class="card-tags">
+                                    <span class="tag-badge filled">${hotel.stars} Star Stay</span>
+                                    <span class="tag-badge outline">PREMIUM HOTEL</span>
+                                </div>
+                                <h3><a href="#" onclick="alert('Viewing rooms for ${hotel.title}'); return false;">${hotel.title}</a></h3>
+                                <div class="card-ratings">
+                                    <div class="rating-stars">
+                                        ${'<i class="bi bi-star-fill"></i>'.repeat(hotel.stars)}
+                                        ${'<i class="bi bi-star"></i>'.repeat(5 - hotel.stars)}
+                                    </div>
+                                    <span class="review-count"><strong>${hotel.rating}</strong> (${hotel.reviews} reviews)</span>
+                                </div>
+                                <div class="inclusions-row">
+                                    ${amenitiesHtml}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card-duration-info">
+                                    <i class="bi bi-geo-alt-fill text-danger"></i> ${hotel.location}
+                                </div>
+                                <p class="card-highlights">
+                                    <strong>Highlights:</strong> ${hotel.highlights}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Price Column -->
+                        <div class="card-price-side">
+                            <span class="price-label">Starts From</span>
+                            <div class="price-value">${formatINR(hotel.price)}</div>
+                            <span class="price-subtitle">per night (excl. GST)</span>
+                            <div class="price-emi">EMI available</div>
+                            <div class="card-actions-stack">
+                                <button class="action-btn-primary" onclick="alert('Booking request sent for ${hotel.title}! Our agent will contact you shortly.')">Book Stay</button>
+                                <button class="action-btn-secondary" onclick="alert('Viewing detailed room layouts for ${hotel.title}...')">Room Details</button>
+                            </div>
+                            <div class="card-bottom-links">
+                                <a href="#" class="bottom-link-item text-danger" onclick="alert('Initiating live agent consultation for ${hotel.title}...')">
+                                    <i class="bi bi-chat-text-fill"></i> Enquire
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+
+                // Interspersed ads every 3 items
+                if ((idx + 1) % 3 === 0) {
+                    const adIdx = Math.floor((idx + 1) / 3 - 1) % hotelAds.length;
+                    const ad = hotelAds[adIdx];
+                    
+                    htmlContent += `
+                        <div class="inline-ad-card ad-theme-${ad.themeClass}" data-aos="fade-up">
+                            <div class="ad-inline-body">
+                                <div>
+                                    <span class="ad-inline-label">${ad.badge}</span>
+                                    <h4>${ad.headline}</h4>
+                                    <p>${ad.subtext}</p>
+                                </div>
+                                <button class="ad-inline-btn" onclick="${ad.action}">${ad.btnText}</button>
+                            </div>
+                            <div class="ad-inline-visual" style="background-image: url('${ad.image}');"></div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Wishlist toggler for hotels
+        window.toggleHotelWishlist = function(hotelId, btnEl) {
+            const idx = currentWishlist.indexOf(hotelId);
+            if (idx > -1) {
+                currentWishlist.splice(idx, 1);
+                btnEl.classList.remove('active');
+                btnEl.innerHTML = '<i class="bi bi-heart"></i>';
+            } else {
+                currentWishlist.push(hotelId);
+                btnEl.classList.add('active');
+                btnEl.innerHTML = '<i class="bi bi-heart-fill"></i>';
+            }
+            localStorage.setItem('wishlist', JSON.stringify(currentWishlist));
+        }
+
+        // Custom Range price slider updates
+        const rangeSlider = document.getElementById('priceRange');
+        const maxPriceText = document.getElementById('priceMaxLabel');
+        rangeSlider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            maxPriceText.textContent = `₹${(val / 1000).toFixed(0)}K`;
+            renderHotels();
+        });
+
+        // Pill filter shortcuts
+        document.querySelectorAll('.pill-filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const active = btn.classList.contains('active');
+                document.querySelectorAll('.pill-filter-btn').forEach(b => b.classList.remove('active'));
+                
+                if (active) {
+                    rangeSlider.value = 50000;
+                    maxPriceText.textContent = '₹50K';
+                } else {
+                    btn.classList.add('active');
+                    const maxVal = btn.getAttribute('data-max');
+                    rangeSlider.value = maxVal;
+                    maxPriceText.textContent = `₹${(maxVal / 1000).toFixed(0)}K`;
+                }
+                renderHotels();
+            });
+        });
+
+        // Checkbox events
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                renderHotels();
+            });
+        });
+
+        // Reset All button click handler
+        function resetAllFilters() {
+            document.getElementById('priceRange').value = 50000;
+            document.getElementById('priceMaxLabel').textContent = '₹50K';
+            document.querySelectorAll('.pill-filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.getElementById('headerSearchInput').value = '';
+            document.getElementById('packageSort').value = 'deals';
+            renderHotels();
+        }
+
+        document.getElementById('resetFilters').addEventListener('click', resetAllFilters);
+        document.getElementById('packageSort').addEventListener('change', renderHotels);
+        document.getElementById('headerSearchInput').addEventListener('input', renderHotels);
+
+        // Mobile Filter Collapsible Panels Trigger
+        function toggleMobileFilters() {
+            const sidebar = document.getElementById('filterSidebar');
+            sidebar.classList.toggle('show-mobile');
+            const floatingBtn = document.getElementById('floatingFilterBtn');
+            if (sidebar.classList.contains('show-mobile')) {
+                floatingBtn.innerHTML = '<i class="bi bi-x"></i> Close';
+                floatingBtn.style.background = '#f43f5e';
+            } else {
+                floatingBtn.innerHTML = '<i class="bi bi-filter"></i> Filters';
+                floatingBtn.style.background = '#0f172a';
+            }
+        }
+        
+        function openMobileFilter() {
+            toggleMobileFilters();
+        }
+
+        // Ads coupon copy trigger
+        function copyPromoCode(el) {
+            const code = el.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert(`Promo coupon code "${code}" copied to clipboard! Apply it at booking checkout.`);
+            });
+        }
+
+        // Copy promo helper
+        function copyPromoCodeText(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                alert(`Promo coupon code "${code}" copied to clipboard! Apply it at booking checkout.`);
+            });
+        }
+
+        // XAMPP Corporate RFP Modal helper toggles
+        function openMiceModal() {
+            const modal = document.getElementById('miceModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeMiceModal() {
+            const modal = document.getElementById('miceModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function handleMiceSubmit(e) {
+            e.preventDefault();
+            alert('Thank you! Your corporate RFP inquiry has been submitted. Our MICE specialists will send a custom package itinerary within 24 hours.');
+            closeMiceModal();
+            e.target.reset();
+        }
+
+        // Initialize script execution on page load
+        $(document).ready(function() {
+            initURLFilters();
+            updateFilterCounts();
+            renderHotels();
+        });
+
+        // Mobile Navigation Dropdowns from main theme code
+        $(document).on('click', '.ft-nav-li.has-mega > .ft-nav-link, .ft-nav-li.has-dropdown > .ft-nav-link', function(e) {
+            if ($(window).width() <= 900) {
+                e.preventDefault();
+                const parent = $(this).parent();
+                parent.toggleClass('active-mobile');
+                parent.find('.ft-mega-menu, .ft-dropdown-menu').first().slideToggle(200);
+            }
+        });
+
+        // Mobile Nav Burger Trigger
+        document.querySelector('.ft-mobile-btn')?.addEventListener('click', () => {
+            const nav = document.querySelector('.ft-nav');
+            if (!nav) return;
+            if (nav.style.display === 'flex') {
+                nav.style.display = '';
+            } else {
+                Object.assign(nav.style, {
+                    display: 'flex', flexDirection: 'column',
+                    position: 'fixed', top: '110px', left: '0', right: '0',
+                    background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,.15)',
+                    padding: '10px 0', zIndex: '998', height: 'auto',
+                    overflowY: 'auto', maxHeight: 'calc(100vh - 110px)'
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

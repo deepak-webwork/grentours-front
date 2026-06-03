@@ -23,2947 +23,7 @@
     <!-- AOS Scrolling Animations -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 
-    <style>
-        /* =============================================
-   GLOBAL RESET & BASE
-============================================= */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-            color: #333;
-            background: #f5f5f5;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* =============================================
-   TOP BAR  (dark, like Flamingo)
-============================================= */
-        .ft-topbar {
-            background: #1a1a2e;
-            color: #ccc;
-            padding: 6px 0;
-            font-size: 12px;
-            position: relative;
-            z-index: 100;
-        }
-
-        .ft-topbar-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .ft-topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-
-        .ft-topbar-left a,
-        .ft-topbar-left span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #fff;
-            font-size: 11.5px;
-        }
-
-        .ft-topbar-left a:hover {
-            color: #24b25a;
-        }
-
-        .ft-topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ft-topbar-right .social-links {
-            display: flex;
-            gap: 8px;
-        }
-
-        .ft-topbar-right .social-links a {
-            color: #fff;
-            font-size: 16px;
-            transition: color .2s;
-        }
-
-        .ft-topbar-right .social-links a:hover {
-            color: #24b25a;
-        }
-
-        .ft-country-switch {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .15);
-            border-radius: 4px;
-            padding: 3px 10px;
-            font-size: 11.5px;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .ft-send-enquiry {
-            background: #24b25a;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 14px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: background .2s;
-        }
-
-        .ft-send-enquiry:hover {
-            background: #0a93c0;
-        }
-
-        /* =============================================
-   HEADER  (white, icon + text nav like Flamingo)
-============================================= */
-        .ft-header {
-            background: #fff;
-            border-bottom: 1px solid #e8e8e8;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
-        }
-
-        .ft-header-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 62px;
-        }
-
-        .ft-logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .ft-logo img {
-            height: 40px;
-        }
-
-        .ft-logo-text {
-            margin-left: 6px;
-        }
-
-        .ft-logo-text span {
-            display: block;
-            font-size: 22px;
-            font-weight: 700;
-            color: #24b25a;
-            line-height: 1;
-        }
-
-        .ft-logo-text small {
-            font-size: 9px;
-            color: #888;
-            letter-spacing: .5px;
-        }
-
-        /* Nav with icons above labels */
-        .ft-nav {
-            display: flex;
-            align-items: stretch;
-            height: 62px;
-            gap: 4px;
-        }
-
-        .ft-nav-item {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0 12px 8px 12px;
-            cursor: pointer;
-            color: #444;
-            transition: color .2s;
-            min-width: 64px;
-            border-bottom: 3px solid transparent;
-            font-size: 11.5px;
-            font-weight: 500;
-            gap: 4px;
-            white-space: nowrap;
-            user-select: none;
-            height: 100%;
-        }
-
-        .ft-nav-item:hover {
-            color: #24b25a;
-            border-bottom-color: #24b25a;
-        }
-
-        .ft-nav-item.active {
-            color: #24b25a;
-            border-bottom-color: #24b25a;
-        }
-
-        .ft-nav-item i {
-            font-size: 18px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ft-nav-item .nav-label {
-            font-size: 11px;
-            line-height: 1;
-        }
-
-        .ft-nav-item .dd-icon {
-            font-size: 9px;
-            margin-left: 2px;
-        }
-
-        /* dropdown */
-        .ft-nav-item .ft-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff;
-            border: 1px solid #eee;
-            border-top: 3px solid #24b25a;
-            border-radius: 0 0 8px 8px;
-            min-width: 200px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
-            z-index: 100;
-            padding: 6px 0;
-        }
-
-        .ft-nav-item:hover .ft-dropdown {
-            display: block;
-        }
-
-        .ft-dropdown li a {
-            display: block;
-            padding: 9px 18px;
-            font-size: 12.5px;
-            color: #333;
-            transition: background .15s, color .15s;
-        }
-
-        .ft-dropdown li a:hover {
-            background: #f0faf3;
-            color: #24b25a;
-        }
-
-        /* Header right: My Booking + More */
-        .ft-header-right {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .ft-nav-more {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0 12px;
-            height: 62px;
-            color: #444;
-            cursor: pointer;
-            font-size: 11px;
-            border-bottom: 3px solid transparent;
-            gap: 2px;
-        }
-
-        .ft-nav-more:hover {
-            color: #24b25a;
-            border-bottom-color: #24b25a;
-        }
-
-        .ft-nav-more i {
-            font-size: 20px;
-        }
-
-        .ft-mobile-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        /* =============================================
-   SEARCH BAR  (full-width, simple text input)
-============================================= */
-        .ft-search-bar {
-            background: #fff;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 10px 0;
-        }
-
-        .ft-search-inner {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ft-search-box {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #f8f8f8;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 9px 14px;
-            transition: border-color .2s, box-shadow .2s;
-        }
-
-        .ft-search-box:focus-within {
-            border-color: #24b25a;
-            box-shadow: 0 0 0 3px rgba(36, 178, 90, .08);
-            background: #fff;
-        }
-
-        .ft-search-box i {
-            color: #999;
-            font-size: 17px;
-        }
-
-        .ft-search-box input {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            background: transparent;
-            color: #333;
-        }
-
-        .ft-search-box input::placeholder {
-            color: #aaa;
-        }
-
-        .ft-search-btn {
-            background: #24b25a;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 22px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background .2s;
-            white-space: nowrap;
-        }
-
-        .ft-search-btn:hover {
-            background: #0a93c0;
-        }
-
-        /* =============================================
-   MAIN 2-COLUMN LAYOUT  (left content + right sidebar)
-============================================= */
-        .ft-main-layout {
-            margin-top: 16px;
-            margin-bottom: 0;
-            align-items: start;
-        }
-
-        /* =============================================
-   LEFT COLUMN – white card sections
-============================================= */
-        .ft-card-section {
-            background: #fff;
-            border-radius: 12px;
-            padding: 18px 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, .06);
-            position: relative;
-        }
-
-        .ft-card-section:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Section header row */
-        .ft-section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .ft-section-header h2 {
-            font-size: 15px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .ft-section-header a {
-            font-size: 12px;
-            color: #24b25a;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .ft-section-header a:hover {
-            text-decoration: underline;
-        }
-
-        /* =============================================
-   THEME CARDS  (horizontal scroll + nav arrows)
- ============================================= */
-        .ft-theme-scroll-wrap {
-            display: block;
-        }
-
-        .ft-theme-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            flex: 1;
-            padding: 4px 2px 8px;
-        }
-
-        .ft-theme-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .ft-theme-arrow {
-            position: absolute;
-            top: 60%;
-            transform: translateY(-50%);
-            width: 38px;
-            height: 38px;
-            min-width: 38px;
-            border-radius: 50%;
-            border: none;
-            background: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-            color: #333;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-            flex-shrink: 0;
-            z-index: 10;
-        }
-
-        .ft-theme-arrow:hover {
-            transform: translateY(-50%) scale(1.08) !important;
-            background: #fff !important;
-            color: #24b25a !important;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
-        }
-
-        #themePrev {
-            left: 2px;
-        }
-
-        #themeNext {
-            right: 2px;
-        }
-
-        .ft-theme-card {
-            flex-shrink: 0;
-            text-align: center;
-            cursor: pointer;
-            width: 90px;
-        }
-
-        .ft-theme-card:hover .ft-theme-img {
-            border-color: #24b25a;
-            transform: scale(1.05);
-        }
-
-        .ft-theme-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 8px;
-            border: 2.5px solid #eee;
-            transition: border-color .2s, transform .25s;
-        }
-
-        .ft-theme-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .ft-theme-card p {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #333;
-            line-height: 1.3;
-            margin-bottom: 2px;
-        }
-
-        .ft-theme-card span {
-            font-size: 10.5px;
-            color: #999;
-        }
-
-        /* =============================================
-   PACKAGE CARDS  (horizontal card: image left + info right)
-============================================= */
-        .ft-pkg-tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 16px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            overflow: hidden;
-            width: fit-content;
-        }
-
-        .ft-pkg-tab {
-            padding: 7px 18px;
-            font-size: 12.5px;
-            font-weight: 500;
-            cursor: pointer;
-            color: #555;
-            background: #fff;
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            transition: all .15s;
-        }
-
-        .ft-pkg-tab.active {
-            background: #24b25a;
-            color: #fff;
-        }
-
-        .ft-pkg-slider {
-            /* position: relative; removed to allow absolute positioning relative to .ft-card-section */
-        }
-
-        .ft-pkg-row {
-            display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            padding-bottom: 6px;
-        }
-
-        .ft-pkg-row::-webkit-scrollbar {
-            display: none;
-        }
-
-        .ft-pkg-slide-btn {
-            position: absolute;
-            top: 60%;
-            transform: translateY(-50%);
-            width: 38px;
-            height: 38px;
-            background: #fff;
-            border: none;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-            z-index: 10;
-            color: #333;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .ft-pkg-slide-btn:hover {
-            transform: translateY(-50%) scale(1.08) !important;
-            background: #fff !important;
-            color: #24b25a !important;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
-        }
-
-        .ft-pkg-slide-btn.prev-btn {
-            left: 2px;
-        }
-
-        .ft-pkg-slide-btn.next-btn {
-            right: 2px;
-        }
-
-        /* Horizontal package card (image on left, text on right) */
-        .ft-pkg-card {
-            flex-shrink: 0;
-            width: 270px;
-            background: #fff;
-            border: 1.5px solid #eee;
-            border-radius: 10px;
-            overflow: hidden;
-            transition: box-shadow .25s, transform .25s;
-            cursor: pointer;
-        }
-
-        .ft-pkg-card:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
-            transform: translateY(-2px);
-        }
-
-        .ft-pkg-card-img {
-            height: 130px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .ft-pkg-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .4s;
-        }
-
-        .ft-pkg-card:hover .ft-pkg-card-img img {
-            transform: scale(1.06);
-        }
-
-        .ft-pkg-badge-wrap {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .ft-pkg-badge {
-            font-size: 9.5px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 3px;
-            text-transform: uppercase;
-            letter-spacing: .3px;
-        }
-
-        .ft-pkg-badge.red {
-            background: #24b25a;
-            color: #fff;
-        }
-
-        .ft-pkg-badge.blue {
-            background: #1e40af;
-            color: #fff;
-        }
-
-        .ft-pkg-badge.green {
-            background: #16a34a;
-            color: #fff;
-        }
-
-        .ft-pkg-badge.orange {
-            background: #ea580c;
-            color: #fff;
-        }
-
-        .ft-pkg-card-body {
-            padding: 8px 10px;
-        }
-
-        .ft-pkg-card-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #222;
-            line-height: 1.3;
-            margin-bottom: 5px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .ft-pkg-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 8px;
-            margin-bottom: 6px;
-        }
-
-        .ft-pkg-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 11px;
-            color: #777;
-        }
-
-        .ft-pkg-meta-item i {
-            font-size: 12px;
-            color: #24b25a;
-        }
-
-        .ft-pkg-card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 6px;
-        }
-
-        .ft-pkg-price-label {
-            font-size: 10px;
-            color: #999;
-            margin-bottom: 1px;
-        }
-
-        .ft-pkg-price {
-            font-size: 16px;
-            font-weight: 700;
-            color: #24b25a;
-        }
-
-        .ft-pkg-price span {
-            font-size: 10px;
-            font-weight: 400;
-            color: #aaa;
-        }
-
-        .ft-view-btn {
-            background: #24b25a;
-            color: #fff;
-            border: none;
-            padding: 7px 14px;
-            border-radius: 6px;
-            font-size: 11.5px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            white-space: nowrap;
-            transition: background .2s;
-        }
-
-        .ft-view-btn:hover {
-            background: #0a93c0;
-        }
-
-        /* =============================================
-   DESTINATION SLIDER (SS-like UI)
-============================================= */
-        .ft-dest-slider {
-            /* position: relative; removed to allow absolute positioning relative to .ft-card-section */
-        }
-
-        .ft-dest-row {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            padding: 4px 2px;
-        }
-
-        .ft-dest-row::-webkit-scrollbar {
-            display: none;
-        }
-
-        .ft-dest-card {
-            flex-shrink: 0;
-            width: calc((100% - 48px) / 5);
-            min-width: 140px;
-            cursor: pointer;
-        }
-
-        .ft-dest-img-wrap {
-            height: 180px;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 6px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
-            transition: transform .3s, box-shadow .3s;
-        }
-
-        .ft-dest-card:hover .ft-dest-img-wrap {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .14);
-        }
-
-        .ft-dest-img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .4s;
-        }
-
-        .ft-dest-card:hover .ft-dest-img-wrap img {
-            transform: scale(1.05);
-        }
-
-        .ft-dest-meta-wrap {
-            padding: 0 2px;
-        }
-
-        .ft-dest-meta-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 2px;
-        }
-
-        .ft-dest-name {
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #222;
-            line-height: 1.2;
-            word-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-
-        .ft-dest-price-wrap {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: flex-end;
-            line-height: 1;
-        }
-
-        .ft-dest-price-label {
-            font-size: 8px;
-            color: #24b25a;
-            font-weight: 600;
-            margin-bottom: 1px;
-        }
-
-        .ft-dest-price {
-            font-size: 10.5px;
-            font-weight: 700;
-            color: #24b25a;
-            white-space: nowrap;
-        }
-
-        .ft-dest-packages {
-            font-size: 9px;
-            color: #888;
-            margin-top: 3px;
-        }
-
-        .ft-dest-slide-btn {
-            position: absolute;
-            top: 58%;
-            transform: translateY(-50%);
-            width: 38px;
-            height: 38px;
-            background: #fff;
-            border: none;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-            z-index: 10;
-            color: #333;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .ft-dest-slide-btn:hover {
-            transform: translateY(-50%) scale(1.08) !important;
-            background: #fff !important;
-            color: #24b25a !important;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
-        }
-
-        .ft-dest-slide-btn.prev-btn {
-            left: 2px;
-        }
-
-        .ft-dest-slide-btn.next-btn {
-            right: 2px;
-        }
-
-        /* ── Easy Visa Destinations Section ── */
-        .easy-visa-section {
-            background: transparent;
-        }
-
-        .easy-visa-area {
-            width: 100%;
-        }
-
-        .visa-tabs {
-            display: flex;
-            gap: 4px;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            margin-bottom: 0;
-        }
-
-        .visa-tab {
-            border: 1px solid #e7e0da;
-            background: #fff;
-            color: #555;
-            border-radius: 8px;
-            padding: 6px 14px;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .visa-tab:hover,
-        .visa-tab.active {
-            background: #24b25a;
-            border-color: #24b25a;
-            color: #fff;
-            box-shadow: 0 6px 15px rgba(36, 178, 90, 0.15);
-        }
-
-        .easy-visa-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .visa-scroll {
-            flex: 1;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .visa-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .visa-inner {
-            display: flex;
-            gap: 12px;
-            padding: 4px 2px 10px;
-            position: relative;
-        }
-
-        .visa-card {
-            flex-shrink: 0;
-            width: calc((100% - 48px) / 5);
-            min-width: 140px;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .visa-card-img {
-            height: 180px;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 6px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
-            transition: transform .3s, box-shadow .3s;
-            border: none;
-        }
-
-        .visa-card:hover .visa-card-img {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .14);
-        }
-
-        .visa-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .4s;
-        }
-
-        .visa-card:hover .visa-card-img img {
-            transform: scale(1.05);
-        }
-
-        .visa-card-info {
-            padding: 0 2px;
-        }
-
-        .visa-card-name {
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #222;
-            line-height: 1.2;
-            margin-bottom: 3px;
-            word-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .visa-card-count {
-            font-size: 9px;
-            color: #888;
-            margin: 0;
-        }
-
-        @media (max-width: 767px) {
-            .visa-tabs {
-                gap: 8px;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding-bottom: 4px;
-                scrollbar-width: none;
-            }
-
-            .visa-tabs::-webkit-scrollbar {
-                display: none;
-            }
-
-            .visa-tab {
-                padding: 9px 5px;
-                font-size: 8px;
-                flex-shrink: 0;
-                white-space: nowrap;
-            }
-
-            .visa-card {
-                flex-basis: 120px;
-                min-width: 120px;
-                width: 120px;
-            }
-
-            .visa-card-img {
-                width: 120px;
-                height: 154px;
-            }
-
-            .easy-visa-wrapper {
-                gap: 8px;
-            }
-        }
-
-        /* =============================================
-   RIGHT SIDEBAR
-============================================= */
-        .ft-sidebar>*+* {
-            margin-top: 16px;
-        }
-
-        /* Promo Banner Card */
-        .ft-promo-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
-        }
-
-        .ft-promo-img {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ft-promo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .ft-promo-brand {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, .92);
-            border-radius: 6px;
-            padding: 5px 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .ft-promo-brand img {
-            height: 22px;
-        }
-
-        .ft-promo-body {
-            padding: 14px;
-        }
-
-        .ft-promo-dest {
-            font-size: 38px;
-            font-weight: 900;
-            color: #24b25a;
-            line-height: 1;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            margin-bottom: 6px;
-        }
-
-        .ft-promo-dates {
-            font-size: 10.5px;
-            color: #555;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .ft-promo-dates strong {
-            color: #333;
-            font-weight: 600;
-        }
-
-        .ft-promo-price-wrap {
-            margin-bottom: 12px;
-        }
-
-        .ft-promo-starting {
-            font-size: 10px;
-            color: #888;
-        }
-
-        .ft-promo-price {
-            font-size: 22px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .ft-promo-price sup {
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .ft-promo-price sub {
-            font-size: 10px;
-            font-weight: 400;
-            color: #888;
-        }
-
-        .ft-promo-nights {
-            font-size: 11.5px;
-            color: #666;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .ft-promo-amenities {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            padding: 10px 0;
-            border-top: 1px solid #f0f0f0;
-            margin-bottom: 10px;
-        }
-
-        .ft-amenity {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            flex: 1;
-            min-width: 44px;
-        }
-
-        .ft-amenity i {
-            font-size: 18px;
-            color: #24b25a;
-        }
-
-        .ft-amenity span {
-            font-size: 9px;
-            color: #777;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .ft-promo-cta {
-            width: 100%;
-            background: #24b25a;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 11px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: background .2s;
-        }
-
-        .ft-promo-cta:hover {
-            background: #0a93c0;
-        }
-
-        .ft-promo-disclaimer {
-            font-size: 9.5px;
-            color: #aaa;
-            margin-top: 8px;
-            line-height: 1.5;
-        }
-
-        /* Sidebar ad / partner banner */
-        .ft-sidebar-banner {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
-            position: relative;
-        }
-
-        .ft-sidebar-banner img {
-            width: 100%;
-            display: block;
-        }
-
-        .ft-sidebar-ad {
-            background: #fff;
-            border-radius: 12px;
-            /* padding: 16px; */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
-        }
-
-        .ft-sidebar-ad h4 {
-            font-size: 13px;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 6px;
-        }
-
-        .ft-sidebar-ad p {
-            font-size: 11.5px;
-            color: #666;
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .ft-sidebar-ad-img {
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 12px;
-            /* height: 120px; */
-        }
-
-        .ft-sidebar-ad-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .ft-sidebar-cta {
-            width: 100%;
-            border: 2px solid #24b25a;
-            background: transparent;
-            color: #24b25a;
-            border-radius: 7px;
-            padding: 9px;
-            font-size: 12.5px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all .2s;
-        }
-
-        .ft-sidebar-cta:hover {
-            background: #24b25a;
-            color: #fff;
-        }
-
-        /* Enquiry Form Card */
-        .ft-enquiry-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 18px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
-        }
-
-        .ft-enquiry-card h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ft-enquiry-card h4 i {
-            color: #24b25a;
-        }
-
-        .ft-form-group {
-            margin-bottom: 10px;
-        }
-
-        .ft-form-group label {
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .ft-form-group input,
-        .ft-form-group select,
-        .ft-form-group textarea {
-            width: 100%;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 7px;
-            padding: 9px 12px;
-            font-size: 12.5px;
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            outline: none;
-            transition: border-color .2s;
-            background: #fafafa;
-        }
-
-        .ft-form-group input:focus,
-        .ft-form-group select:focus,
-        .ft-form-group textarea:focus {
-            border-color: #24b25a;
-            background: #fff;
-        }
-
-        .ft-form-group textarea {
-            resize: none;
-        }
-
-        .ft-form-submit {
-            width: 100%;
-            background: #24b25a;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 11px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: background .2s;
-            margin-top: 4px;
-        }
-
-        .ft-form-submit:hover {
-            background: #0a93c0;
-        }
-
-        /* =============================================
-   FULL WIDTH SECTIONS (below grid)
-============================================= */
-        .ft-full-inner {
-            background: #fff;
-            border-radius: 12px;
-            padding: 22px 22px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, .06);
-        }
-
-        /* WHY CHOOSE US */
-        .ft-why-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .ft-why-item {
-            text-align: center;
-            padding: 20px 14px;
-            border-radius: 10px;
-            border: 1.5px solid #f0f0f0;
-            transition: border-color .25s, box-shadow .25s, transform .25s;
-        }
-
-        .ft-why-item:hover {
-            border-color: #24b25a;
-            box-shadow: 0 4px 16px rgba(36, 178, 90, .1);
-            transform: translateY(-3px);
-        }
-
-        .ft-why-icon {
-            width: 58px;
-            height: 58px;
-            background: #f0faf3;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 26px;
-            color: #24b25a;
-            transition: background .25s, color .25s;
-        }
-
-        .ft-why-item:hover .ft-why-icon {
-            background: #24b25a;
-            color: #fff;
-        }
-
-        .ft-why-item h5 {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #222;
-        }
-
-        .ft-why-item p {
-            font-size: 11.5px;
-            color: #777;
-            line-height: 1.6;
-        }
-
-        /* Stats strip */
-        .ft-stats-strip {
-            background: linear-gradient(135deg, #24b25a 0%, #0a93c0 100%);
-            color: #fff;
-            padding: 28px 0;
-            margin-bottom: 16px;
-        }
-
-        .ft-stats-inner {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-        }
-
-        .ft-stat {
-            text-align: center;
-            padding: 0 20px;
-            border-right: 1px solid rgba(255, 255, 255, .2);
-        }
-
-        .ft-stat:last-child {
-            border-right: none;
-        }
-
-        .ft-stat .num {
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .ft-stat .lbl {
-            font-size: 12px;
-            opacity: .88;
-        }
-
-        /* Testimonials */
-        .ft-testi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .ft-testi-item {
-            background: #fff;
-            border: 1.5px solid #f0f0f0;
-            border-radius: 10px;
-            padding: 18px;
-            transition: box-shadow .25s;
-        }
-
-        .ft-testi-item:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
-        }
-
-        .ft-testi-stars {
-            color: #f59e0b;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .ft-testi-text {
-            font-size: 12.5px;
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 14px;
-            font-style: italic;
-        }
-
-        .ft-testi-author {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ft-testi-author img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .ft-testi-author strong {
-            font-size: 12.5px;
-            color: #222;
-            display: block;
-        }
-
-        .ft-testi-author small {
-            font-size: 11px;
-            color: #aaa;
-        }
-
-        /* NEWSLETTER */
-        .ft-newsletter {
-            background: linear-gradient(135deg, #1a1a2e 0%, #2c2c54 100%);
-            padding: 40px 0;
-            margin-bottom: 16px;
-        }
-
-        .ft-newsletter-inner {
-            max-width: 680px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .ft-newsletter h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .ft-newsletter p {
-            font-size: 13px;
-            color: rgba(255, 255, 255, .75);
-            margin-bottom: 22px;
-        }
-
-        .ft-newsletter-form {
-            display: flex;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
-        }
-
-        .ft-newsletter-form input {
-            flex: 1;
-            padding: 13px 16px;
-            border: none;
-            outline: none;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .ft-newsletter-form button {
-            background: #24b25a;
-            color: #fff;
-            border: none;
-            padding: 13px 22px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: background .2s;
-        }
-
-        .ft-newsletter-form button:hover {
-            background: #0a93c0;
-        }
-
-        /* =============================================
-   FOOTER
- ============================================= */
-        .ft-footer {
-            background: #111827;
-            color: #9ca3af;
-            padding: 48px 0 0;
-        }
-
-        .ft-footer-inner {
-            padding-bottom: 40px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 36px;
-        }
-
-        .ft-footer-logo {
-            height: 36px;
-            filter: brightness(0) invert(1);
-            margin-bottom: 14px;
-        }
-
-        .ft-footer-desc {
-            font-size: 12.5px;
-            line-height: 1.8;
-            margin-bottom: 18px;
-        }
-
-        .ft-footer-social {
-            display: flex;
-            gap: 8px;
-        }
-
-        .ft-footer-social a {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            color: #9ca3af;
-            transition: all .2s;
-        }
-
-        .ft-footer-social a:hover {
-            background: #24b25a;
-            color: #fff;
-        }
-
-        .ft-footer-contact-btns {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .ft-footer-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .ft-btn-whatsapp {
-            background: #24b25a;
-            color: #fff;
-            border: 1px solid #24b25a;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.15);
-        }
-
-        .ft-btn-whatsapp:hover {
-            background: #1ebd59;
-            border-color: #1ebd59;
-            color: #fff;
-            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25);
-            transform: translateY(-1px);
-        }
-
-        .ft-btn-phone {
-            background: #24b25a;
-            color: #fff;
-            border: 1px solid #24b25a;
-            box-shadow: 0 4px 12px rgba(36, 178, 90, 0.15);
-        }
-
-        .ft-btn-phone:hover {
-            background: #1f9c4e;
-            border-color: #1f9c4e;
-            color: #fff;
-            box-shadow: 0 6px 16px rgba(36, 178, 90, 0.25);
-            transform: translateY(-1px);
-        }
-
-        .ft-footer-col h5 {
-            font-size: 13px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 16px;
-        }
-
-        .ft-footer-col ul li {
-            margin-bottom: 9px;
-        }
-
-        .ft-footer-col ul li a {
-            font-size: 12.5px;
-            color: #9ca3af;
-            transition: color .2s;
-        }
-
-        .ft-footer-col ul li a:hover {
-            color: #24b25a;
-        }
-
-        .ft-footer-contact li {
-            display: flex;
-            gap: 9px;
-            margin-bottom: 12px;
-        }
-
-        .ft-footer-contact li i {
-            color: #24b25a;
-            font-size: 14px;
-            margin-top: 1px;
-            flex-shrink: 0;
-        }
-
-        /* sidebar sticky */
-        .ft-sidebar-sticky {
-            position: sticky;
-            top: 78px;
-        }
-
-        .ft-footer-contact li span {
-            font-size: 12px;
-            color: #9ca3af;
-            line-height: 1.5;
-        }
-
-        .ft-footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, .07);
-            padding: 16px;
-            text-align: center;
-            font-size: 12px;
-            color: #fff1;
-        }
-
-        .ft-footer-bottom a {
-            color: #24b25a;
-        }
-
-        /* Trust bar */
-        .ft-trust {
-            background: #fff;
-            border-top: 1px solid #eee;
-            padding: 14px 0;
-        }
-
-        .ft-trust-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .ft-trust-item {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .ft-trust-item i {
-            font-size: 18px;
-            color: #24b25a;
-        }
-
-        /* Sticky bottom bar (mobile) */
-        .ft-sticky-bottom {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #fff;
-            border-top: 1px solid #e0e0e0;
-            padding: 10px 16px;
-            gap: 10px;
-            z-index: 990;
-        }
-
-        .ft-sticky-bottom .s-btn {
-            flex: 1;
-            border: none;
-            border-radius: 7px;
-            padding: 11px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .ft-sticky-bottom .s-primary {
-            background: #24b25a;
-            color: #fff;
-        }
-
-        .ft-sticky-bottom .s-call {
-            background: #16a34a;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        /* WhatsApp float */
-        .ft-whatsapp {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(37, 211, 102, .5);
-            z-index: 980;
-            transition: transform .2s;
-        }
-
-        .ft-whatsapp:hover {
-            transform: scale(1.1);
-        }
-
-        /* =============================================
-   RESPONSIVE
-============================================= */
-        @media (max-width: 1100px) {
-            .ft-dest-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .ft-dest-grid .ft-dest-item:first-child {
-                grid-column: span 2;
-            }
-
-            .ft-why-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .ft-testi-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .ft-stats-inner {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .ft-stat {
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, .2);
-                padding: 12px;
-            }
-
-            .ft-stat:nth-child(3),
-            .ft-stat:last-child {
-                border-bottom: none;
-            }
-
-            .ft-footer-inner {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .ft-nav {
-                display: none;
-            }
-
-            .ft-mobile-btn {
-                display: block;
-            }
-
-            .ft-sticky-bottom {
-                display: flex;
-            }
-
-            body {
-                padding-bottom: 64px;
-            }
-
-            .ft-whatsapp {
-                bottom: 76px;
-            }
-
-            .sm-hidden {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .ft-dest-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .ft-dest-grid .ft-dest-item:first-child {
-                grid-column: span 1;
-                height: 110px;
-            }
-
-            .ft-why-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .ft-testi-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .ft-footer-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .ft-stats-inner {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .ft-topbar-left span {
-                display: none;
-            }
-
-            .ft-country-switch {
-                display: none;
-            }
-        }
-
-        /* =============================================
-           LATEST TRAVEL BLOG SECTION
-        ============================================= */
-        .blog-section {
-            position: relative;
-            margin-top: 16px;
-        }
-
-        .blog-section .container {
-            overflow: hidden;
-        }
-
-        .trav-blog-wrap {
-            padding: 16px 0 24px;
-        }
-
-        .trav-blog-card {
-            width: 100%;
-            background: #fff;
-            border: 1px solid #efefef;
-            border-radius: 12px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: box-shadow 0.25s, transform 0.25s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .trav-blog-card:hover {
-            box-shadow: 0 6px 24px rgba(36, 178, 90, 0.15);
-            transform: translateY(-3px);
-        }
-
-        .trav-blog-img {
-            width: 100%;
-            height: 155px;
-            overflow: hidden;
-        }
-
-        .trav-blog-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.35s;
-        }
-
-        .trav-blog-card:hover .trav-blog-img img {
-            transform: scale(1.05);
-        }
-
-        .trav-blog-body {
-            padding: 12px 14px 14px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .trav-blog-title {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #1a1a1a;
-            line-height: 1.4;
-            margin-bottom: 6px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .trav-blog-summary {
-            font-size: 12.5px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-
-        .trav-blog-meta {
-            font-size: 12px;
-            color: #24b25a;
-            font-weight: 500;
-            margin-bottom: 0;
-        }
-
-        /* =============================================
-           TRAVEL REELS SECTION
-        ============================================= */
-        /* =============================================
-           TRAVEL REELS & EXPLORE SECTION
-        ============================================= */
-        .reels-section {
-            position: relative;
-            margin-top: 24px;
-        }
-
-        .reels-explore-panel {
-            background: #fff;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            display: flex;
-            gap: 24px;
-            border: 1px solid #f0f0f0;
-        }
-
-        @media (max-width: 991px) {
-            .reels-explore-panel {
-                flex-direction: column;
-            }
-        }
-
-        .panel-divider {
-            width: 1px;
-            background-color: #e6e6e6;
-            align-self: stretch;
-        }
-
-        @media (max-width: 991px) {
-            .panel-divider {
-                width: 100%;
-                height: 1px;
-                background-color: #e6e6e6;
-                margin: 8px 0;
-            }
-        }
-
-        .panel-left,
-        .panel-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .panel-header h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #222;
-            margin: 0 0 16px 0;
-            text-transform: capitalize;
-        }
-
-        .shuffle-reels-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #24b25a 0%, #0a93c0 100%);
-            color: #fff;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(36, 178, 90, 0.2);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            outline: none;
-        }
-
-        .shuffle-reels-btn:hover {
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 0 4px 12px rgba(10, 147, 192, 0.3);
-            background: linear-gradient(135deg, #1b8b44 0%, #08779b 100%);
-            color: #fff;
-        }
-
-        .shuffle-reels-btn:active {
-            transform: translateY(1px);
-        }
-
-        .shuffle-reels-btn i {
-            font-size: 11px;
-            transition: transform 0.4s ease;
-        }
-
-        .shuffle-reels-btn:hover i {
-            transform: rotate(180deg);
-        }
-
-        .vertical-reels-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        @media (max-width: 575px) {
-            .vertical-reels-row {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .v-reel-card {
-            position: relative;
-            aspect-ratio: 9/16;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-            background: #000;
-            transition: transform 0.2s ease, box-shadow 0.2s;
-        }
-
-        .v-reel-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-        }
-
-        .v-reel-thumbnail {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .v-reel-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .v-reel-card:hover .v-reel-thumbnail img {
-            transform: scale(1.04);
-        }
-
-        /* YouTube play button overlays */
-        .yt-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 3;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease;
-        }
-
-        .yt-play-btn svg {
-            width: 44px;
-            height: 30px;
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
-        }
-
-        .v-reel-card:hover .yt-play-btn,
-        .l-video-card:hover .yt-play-btn {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        /* Semi-transparent caption at bottom of vertical reels */
-        .v-reel-label {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border-radius: 4px;
-            padding: 6px 4px;
-            text-align: center;
-            z-index: 4;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .v-reel-label span {
-            display: block;
-            font-size: 9.5px;
-            font-weight: 800;
-            color: #000;
-            line-height: 1.25;
-            text-align: center;
-        }
-
-        /* Premium watermark on top-right of vertical reels */
-        .v-reel-watermark {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            z-index: 4;
-            pointer-events: none;
-            opacity: 0.85;
-            transition: opacity 0.2s ease;
-        }
-
-        .v-reel-card:hover .v-reel-watermark {
-            opacity: 1;
-        }
-
-        /* Landscape explore videos */
-        .landscape-videos-scroll {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            scrollbar-width: thin;
-        }
-
-        .landscape-videos-scroll::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .landscape-videos-scroll::-webkit-scrollbar-track {
-            background: #f0f0f0;
-            border-radius: 4px;
-        }
-
-        .landscape-videos-scroll::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 4px;
-        }
-
-        .landscape-videos-scroll::-webkit-scrollbar-thumb:hover {
-            background: #999;
-        }
-
-        .l-video-card {
-            flex: 0 0 240px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            transition: transform 0.2s ease;
-        }
-
-        .l-video-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .l-video-thumbnail {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .l-video-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .l-video-card:hover .l-video-thumbnail img {
-            transform: scale(1.04);
-        }
-
-        .l-video-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .l-video-info h4 {
-            font-size: 12px;
-            font-weight: 700;
-            color: #222;
-            margin: 0;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .l-video-info p {
-            font-size: 11px;
-            color: #666;
-            margin: 0;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* --- Reels Modal Styling --- */
-        .reels-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 20px;
-        }
-
-        .reels-modal-backdrop {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 15, 30, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .reels-modal-content {
-            position: relative;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 800px;
-            overflow: hidden;
-            z-index: 10;
-            transform: scale(0.9);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        .reels-modal.active {
-            display: flex;
-        }
-
-        .reels-modal.active .reels-modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .reels-modal-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            z-index: 15;
-            font-size: 16px;
-        }
-
-        .reels-modal-close:hover {
-            background: #fff;
-            color: #000;
-            transform: rotate(90deg);
-        }
-
-        .reels-modal-body {
-            display: flex;
-            height: 560px;
-        }
-
-        @media (max-width: 767px) {
-            .reels-modal-body {
-                flex-direction: column;
-                height: auto;
-                max-height: 85vh;
-                overflow-y: auto;
-            }
-        }
-
-        .reels-video-container {
-            flex: 1.1;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            position: relative;
-        }
-
-        @media (max-width: 767px) {
-            .reels-video-container {
-                height: 350px;
-                flex: none;
-            }
-        }
-
-        .reels-video-container iframe,
-        .reels-video-container video {
-            width: 100%;
-            height: 100%;
-            max-width: 315px;
-            aspect-ratio: 9/16;
-            background: #000;
-            border: none;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            border-radius: 12px;
-        }
-
-        .reels-video-info {
-            flex: 0.9;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.95);
-            color: #1a1a2e;
-        }
-
-        @media (max-width: 767px) {
-            .reels-video-info {
-                padding: 20px;
-                flex: none;
-            }
-        }
-
-        .reels-video-info h3 {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 12px;
-        }
-
-        .reels-video-info p {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .reels-modal-cta {
-            margin-top: auto;
-        }
-
-        .reels-modal-cta .ft-btn-primary {
-            display: inline-block;
-            background: #24b25a;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.2s;
-            border: none;
-            text-transform: capitalize;
-            box-shadow: 0 4px 15px rgba(36, 178, 90, 0.3);
-        }
-
-        .reels-modal-cta .ft-btn-primary:hover {
-            background: #1b8b44;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(36, 178, 90, 0.4);
-            color: #fff;
-        }
-
-        /* ── Creative About Us Section Styling ── */
-        .ft-about-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(240, 235, 230, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .ft-about-card:hover {
-            box-shadow: 0 16px 56px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Left Column: Video Card Cover */
-        .about-video-card {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 16/10;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .about-video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 36px rgba(36, 178, 90, 0.2);
-        }
-
-        .about-video-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .about-video-card:hover .about-video-img {
-            transform: scale(1.04);
-        }
-
-        .about-video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        /* Pulsing green play button */
-        .about-play-btn {
-            width: 64px;
-            height: 64px;
-            background: #24b25a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 28px;
-            box-shadow: 0 4px 20px rgba(36, 178, 90, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 3;
-            padding-left: 3px;
-            /* visual center for play icon */
-        }
-
-        /* Ripple pulse animation */
-        .about-play-btn::before,
-        .about-play-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: rgba(36, 178, 90, 0.4);
-            z-index: -1;
-            animation: aboutPulse 2s infinite;
-        }
-
-        .about-play-btn::after {
-            animation-delay: 1s;
-        }
-
-        @keyframes aboutPulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1.6);
-                opacity: 0;
-            }
-        }
-
-        .about-video-card:hover .about-play-btn {
-            background: #fff;
-            color: #24b25a;
-            transform: scale(1.08);
-            box-shadow: 0 6px 24px rgba(255, 255, 255, 0.6);
-        }
-
-        .about-video-badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: rgba(255, 255, 255, 0.95);
-            color: #24b25a;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        /* Middle Column: Narrative */
-        .about-narrative {
-            padding-right: 15px;
-        }
-
-        .about-title-label {
-            font-size: 11px;
-            font-weight: 800;
-            color: #24b25a;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            display: inline-block;
-            position: relative;
-        }
-
-        .about-quote {
-            font-family: Georgia, serif;
-            font-style: italic;
-            font-size: 18px;
-            color: #333;
-            line-height: 1.45;
-            margin: 0 0 16px 0;
-            position: relative;
-            padding-bottom: 12px;
-            border: none;
-        }
-
-        .quote-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2.5px;
-            background: #24b25a;
-            border-radius: 2px;
-        }
-
-        .about-p {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        /* Expanded text slide animation */
-        .about-extended-text {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: translateY(-8px);
-        }
-
-        .about-extended-text.active {
-            max-height: 500px;
-            opacity: 1;
-            transform: translateY(0);
-            margin-top: 12px;
-            margin-bottom: 12px;
-        }
-
-        .about-readmore-btn {
-            background: none;
-            border: none;
-            color: #24b25a;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.2s ease;
-        }
-
-        .about-readmore-btn:hover {
-            color: #0a93c0;
-        }
-
-        .about-readmore-btn i {
-            font-size: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Right Column: Statistics Grid */
-        .about-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        .stat-card {
-            background: #fdfcfb;
-            border: 1px solid rgba(230, 225, 220, 0.4);
-            border-radius: 12px;
-            padding: 20px 16px;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-            background: #fff;
-            border-color: rgba(36, 178, 90, 0.2);
-        }
-
-        .stat-icon-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover .stat-icon-wrap {
-            transform: scale(1.1);
-        }
-
-        /* Stat Colors matching the image but styled premium */
-        .bg-heart-light {
-            background: rgba(255, 75, 110, 0.1);
-            color: #ff4b6e;
-        }
-
-        .bg-people-light {
-            background: rgba(255, 107, 107, 0.1);
-            color: #ff6b6b;
-        }
-
-        .bg-award-light {
-            background: rgba(10, 147, 192, 0.1);
-            color: #0a93c0;
-        }
-
-        .bg-geo-light {
-            background: rgba(36, 178, 90, 0.1);
-            color: #24b25a;
-        }
-
-        .stat-number {
-            font-size: 20px;
-            font-weight: 800;
-            color: #333;
-            margin: 0 0 4px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .stat-label {
-            font-size: 10px;
-            font-weight: 700;
-            color: #777;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 0;
-        }
-
-        @media (max-width: 991px) {
-            .about-narrative {
-                padding-right: 0;
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-
-            .about-quote {
-                font-size: 16px;
-            }
-
-            .quote-bar {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .about-readmore-btn {
-                margin: 0 auto;
-            }
-        }
-
-        /* =============================================
-           COMPACT MICE TOURISM SIDEBAR CARD
-        ============================================= */
-        .ft-mice-card {
-            background: #0a93c0;
-            border: none;
-            border-radius: 16px;
-            padding: 16px 14px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.25s ease;
-        }
-
-        .ft-mice-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .ft-mice-header {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            padding-bottom: 8px;
-        }
-
-        .ft-mice-header .mice-top-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .mice-big-logo {
-            display: inline-flex;
-            gap: 4px;
-            font-family: 'Montserrat', sans-serif !important;
-            user-select: none;
-            padding-bottom: 2px;
-        }
-
-        .mice-big-logo span {
-            font-size: 46px;
-            font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -2px;
-            font-family: 'Montserrat', sans-serif !important;
-            text-transform: uppercase;
-        }
-
-        .mice-big-logo .logo-solid-white {
-            color: #fff !important;
-            text-shadow: none !important;
-            -webkit-text-stroke: none !important;
-        }
-
-        .mice-big-logo .logo-outline-white {
-            color: transparent !important;
-            -webkit-text-stroke: 2px #fff !important;
-            text-shadow: none !important;
-        }
-
-        .mice-sub-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.95);
-            margin: 0;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-family: 'Montserrat', sans-serif !important;
-        }
-
-        .ft-mice-tag {
-            font-size: 9px;
-            font-weight: 800;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 3px 10px;
-            border-radius: 6px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .ft-mice-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .ft-mice-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
-            padding: 6px 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .ft-mice-item:hover {
-            background: #fff;
-            border-color: #fff;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-        }
-
-        .ft-mice-item:hover span {
-            color: #0a93c0 !important;
-        }
-
-        .ft-mice-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            transition: all 0.2s ease;
-        }
-
-        .ft-mice-item:hover .ft-mice-icon {
-            background: rgba(10, 147, 192, 0.1) !important;
-            color: #0a93c0 !important;
-        }
-
-        .ft-mice-item span {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #fff;
-            transition: color 0.2s ease;
-        }
-    </style>
+    <link href="assets/css/home-style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -2974,90 +34,434 @@
     <div class="ft-topbar">
         <div class="container-xl">
             <div class="ft-topbar-wrap">
-                <div class="ft-topbar-left">
-                    <a href="tel:+912261234567"><i class="bi bi-telephone-fill"></i> +91 22 6123 4567</a>
-                    <a href="mailto:info@greentours.in"><i class="bi bi-envelope-fill"></i> info@greentours.in</a>
-                    <span class="d-none d-md-flex"><i class="bi bi-clock-fill"></i> Mon–Sat: 9 AM – 7 PM</span>
+                <div class="ft-topbar-inquiry">
+                    <i class="bi bi-telephone-fill"></i>
+                    <span>For inquiry: <strong>+91 98250 81806</strong></span>
                 </div>
-                <div class="ft-topbar-right">
-                    <div class="social-links">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-youtube"></i></a>
+                <div class="ft-topbar-actions">
+                    <div class="ft-country-switcher">
+                        <div class="ft-country-btn active" data-country="IND">
+                            <svg class="flag-icon" viewBox="0 0 3 2" width="16" height="11">
+                                <rect width="3" height="2" fill="#128807"/>
+                                <rect width="3" height="1.333" fill="#fff"/>
+                                <rect width="3" height="0.667" fill="#F93"/>
+                                <circle cx="1.5" cy="1" r="0.2" fill="none" stroke="#000080" stroke-width="0.03"/>
+                            </svg>
+                            <span>IND</span>
+                        </div>
+                        <div class="ft-country-btn" data-country="USA">
+                            <svg class="flag-icon" viewBox="0 0 741 390" width="16" height="11">
+                                <rect width="741" height="390" fill="#b22234"/>
+                                <path d="M0 30h741M0 90h741M0 150h741M0 210h741M0 270h741M0 330h741" stroke="#fff" stroke-width="30"/>
+                                <rect width="296" height="210" fill="#3c3b6e"/>
+                            </svg>
+                            <span>USA</span>
+                        </div>
+                    </div>
+                    <button class="ft-top-inquiry-btn">Send Inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- ========================================
+     HEADER  (Vertical Stack Icon Navigation)
+======================================== -->
+    <!-- ========================================
+     HEADER  (Double Header: Top Header + Bottom Navbar)
+======================================== -->
+    <header class="ft-header-double">
+        <!-- TOP HEADER: Logo & Search Bar -->
+        <div class="ft-header-top">
+            <div class="container-xl">
+                <div class="ft-header-top-wrap">
+                    <!-- Logo -->
+                    <a href="home.html" class="ft-logo">
+                        <img src="assets/img/logo.png" alt="Green Tours Logo">
+                    </a>
+
+                    <!-- Integrated Header Search Bar -->
+                    <div class="ft-header-search">
+                        <div class="ft-search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" placeholder="Search City, Country, Tours...">
+                        </div>
                     </div>
 
-                    <button class="ft-send-enquiry d-none d-md-inline-block">Send Inquiry</button>
+                    <!-- Header Action Buttons (Login/Profile) -->
+                    <div class="ft-header-actions">
+                        <a href="#" class="ft-header-action-item wishlist-btn" title="Wishlist">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        <a href="#" class="ft-header-action-item login-btn">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Login / Sign Up</span>
+                        </a>
+                    </div>
+
+                    <!-- Mobile Hamburger Menu Button -->
+                    <button class="ft-mobile-btn">
+                        <i class="bi bi-list"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ========================================
-     HEADER  (icon + label nav)
-======================================== -->
-    <header class="ft-header">
-        <div class="container-xl">
-            <div class="ft-header-wrap">
-                <!-- Logo -->
-                <a href="home.html" class="ft-logo">
-                    <img src="assets/img/logo.png" alt="Green Tours Logo">
-                </a>
+        <!-- BOTTOM NAVBAR: Navigation List -->
+        <nav class="ft-navbar-bottom">
+            <div class="container-xl">
+                <div class="ft-navbar-bottom-wrap">
+                    <ul class="ft-nav ft-nav-list mb-0">
+                        <li class="ft-nav-li has-mega active">
+                            <span class="ft-nav-link">
+                                <i class="bi bi-briefcase ft-nav-icon"></i>
+                                <span class="ft-nav-text">Holiday Packages</span>
+                                <i class="bi bi-chevron-down ft-nav-arrow"></i>
+                            </span>
+                            <!-- Mega Menu -->
+                            <div class="ft-mega-menu">
+                                <div class="ft-mega-grid">
+                                    <!-- India Column (Spans 2 Grid Columns for 2-column layout) -->
+                                    <div class="ft-mega-col span-2">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-geo-alt"></i> India</h5>
+                                            <ul class="ft-mega-list multi-col">
+                                                <li><a href="#">Goa</a></li>
+                                                <li><a href="#">Kerala</a></li>
+                                                <li><a href="#">Bhutan</a></li>
+                                                <li><a href="#">Gujarat</a></li>
+                                                <li><a href="#">Leh</a></li>
+                                                <li><a href="#">Himachal</a></li>
+                                                <li><a href="#">Uttarakhand</a></li>
+                                                <li><a href="#">Rajasthan</a></li>
+                                                <li><a href="#">Nepal</a></li>
+                                                <li><a href="#">Sikkim</a></li>
+                                                <li><a href="#">Kashmir</a></li>
+                                                <li><a href="#">Andaman</a></li>
+                                                <li><a href="#">Maharashtra</a></li>
+                                                <li><a href="#">Karnataka & South India</a></li>
+                                                <li class="highlight"><a href="#">Golden Triangle <span class="badge-hot">Hot</span></a></li>
+                                                <li><a href="#">Madhya Pradesh</a></li>
+                                                <li><a href="#">Northeast</a></li>
+                                                <li><a href="#">Odisha</a></li>
+                                                <li><a href="#">Hyderabad</a></li>
+                                                <li><a href="#">North Kerala</a></li>
+                                                <li><a href="#">Uttar Pradesh</a></li>
+                                                <li><a href="#">Lakshadweep Island</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
+                                    <!-- Asia Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-globe"></i> Asia</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Vietnam</a></li>
+                                                <li><a href="#">China</a></li>
+                                                <li><a href="#">Hong Kong</a></li>
+                                                <li><a href="#">Japan</a></li>
+                                                <li><a href="#">Macau</a></li>
+                                                <li><a href="#">Philippines</a></li>
+                                                <li><a href="#">Bali</a></li>
+                                                <li><a href="#">South Korea</a></li>
+                                                <li class="highlight"><a href="#">Singapore Malaysia <span class="badge-popular">Popular</span></a></li>
+                                                <li class="highlight"><a href="#">Singapore Bali</a></li>
+                                                <li><a href="#">Maldives</a></li>
+                                                <li><a href="#">Sri Lanka</a></li>
+                                                <li><a href="#">Singapore</a></li>
+                                                <li><a href="#">Malaysia</a></li>
+                                                <li><a href="#">Thailand</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
+                                    <!-- Central Europe Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-compass"></i> Central Europe</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Finland</a></li>
+                                                <li><a href="#">France</a></li>
+                                                <li><a href="#">Germany</a></li>
+                                                <li><a href="#">Iceland</a></li>
+                                                <li><a href="#">Italy</a></li>
+                                                <li><a href="#">Norway</a></li>
+                                                <li><a href="#">Portugal</a></li>
+                                                <li><a href="#">Spain</a></li>
+                                                <li><a href="#">Switzerland</a></li>
+                                                <li><a href="#">UK - Scotland</a></li>
+                                                <li><a href="#">Netherlands</a></li>
+                                                <li class="highlight"><a href="#">Switzerland - Paris <span class="badge-bestseller">Best Seller</span></a></li>
+                                                <li><a href="#">All Of Europe</a></li>
+                                                <li><a href="#">Austria</a></li>
+                                                <li><a href="#">Ireland</a></li>
+                                                <li><a href="#">Scandinavia</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                <!-- Right nav items -->
-                <div class="ft-header-right">
+                                    <!-- East Europe Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-castle"></i> East Europe</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Baltic</a></li>
+                                                <li><a href="#">Croatia</a></li>
+                                                <li><a href="#">Czech Republic</a></li>
+                                                <li><a href="#">Greece</a></li>
+                                                <li><a href="#">Hungary</a></li>
+                                                <li><a href="#">Poland</a></li>
+                                                <li><a href="#">Russia</a></li>
+                                                <li><a href="#">Turkey</a></li>
+                                                <li class="highlight"><a href="#">Greece - Turkey</a></li>
+                                                <li><a href="#">All of East Europe</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                    <!-- Icon Navigation -->
-                    <nav>
-                        <ul class="ft-nav mb-0">
-                            <li class="ft-nav-item active">
-                                <i class="bi bi-house"></i>
-                                <span class="nav-label">Home</span>
-                            </li>
-                            <li class="ft-nav-item">
-                                <i class="fas fa-suitcase-rolling"></i>
-                                <span class="nav-label">Holiday Packages</span>
+                                    <!-- Africa Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-tree"></i> Africa</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Botswana</a></li>
+                                                <li><a href="#">Egypt</a></li>
+                                                <li><a href="#">Mauritius</a></li>
+                                                <li><a href="#">Seychelles</a></li>
+                                                <li><a href="#">Zambia</a></li>
+                                                <li><a href="#">Zimbabwe</a></li>
+                                                <li><a href="#">South Africa</a></li>
+                                                <li><a href="#">Kenya</a></li>
+                                                <li><a href="#">Tanzania</a></li>
+                                                <li><a href="#">Uganda</a></li>
+                                                <li><a href="#">Morocco</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                            </li>
-                            <li class="ft-nav-item">
-                                <i class="bi bi-compass"></i>
-                                <span class="nav-label">Theme Tours</span>
+                                    <!-- Middle East Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-sunset"></i> Middle East</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Baku - Azerbaijan</a></li>
+                                                <li><a href="#">Israel - Jordan</a></li>
+                                                <li><a href="#">Oman Muscat</a></li>
+                                                <li><a href="#">UAE - Dubai</a></li>
+                                                <li><a href="#">Georgia</a></li>
+                                                <li><a href="#">Armenia</a></li>
+                                                <li><a href="#">Uzbekistan</a></li>
+                                                <li><a href="#">Kazakhstan</a></li>
+                                                <li><a href="#">Saudi Arabia</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                            </li>
-                            <li class="ft-nav-item">
-                                <i class="fas fa-plane-departure"></i>
-                                <span class="nav-label">Flights</span>
-                            </li>
-                            <li class="ft-nav-item">
-                                <i class="fas fa-passport"></i>
-                                <span class="nav-label">Visas</span>
-                            </li>
-                            <li class="ft-nav-item">
-                                <i class="bi bi-journal-text"></i>
-                                <span class="nav-label">Blogs</span>
-                            </li>
-                        </ul>
-                    </nav>
+                                    <!-- America & Oceania Column -->
+                                    <div class="ft-mega-col">
+                                        <div class="ft-mega-section">
+                                            <h5 class="ft-mega-title"><i class="bi bi-map"></i> America</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Central America</a></li>
+                                                <li><a href="#">USA - United States</a></li>
+                                                <li><a href="#">Canada</a></li>
+                                                <li><a href="#">Alaska</a></li>
+                                                <li><a href="#">South America</a></li>
+                                                <li><a href="#">Mexico</a></li>
+                                                <li><a href="#">Hawaii</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="ft-mega-section" style="margin-top: 12px;">
+                                            <h5 class="ft-mega-title"><i class="bi bi-geo"></i> Oceania</h5>
+                                            <ul class="ft-mega-list">
+                                                <li><a href="#">Australia</a></li>
+                                                <li><a href="#">New Zealand</a></li>
+                                                <li><a href="#">Fiji & Bora Bora</a></li>
+                                                <li class="highlight"><a href="#">Australia - New Zealand</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Spotlight Column -->
+                                    <div class="ft-mega-col ft-mega-spotlight-col">
+                                        <h5 class="ft-mega-title"><i class="bi bi-fire text-danger"></i> Featured Deals</h5>
+                                        <div class="ft-mega-spotlight-stack">
+                                            <div class="ft-mega-spotlight-card">
+                                                <span class="spotlight-badge bg-emerald">Best Seller</span>
+                                                <img src="assets/img/home1/package-card-img1.png" alt="Switzerland">
+                                                <div class="spotlight-content">
+                                                    <h4>Switzerland Jewel</h4>
+                                                    <div class="spotlight-meta">
+                                                        <span class="days"><i class="bi bi-clock"></i> 8N/9D</span>
+                                                        <span class="rating"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                                                    </div>
+                                                    <div class="spotlight-action">
+                                                        <span class="spotlight-price">₹1,25,000</span>
+                                                        <a href="#" class="spotlight-btn">View <i class="bi bi-arrow-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ft-mega-spotlight-card">
+                                                <span class="spotlight-badge bg-rose">Trending</span>
+                                                <img src="assets/img/home1/package-card-img2.png" alt="Bali">
+                                                <div class="spotlight-content">
+                                                    <h4>Bali Escapes</h4>
+                                                    <div class="spotlight-meta">
+                                                        <span class="days"><i class="bi bi-clock"></i> 5N/6D</span>
+                                                        <span class="rating"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                                                    </div>
+                                                    <div class="spotlight-action">
+                                                        <span class="spotlight-price">₹35,000</span>
+                                                        <a href="#" class="spotlight-btn">View <i class="bi bi-arrow-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="ft-nav-li has-dropdown">
+                            <span class="ft-nav-link">
+                                <i class="bi bi-umbrella ft-nav-icon"></i>
+                                <span class="ft-nav-text">Theme Tours</span>
+                                <i class="bi bi-chevron-down ft-nav-arrow"></i>
+                            </span>
+                            <ul class="ft-dropdown-menu tour-themed-dropdown">
+                                <li class="tour-dropdown-item type-spiritual">
+                                    <a href="#">
+                                        <i class="bi bi-brightness-high"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Chardham Yatra</span>
+                                            <span class="item-desc">Spiritual Pilgrimage</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-spiritual">Spiritual</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-bestseller">
+                                    <a href="#">
+                                        <i class="bi bi-star-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Super Seller Packages</span>
+                                            <span class="item-desc">Top Rated Vacations</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-bestseller-blue">Bestseller</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-summer">
+                                    <a href="#">
+                                        <i class="bi bi-sun-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Summer Special Tours</span>
+                                            <span class="item-desc">Beat the heat</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-summer">Summer</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-honeymoon">
+                                    <a href="#">
+                                        <i class="bi bi-heart-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Honeymoon Specials</span>
+                                            <span class="item-desc">Romantic Getaways</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-honeymoon">Romantic</span>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-family">
+                                    <a href="#">
+                                        <i class="bi bi-people-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Family Group Tours</span>
+                                            <span class="item-desc">Fun together</span>
+                                        </div>
+                                        <span class="dropdown-tour-badge badge-family">Family</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-airplane ft-nav-icon"></i>
+                                <span class="ft-nav-text">Flights</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-file-earmark-person ft-nav-icon"></i>
+                                <span class="ft-nav-text">Visas</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-journal-text ft-nav-icon"></i>
+                                <span class="ft-nav-text">Blogs</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li has-dropdown">
+                            <span class="ft-nav-link">
+                                <i class="bi bi-map ft-nav-icon"></i>
+                                <span class="ft-nav-text">Travel Guide</span>
+                                <i class="bi bi-chevron-down ft-nav-arrow"></i>
+                            </span>
+                            <ul class="ft-dropdown-menu tour-themed-dropdown">
+                                <li class="tour-dropdown-item type-guide-a">
+                                    <a href="#">
+                                        <i class="bi bi-alphabet-uppercase"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Destinations A-Z</span>
+                                            <span class="item-desc">Full travel registry</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-guide-tips">
+                                    <a href="#">
+                                        <i class="bi bi-chat-text"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Travel Tips &amp; FAQ</span>
+                                            <span class="item-desc">Crucial trip advice</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-guide-luggage">
+                                    <a href="#">
+                                        <i class="bi bi-briefcase-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Luggage Checklist</span>
+                                            <span class="item-desc">Don't forget anything</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="tour-dropdown-item type-guide-visa">
+                                    <a href="#">
+                                        <i class="bi bi-file-earmark-lock-fill"></i> 
+                                        <div class="dropdown-item-details">
+                                            <span class="item-title">Visa Requirements Guide</span>
+                                            <span class="item-desc">Border policies</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-person ft-nav-icon"></i>
+                                <span class="ft-nav-text">My Booking</span>
+                            </a>
+                        </li>
+                        <li class="ft-nav-li">
+                            <a href="#" class="ft-nav-link">
+                                <i class="bi bi-grid-3x3-gap ft-nav-icon"></i>
+                                <span class="ft-nav-text">More</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div><!-- /container-xl -->
+        </nav>
+            </div>
+        </div>
     </header>
-
-    <!-- ========================================
-     SEARCH BAR
-======================================== -->
-    <div class="ft-search-bar" data-aos="fade-up">
-        <div class="container-xl">
-            <div class="ft-search-inner">
-                <div class="ft-search-box">
-                    <i class="bi bi-search"></i>
-                    <input type="text" placeholder="Where would you like to go? Type City, Country, Theme, Tours...">
-                </div>
-                <button class="ft-search-btn"><i class="bi bi-search"></i> Search</button>
-            </div>
-        </div>
-    </div>
 
     <!-- ========================================
      MAIN 2-COLUMN LAYOUT
@@ -3175,79 +579,79 @@
                         <div class="ft-card-section" data-aos="fade-up">
                             <div class="ft-section-header">
                                 <h2>Explore Tour Packages by Theme</h2>
-                                <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                                <a href="packages.html">View All <i class="bi bi-arrow-right"></i></a>
                             </div>
                             <div class="ft-theme-scroll-wrap">
                                 <button class="ft-theme-arrow" id="themePrev"><i
                                         class="bi bi-chevron-left"></i></button>
                                 <div class="ft-theme-scroll" id="themeScrollEl">
-                                    <div class="ft-theme-card">
+                                    <a href="packages.html?theme=spiritual" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/chardham-theme.jpg"
                                                 alt="Chardham">
                                         </div>
                                         <p>Chardham Tours</p><span>3+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=bestseller" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/trending-scandinavia.jpg"
                                                 alt="Super Seller">
                                         </div>
                                         <p>Super Seller Packages</p><span>21+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=summer" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/summer-tours.jpg"
                                                 alt="Summer">
                                         </div>
                                         <p>Summer 2026 Tour</p><span>62+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=honeymoon" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/honeymoo-tours.jpg"
                                                 alt="Honeymoon">
                                         </div>
                                         <p>Honeymoon</p><span>59+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=family" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/chef-cooking.jpg"
                                                 alt="Maharaj">
                                         </div>
                                         <p>Maharaj Tour</p><span>5+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=all" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/short-breaks-tours.jpg"
                                                 alt="Short Breaks">
                                         </div>
                                         <p>Short Breaks</p><span>7+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=exotic" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="assets/img/home1/destination-card-img9.jpg" alt="Exotic">
                                         </div>
                                         <p>Exotic Tours</p><span>13+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=exotic" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/self-drive-001.jpg"
                                                 alt="Self Drive">
                                         </div>
                                         <p>Self Drive</p><span>6+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=family" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="assets/img/home1/destination-card-img7.jpg" alt="Group Tours">
                                         </div>
                                         <p>Group Tours</p><span>14+ Tours</span>
-                                    </div>
-                                    <div class="ft-theme-card">
+                                    </a>
+                                    <a href="packages.html?theme=bestseller" class="ft-theme-card" style="display: block; color: inherit;">
                                         <div class="ft-theme-img">
                                             <img src="assets/img/home1/destination-card-img9.jpg" alt="Fixed Departure">
                                         </div>
                                         <p>Fixed Departure</p><span>18+ Tours</span>
-                                    </div>
+                                    </a>
                                 </div>
                                 <button class="ft-theme-arrow" id="themeNext"><i
                                         class="bi bi-chevron-right"></i></button>
@@ -3258,7 +662,7 @@
                         <div class="ft-card-section" data-aos="fade-up">
                             <div class="ft-section-header">
                                 <h2>Travel Offers by Green Tours</h2>
-                                <a href="#">View All <i class="bi bi-arrow-right"></i></a>
+                                <a href="packages.html?theme=all" id="offersViewAll">View All <i class="bi bi-arrow-right"></i></a>
                             </div>
 
                             <!-- Tabs: Tour Packages | Hotels -->
@@ -4551,12 +1955,61 @@
             btn.classList.add('active');
             document.getElementById('toursRow').style.display = type === 'tours' ? 'block' : 'none';
             document.getElementById('hotelsRow').style.display = type === 'hotels' ? 'block' : 'none';
+            
+            // Update View All link href dynamically
+            const viewAllBtn = document.getElementById('offersViewAll');
+            if (viewAllBtn) {
+                viewAllBtn.href = type === 'tours' ? 'packages.html?theme=all' : 'hotels.html';
+            }
         }
+
+        // Dynamic Redirection Click Handlers
+        $(document).ready(function() {
+            // Click handler for Travel Offers (Tours)
+            $(document).on('click', '#toursRow .ft-pkg-card, #toursRow .ft-view-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = $(this).closest('.ft-pkg-card');
+                const title = card.find('.ft-pkg-card-title').text().trim();
+                let searchWord = '';
+                if (title.includes('Switzerland')) searchWord = 'Switzerland';
+                else if (title.includes('Bali')) searchWord = 'Bali';
+                else if (title.includes('Maldives')) searchWord = 'Maldives';
+                else if (title.includes('Chardham')) searchWord = 'Chardham';
+                else if (title.includes('Dubai')) searchWord = 'Dubai';
+                else if (title.includes('Scandinavia')) searchWord = 'Scandinavia';
+                else searchWord = title.split(' ')[0]; // fallback to first word
+                
+                window.location.href = `packages.html?search=${encodeURIComponent(searchWord)}`;
+            });
+
+            // Click handler for Travel Offers (Hotels)
+            $(document).on('click', '#hotelsRow .ft-pkg-card, #hotelsRow .ft-view-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = $(this).closest('.ft-pkg-card');
+                const title = card.find('.ft-pkg-card-title').text().trim();
+                let searchWord = '';
+                if (title.includes('Zurich') || title.includes('Grand Palace')) searchWord = 'Zurich';
+                else if (title.includes('Bali')) searchWord = 'Bali';
+                else searchWord = title.split(' ')[0]; // fallback
+                
+                window.location.href = `hotels.html?search=${encodeURIComponent(searchWord)}`;
+            });
+
+            // Click handler for Easy Visa Destinations
+            $(document).on('click', '.visa-card', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const destination = $(this).find('.visa-card-name').text().trim();
+                window.location.href = `packages.html?search=${encodeURIComponent(destination)}`;
+            });
+        });
 
         // Sticky header shadow
         window.addEventListener('scroll', () => {
-            document.querySelector('.ft-header').style.boxShadow =
-                window.scrollY > 40 ? '0 4px 18px rgba(0,0,0,.14)' : '0 2px 8px rgba(0,0,0,.07)';
+            document.querySelector('.ft-header-double').style.boxShadow =
+                window.scrollY > 40 ? '0 8px 30px rgba(0,0,0,0.06)' : 'none';
         });
 
         // Mobile nav toggle
@@ -4568,11 +2021,29 @@
             } else {
                 Object.assign(nav.style, {
                     display: 'flex', flexDirection: 'column',
-                    position: 'fixed', top: '62px', left: '0', right: '0',
+                    position: 'fixed', top: '110px', left: '0', right: '0',
                     background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,.15)',
                     padding: '10px 0', zIndex: '998', height: 'auto',
-                    overflowY: 'auto', maxHeight: 'calc(100vh - 62px)'
+                    overflowY: 'auto', maxHeight: 'calc(100vh - 110px)'
                 });
+            }
+        });
+
+        // Country selection switcher active state toggle
+        document.querySelectorAll('.ft-country-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.ft-country-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Mobile mega menu and dropdown toggle
+        $(document).on('click', '.ft-nav-li.has-mega > .ft-nav-link, .ft-nav-li.has-dropdown > .ft-nav-link', function(e) {
+            if ($(window).width() <= 900) {
+                e.preventDefault();
+                const parent = $(this).parent();
+                parent.toggleClass('active-mobile');
+                parent.find('.ft-mega-menu, .ft-dropdown-menu').first().slideToggle(200);
             }
         });
 
