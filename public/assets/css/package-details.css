@@ -1,0 +1,821 @@
+/* ==========================================================================
+   PACKAGE DETAILS CSS - MODERN, MINIMALIST, HIGH-END TRAVEL UX
+   ========================================================================== */
+
+/* Main Wrapper */
+.details-wrapper {
+    padding: 30px 0 60px 0;
+    background: #f8fafc; /* Cool slate background */
+    font-family: 'Poppins', sans-serif;
+    color: #334155;
+}
+
+/* Breadcrumbs */
+.details-breadcrumb {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.details-breadcrumb a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.details-breadcrumb a:hover {
+    color: #24b25a;
+}
+
+.details-breadcrumb .active {
+    color: #0f172a;
+    font-weight: 500;
+}
+
+/* Header & Meta Section */
+.details-header-section {
+    margin-bottom: 28px;
+}
+
+.details-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.details-title-col {
+    flex: 1;
+    min-width: 300px;
+}
+
+.details-title-col h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #0f172a;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.details-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+    color: #64748b;
+}
+
+.details-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.details-meta-item i {
+    font-size: 16px;
+    color: #24b25a;
+}
+
+.details-price-tag {
+    background: #f0fdf4;
+    color: #16a34a;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Actions in Header */
+.details-header-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.header-action-btn {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.header-action-btn:hover {
+    border-color: #24b25a;
+    color: #24b25a;
+    background: rgba(36, 178, 90, 0.02);
+}
+
+.header-action-btn i {
+    font-size: 15px;
+}
+
+/* Main Gallery Grid */
+.gallery-container {
+    margin-bottom: 30px;
+}
+
+.gallery-main-frame {
+    width: 100%;
+    height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+}
+
+.gallery-main-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.gallery-nav-arrow:hover {
+    background: #ffffff;
+    color: #24b25a;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-nav-prev {
+    left: 20px;
+}
+
+.gallery-nav-next {
+    right: 20px;
+}
+
+.gallery-thumbs-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.gallery-thumb-item {
+    height: 90px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.gallery-thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s ease;
+}
+
+.gallery-thumb-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(36, 178, 90, 0.5);
+}
+
+.gallery-thumb-item.active {
+    border-color: #24b25a;
+}
+
+.gallery-thumb-item.active img {
+    opacity: 0.85;
+}
+
+/* Tour Quick Info Bar */
+.tour-quick-info-bar {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+}
+
+.quick-info-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-right: 15px;
+    border-right: 1px solid #f1f5f9;
+}
+
+.quick-info-item:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.quick-info-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #f0fdf4;
+    color: #24b25a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.quick-info-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.quick-info-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.quick-info-val {
+    font-size: 13.5px;
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* 2-Column Details Layout */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 30px;
+}
+
+/* Content Sections */
+.details-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.details-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.02);
+}
+
+.details-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 16px 0;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.details-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #24b25a;
+    border-radius: 2px;
+}
+
+/* About Section */
+.about-tour-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #475569;
+    margin: 0;
+}
+
+/* Trip Highlights */
+.highlights-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.highlights-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.45;
+}
+
+.highlights-list li i {
+    font-size: 16px;
+    color: #16a34a; /* Safe Green */
+    margin-top: 2px;
+}
+
+/* Amenities Grid */
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.amenity-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+    font-size: 12.5px;
+    color: #475569;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.amenity-item:hover {
+    transform: translateY(-1.5px);
+    background: #ffffff;
+    border-color: #24b25a;
+    color: #0f172a;
+    box-shadow: 0 4px 10px rgba(36,178,90,0.04);
+}
+
+.amenity-item i {
+    font-size: 15px;
+    color: #24b25a;
+}
+
+/* Tour Plan Accordion */
+.tour-plan-summary {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.tour-plan-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tour-plan-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.tour-plan-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: #ffffff;
+    user-select: none;
+    transition: background 0.15s ease;
+}
+
+.tour-plan-header:hover {
+    background: #fafafb;
+}
+
+.tour-plan-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.tour-plan-day {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #24b25a;
+    background: #f0fdf4;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.tour-plan-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.tour-plan-arrow {
+    font-size: 13px;
+    color: #64748b;
+    transition: transform 0.3s ease;
+}
+
+.tour-plan-item.active {
+    border-color: #24b25a;
+    box-shadow: 0 4px 12px rgba(36,178,90,0.03);
+}
+
+.tour-plan-item.active .tour-plan-header {
+    border-bottom: 1px solid #f0fdf4;
+}
+
+.tour-plan-item.active .tour-plan-arrow {
+    transform: rotate(180deg);
+    color: #24b25a;
+}
+
+.tour-plan-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #ffffff;
+}
+
+.tour-plan-body-inner {
+    padding: 18px 20px 20px 20px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #475569;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Map Card */
+.map-container-box {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    position: relative;
+}
+
+.map-container-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Sidebar Column */
+.details-sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.booking-sticky-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    position: sticky;
+    top: 130px; /* Offset for header height */
+    z-index: 100;
+}
+
+.booking-sticky-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 16px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.booking-form-group {
+    margin-bottom: 16px;
+}
+
+.booking-form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+}
+
+.booking-input-wrap {
+    position: relative;
+}
+
+.booking-input-wrap i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.booking-input-wrap input, 
+.booking-input-wrap select, 
+.booking-input-wrap textarea {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 8px 12px 8px 36px;
+    font-size: 13px;
+    color: #334155;
+    outline: none;
+    transition: all 0.2s ease;
+    background: #ffffff;
+}
+
+.booking-input-wrap textarea {
+    padding-left: 12px;
+    resize: none;
+}
+
+.booking-input-wrap input:focus, 
+.booking-input-wrap select:focus, 
+.booking-input-wrap textarea:focus {
+    border-color: #24b25a;
+    box-shadow: 0 0 0 3px rgba(36, 178, 90, 0.08);
+}
+
+/* Counter Selectors */
+.ticket-counters-box {
+    border: 1px solid #f1f5f9;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.ticket-counter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-label-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-label-side span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.ticket-label-side small {
+    font-size: 10px;
+    color: #94a3b8;
+}
+
+.ticket-counter-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-counter-mod {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.btn-counter-mod:hover {
+    border-color: #24b25a;
+    color: #24b25a;
+    background: #f0fdf4;
+}
+
+.counter-value-display {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0f172a;
+    min-width: 14px;
+    text-align: center;
+}
+
+/* Submit Inquiry Button */
+.btn-submit-inquiry {
+    width: 100%;
+    background: #24b25a;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(36, 178, 90, 0.15);
+}
+
+.btn-submit-inquiry:hover {
+    background: #1d9448;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(36, 178, 90, 0.25);
+}
+
+/* Popular Tours Section at Bottom */
+.popular-tours-section {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 50px;
+    margin-top: 40px;
+}
+
+.popular-tours-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.popular-tours-section p {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.popular-tours-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.popular-tour-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+}
+
+.popular-tour-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+    border-color: #cbd5e1;
+}
+
+.popular-card-img {
+    height: 140px;
+    overflow: hidden;
+    position: relative;
+}
+
+.popular-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.popular-card-content {
+    padding: 14px;
+}
+
+.popular-card-content h4 {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.35;
+    margin: 0 0 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 36px;
+}
+
+.popular-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #64748b;
+}
+
+.popular-card-price {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 13px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM
+   ========================================================================== */
+
+@media (max-width: 991px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .booking-sticky-card {
+        position: static;
+        margin-top: 10px;
+    }
+    
+    .popular-tours-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .details-title-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .details-header-actions {
+        margin-top: 10px;
+    }
+    
+    .gallery-main-frame {
+        height: 300px;
+    }
+    
+    .gallery-thumbs-row {
+        gap: 8px;
+    }
+    
+    .gallery-thumb-item {
+        height: 60px;
+    }
+    
+    .tour-quick-info-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .quick-info-item {
+        padding-right: 0;
+        border-right: none;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-main-frame {
+        height: 200px;
+    }
+    
+    .tour-quick-info-bar {
+        grid-template-columns: 1fr;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .popular-tours-grid {
+        grid-template-columns: 1fr;
+    }
+}

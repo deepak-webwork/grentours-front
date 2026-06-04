@@ -1,0 +1,918 @@
+export const tourPackages = [
+    {
+        id: 1,
+        title: "Best of Egypt Tour Package",
+        price: 180000,
+        rating: 4.8,
+        reviews: 29,
+        duration: 9, // days
+        cities: 9,
+        countries: 1,
+        datesCount: 2,
+        image: "/assets/img/home1/package-card-img1.png",
+        themes: ["family", "bestseller"],
+        departures: ["Mumbai", "New Delhi", "Ahmedabad", "Bengaluru"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Family"],
+        highlights: "Explore the ancient Roman Amphitheatre, Catacombs of Alexandria, Pompey's Pillar, Great Pyramids of Giza, Sphinx, and a beautiful Nile Cruise.",
+        location: "Cairo, Egypt",
+        durationText: "9 Days / 8 Nights",
+        tourType: "History & Cruise Tour",
+        groupSize: "15 People",
+        languages: "English, Arabic",
+        description: "Embark on a majestic journey through the land of the Pharaohs. From the bustling streets of Cairo to the ancient wonders of Alexandria and a luxurious cruise down the Nile, this tour offers a comprehensive look at Egypt's timeless heritage. Discover Pyramids, Sphinx, ancient temples, and beautiful coastal attractions.",
+        tripHighlights: [
+            "Guided tour of the Great Pyramids of Giza & the Sphinx",
+            "Luxurious 4-Night Nile Cruise with all meals included",
+            "Excursion to the legendary library city of Alexandria",
+            "Explore Valley of the Kings and Karnak Temple in Luxor"
+        ],
+        amenities: ["5-Star Nile Cruise", "4-Star Hotels", "Free Wifi", "Expert Guide", "All Transfers", "Entrance Fees", "Flight Tickets"],
+        tourPlan: [
+            { day: "Day 01", title: "Arrival in Cairo", desc: "Welcome to Egypt! Arrive at Cairo International Airport. Transfer to your premium hotel and rest." },
+            { day: "Day 02", title: "Pyramids & Sphinx Excursion", desc: "Visit the iconic Pyramids of Giza, the Sphinx, and the ancient capital of Memphis. In the evening, enjoy a sound & light show." },
+            { day: "Day 03", title: "Alexandria City Tour", desc: "Travel to Alexandria. Explore the Catacombs, Pompey's Pillar, and view the stunning Qaitbay Citadel overlooking the Mediterranean." },
+            { day: "Day 04", title: "Nile Cruise Embarkation", desc: "Fly to Aswan and board your 5-star Nile Cruise. Visit the High Dam and Philae Temple." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img1.png",
+            "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1503177119275-0aa32b31d468?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1572252009286-268acec5a0af?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 2,
+        title: "Seniors' Special Egypt Cruise & History",
+        price: 180000,
+        rating: 4.9,
+        reviews: 14,
+        duration: 9,
+        cities: 9,
+        countries: 1,
+        datesCount: 1,
+        image: "/assets/img/home1/package-card-img2.png",
+        themes: ["family", "bestseller"],
+        departures: ["Mumbai", "Kolkata", "Hyderabad", "Chennai"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing", "guide"],
+        badges: ["Group Tour", "Seniors' Special"],
+        highlights: "Expert tour manager all throughout the tour, slow-paced itinerary, all meals, Egypt Museum Cairo, and stunning historical site excursions.",
+        location: "Aswan, Egypt",
+        durationText: "9 Days / 8 Nights",
+        tourType: "Slow-Paced Seniors Special",
+        groupSize: "10 People",
+        languages: "English, Hindi, Bengali",
+        description: "A thoughtfully curated, leisurely-paced trip designed specifically for senior citizens. Enjoy senior-friendly transport, full medical assistance support on-call, customized Indian meals, and highly detailed guided visits to Egypt's historic landmarks. Includes an relaxing Nile river cruise.",
+        tripHighlights: [
+            "Comfortable slow-paced itinerary with ample rest time",
+            "Tour manager accompanying the group throughout the journey",
+            "Dedicated visits to Cairo Museum and Philae Temple",
+            "Delicious and customized hot Indian meals served daily"
+        ],
+        amenities: ["Comfort Hotels", "Medical Assistance", "Indian Meals", "Tour Manager", "Nile Cruise", "Slow Transfers"],
+        tourPlan: [
+            { day: "Day 01", title: "Cairo Welcome", desc: "Arrival at Cairo. Easy transfer to your hotel. Welcome dinner and orientation meetup." },
+            { day: "Day 02", title: "Leisure Museum Visit", desc: "Visit the Grand Egyptian Museum with dedicated wheelchair assistance and slow-paced guided commentary." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img2.png",
+            "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 3,
+        title: "Women's Special Egypt Getaway",
+        price: 195000,
+        rating: 4.7,
+        reviews: 8,
+        duration: 9,
+        cities: 9,
+        countries: 1,
+        datesCount: 3,
+        image: "/assets/img/home1/package-card-img3.png",
+        themes: ["family", "exotic"],
+        departures: ["New Delhi", "Mumbai", "Bengaluru"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Women's Special"],
+        highlights: "Cairo, Great Pyramids, Nile Cruise, Alexandria shopping, and special dinners. Safe group tour curated for solo women travelers.",
+        location: "Cairo & Nile, Egypt",
+        durationText: "9 Days / 8 Nights",
+        tourType: "Women's Group Tour",
+        groupSize: "12-15 Women",
+        languages: "English, Hindi",
+        description: "Travel in a safe, vibrant, and friendly all-women group. Discover the magic of Egypt together. Shop in Kahn El Khalili bazaar, relax on a Nile cruise, take beautiful photos at the pyramids, and enjoy exclusive gala dinners with traditional local dance performances.",
+        tripHighlights: [
+            "Safe, secure and fun all-women tour environment",
+            "Special shopping excursion in Cairo's famous bazaars",
+            "Professional female Egyptologist guide",
+            "Traditional dress photoshoot at the Pyramids of Giza"
+        ],
+        amenities: ["Safe Stays", "Female Tour Guide", "Shopping Excursions", "Bazaar Visits", "Gala Dinner", "All Flights Included"],
+        tourPlan: [
+            { day: "Day 01", title: "Cairo Arrival & Mixer", desc: "Check-in to your luxury Cairo hotel. Meet your fellow travelers at an evening ice-breaker mixer." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img3.png",
+            "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 4,
+        title: "Switzerland – Jewel of Europe Tour Package",
+        price: 125000,
+        rating: 4.9,
+        reviews: 56,
+        duration: 10,
+        cities: 4,
+        countries: 2,
+        datesCount: 5,
+        image: "/assets/img/home1/package-card-img4.png",
+        themes: ["summer", "bestseller", "family"],
+        departures: ["Mumbai", "New Delhi", "Bengaluru", "Ahmedabad", "Cochin"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Bestseller"],
+        highlights: "Zurich city tour, Mount Titlis excursion with Ice Flyer ride, scenic Lucerne, Interlaken, and premium panoramic alpine train journey.",
+        location: "Zurich, Switzerland",
+        durationText: "10 Days / 9 Nights",
+        tourType: "Scenic Tour",
+        groupSize: "12 People",
+        languages: "English, Hindi",
+        description: "Experience the ultimate Swiss adventure with our 10-day tour. From the snow-capped peaks of the Alps to the crystal clear lakes of Lucerne and Interlaken, this journey takes you through the most scenic landscapes of Switzerland. Enjoy scenic train rides, explore charming medieval villages, and indulge in world-class Swiss chocolate and cheese.",
+        tripHighlights: [
+            "Guided City Tours of Zurich, Lucerne, and Bern",
+            "Scenic Cogwheel Train Ride to Jungfraujoch - Top of Europe",
+            "Private Boat Cruise on Lake Brienz",
+            "Visit to the Famous Rhine Falls"
+        ],
+        amenities: ["4-Star Hotels", "Free Wifi", "Expert Guide", "Breakfast Included", "Entrance Fees", "Airport Transfers", "Luxury Coach", "Travel Insurance"],
+        tourPlan: [
+            { day: "Day 01", title: "Arrival in Zurich", desc: "Arrive in the picturesque city of Zurich. Meet our representative and enjoy a seamless luxury transfer to your hotel. Rest and prepare for the alpine tour." },
+            { day: "Day 02", title: "Art Museums, Central Park, & Old Town", desc: "Take a scenic guided walk through Zurich's Altstadt (Old Town), visit Swiss cultural museums, and relax by the lakeside promenades." },
+            { day: "Day 03", title: "Mount Titlis Rotair Cable Car & Lucerne", desc: "Excursion to Mount Titlis. Ride the world's first rotating cable car 'Titlis Rotair' to the summit. Later, enjoy a walking tour of Chapel Bridge in Lucerne." },
+            { day: "Day 04", title: "Interlaken Discovery & Lake Brienz Cruise", desc: "Travel to Interlaken, located between Lake Thun and Lake Brienz. Board a private boat cruise on the striking turquoise waters of Lake Brienz." },
+            { day: "Day 05", title: "Jungfraujoch – Top of Europe Cogwheel Train", desc: "Ride the legendary cogwheel train through alpine tunnels up to Jungfraujoch, the highest railway station in Europe, and step out onto the Sphinx Observation Deck." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img4.png",
+            "https://images.unsplash.com/photo-1502784444187-359ac186c5bb?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1527668752968-14de719262a0?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1482862549707-f63cb32c5fd9?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 5,
+        title: "Enchanting Bali Honeymoon Special Package",
+        price: 52000,
+        rating: 4.8,
+        reviews: 42,
+        duration: 7,
+        cities: 3,
+        countries: 1,
+        datesCount: 6,
+        image: "/assets/img/home1/package-card-img5.png",
+        themes: ["honeymoon"],
+        departures: ["Mumbai", "Kolkata", "Hyderabad", "Cochin", "Goa"],
+        inclusions: ["hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Couple Tour", "Hot Deal"],
+        highlights: "Stay in a romantic private pool villa, candle light beach dinner, Uluwatu sunset temple tour, Kintamani volcano, and thrilling water sports.",
+        location: "Seminyak & Ubud, Bali",
+        durationText: "7 Days / 6 Nights",
+        tourType: "Romantic Honeymoon",
+        groupSize: "Private Couple Tour",
+        languages: "English, Balinese",
+        description: "Escape to the island of gods for a magical romantic getaway. Spend your days in luxury private pool villas, enjoy scenic drives through Ubud's green rice terraces, capture sunsets at cliffside Uluwatu Temple, and enjoy a private candle-lit dinner directly on Jimbaran Beach.",
+        tripHighlights: [
+            "3 Nights in a Luxury Private Pool Villa",
+            "Romantic Candle-Lit Beach Dinner in Jimbaran",
+            "Uluwatu Sunset Temple Tour & Kecak Dance",
+            "Exciting water sports package in Tanjung Benoa"
+        ],
+        amenities: ["Private Pool Villa", "Candlelight Dinner", "Free Wifi", "Private AC Car", "Airport Transfers", "English Speaking Driver", "Spa & Wellness"],
+        tourPlan: [
+            { day: "Day 01", title: "Arrival in Bali & Villa Check-in", desc: "Arrive at Denpasar Airport. Meet your private driver and transfer to your romantic pool villa in Seminyak. Welcome flower garland and drinks." },
+            { day: "Day 02", title: "Water Sports & Uluwatu Sunset", desc: "Enjoy banana boat rides and jet skiing. In the afternoon, head to Uluwatu Temple perched on a cliff edge, and watch the Kecak Fire Dance." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img5.png",
+            "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1573790387438-4da905039392?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1552083375-1447ce886485?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 6,
+        title: "Magical Maldives – Water Villa Luxury Escape",
+        price: 68000,
+        rating: 4.9,
+        reviews: 38,
+        duration: 5,
+        cities: 1,
+        countries: 1,
+        datesCount: 4,
+        image: "/assets/img/home1/package-card-img6.png",
+        themes: ["honeymoon", "exotic"],
+        departures: ["New Delhi", "Mumbai", "Chennai", "Bengaluru", "Indore"],
+        inclusions: ["hotels", "meals", "transfers"],
+        badges: ["Couple Tour", "Luxury"],
+        highlights: "Stay in a luxurious Overwater Villa with direct lagoon access, return speed boat transfers, snorkeling, and selected water activities.",
+        location: "Male, Maldives",
+        durationText: "5 Days / 4 Nights",
+        tourType: "Luxury Beach Resort",
+        groupSize: "Independent Tour",
+        languages: "English, Dhivehi",
+        description: "Indulge in a premium island vacation. Experience the luxury of waking up in a private Overwater Villa with direct access to crystal-clear turquoise waters. Snorkel with colorful marine life, enjoy all-inclusive dining, and relax under swaying palms.",
+        tripHighlights: [
+            "2 Nights in Beach Villa + 2 Nights in Premium Water Villa",
+            "Return Speedboat / Seaplane transfers from Male airport",
+            "All-Inclusive meal plan (Breakfast, Lunch, Dinner, & Drinks)",
+            "Complimentary snorkeling gear & water sports access"
+        ],
+        amenities: ["Overwater Villa", "All Inclusive Meals", "Speedboat Transfer", "Snorkeling Gear", "Free Wifi", "Beach Access", "Infinity Pool"],
+        tourPlan: [
+            { day: "Day 01", title: "Male Airport to Resort Transfer", desc: "Arrive at Male International Airport. Board the resort's speed boat and check-in to your luxury beach bungalow." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img6.png",
+            "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1540206395-68808572332f?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 7,
+        title: "Chardham Yatra 2026 – Complete Pilgrimage",
+        price: 32000,
+        rating: 4.6,
+        reviews: 104,
+        duration: 12,
+        cities: 6,
+        countries: 1,
+        datesCount: 8,
+        image: "/assets/img/home1/package-card-img7.png",
+        themes: ["spiritual"],
+        departures: ["New Delhi", "Nagpur", "Indore", "Coimbatore", "Ahmedabad"],
+        inclusions: ["hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Spiritual"],
+        highlights: "Yamunotri, Gangotri, Kedarnath, Badrinath. Guided group pilgrimage with satvik meals, hotel stays, and verified transport arrangements.",
+        location: "Uttarakhand, India",
+        durationText: "12 Days / 11 Nights",
+        tourType: "Spiritual Pilgrimage",
+        groupSize: "30 People",
+        languages: "Hindi, English",
+        description: "A holy pilgrimage journey covering the four sacred shrines of Uttarakhand: Yamunotri, Gangotri, Kedarnath, and Badrinath. Accompanied by experienced tour guides, with clean comfortable ashram/hotel accommodation and pure vegetarian (satvik) meals throughout.",
+        tripHighlights: [
+            "Visits to all four shrines: Yamunotri, Gangotri, Kedarnath, Badrinath",
+            "Holy bath at Tapt Kund and VIP darshan arrangements",
+            "Pure vegetarian (Satvik) meals prepared daily",
+            "Experienced pilgrimage tour leader to assist seniors"
+        ],
+        amenities: ["Clean Stays", "Satvik Meals", "Pilgrimage Guide", "Comfortable Coach", "VIP Darshan Pass", "First Aid Kit"],
+        tourPlan: [
+            { day: "Day 01", title: "Delhi to Haridwar", desc: "Meet in Delhi and drive to Haridwar. Attend the divine Ganga Aarti at Har Ki Pauri in the evening." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img7.png",
+            "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80"
+        ]
+    },
+    {
+        id: 8,
+        title: "Premium Self Drive Scandinavia Experience",
+        price: 340000,
+        rating: 4.9,
+        reviews: 12,
+        duration: 10,
+        cities: 7,
+        countries: 3,
+        datesCount: 2,
+        image: "/assets/img/home1/package-card-img8.png",
+        themes: ["exotic"],
+        departures: ["Mumbai", "New Delhi"],
+        inclusions: ["hotels", "meals", "sightseeing"],
+        badges: ["Self Drive", "Premium"],
+        highlights: "Premium SUV rental, Oslo to Bergen scenic self-drive, Sognefjord cruises, glacier hiking, and handpicked luxury boutique cabins.",
+        location: "Oslo, Norway",
+        durationText: "10 Days / 9 Nights",
+        tourType: "Self Drive Adventure",
+        groupSize: "4-6 People",
+        languages: "English",
+        description: "Drive through the breathtaking fjords, mountain passes, and stunning coastline of Scandinavia. Includes premium SUV car rental, fully-mapped GPS routes, pre-booked stays in luxury boutique cabins and boutique hotels, and glacier hikes.",
+        tripHighlights: [
+            "Premium SUV Car Rental with GPS and full insurance",
+            "Scenic drive along the famous Atlantic Ocean Road",
+            "Boat cruise through the majestic Sognefjord",
+            "Stay in handpicked remote luxury cabins"
+        ],
+        amenities: ["Premium SUV", "Boutique Stays", "Glacier Excursion", "Fjord Cruise", "Breakfast", "GPS Navigation"],
+        tourPlan: [
+            { day: "Day 01", title: "Oslo Arrival & Car Pickup", desc: "Arrive at Oslo Airport. Pick up your premium SUV and drive to your city center boutique hotel. Evening at leisure." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img8.png"
+        ]
+    },
+    {
+        id: 9,
+        title: "Exotic Vietnam & Cambodia Explorer",
+        price: 95000,
+        rating: 4.8,
+        reviews: 19,
+        duration: 8,
+        cities: 4,
+        countries: 2,
+        datesCount: 4,
+        image: "/assets/img/home1/package-card-img9.png",
+        themes: ["exotic", "bestseller"],
+        departures: ["Mumbai", "New Delhi", "Bengaluru", "Kolkata"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Exotic"],
+        highlights: "Halong Bay overnight cruise, Hanoi old quarter heritage walk, historic Cu Chi tunnels, and the majestic Angkor Wat temples complex.",
+        location: "Hanoi & Siem Reap",
+        durationText: "8 Days / 7 Nights",
+        tourType: "Heritage & Culture",
+        groupSize: "18 People",
+        languages: "English",
+        description: "Discover the highlights of Vietnam and Cambodia. Cruise overnight on a traditional luxury junk boat in Halong Bay, walk the heritage quarters of Hanoi, crawl through the historic Cu Chi Tunnels of Saigon, and witness the ancient architectural wonders of Angkor Wat in Siem Reap.",
+        tripHighlights: [
+            "Overnight luxury junk cruise in beautiful Halong Bay",
+            "Guided tour of the grand Angkor Wat Temple complex",
+            "Walk through Hanoi's ancient old quarter",
+            "Visit the historical Cu Chi tunnels in Saigon"
+        ],
+        amenities: ["4-Star Stays", "Halong Cruise", "Angkor Passes", "Domestic Flights", "Expert Guide", "All Meals", "Aircon Coach"],
+        tourPlan: [
+            { day: "Day 01", title: "Hanoi Arrival", desc: "Arrive at Hanoi Airport. Transfer to your boutique hotel and enjoy a welcome Pho dinner." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img9.png"
+        ]
+    },
+    {
+        id: 10,
+        title: "Grand Tour of Europe Special",
+        price: 260000,
+        rating: 4.9,
+        reviews: 72,
+        duration: 12,
+        cities: 8,
+        countries: 4,
+        datesCount: 6,
+        image: "/assets/img/home1/package-card-img10.png",
+        themes: ["bestseller", "summer"],
+        departures: ["Mumbai", "New Delhi", "Ahmedabad"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing", "guide"],
+        badges: ["Group Tour", "Super Seller"],
+        highlights: "London Eye flight, Eiffel Tower top level access, Brussels Grand Place, Swiss Alps Mount Titlis, and an iconic Venice Gondola ride.",
+        location: "Paris, France",
+        durationText: "12 Days / 11 Nights",
+        tourType: "Multi-Country Europe",
+        groupSize: "25 People",
+        languages: "English, Hindi",
+        description: "The ultimate European dream vacation. Travel from London to Paris, Brussels, Amsterdam, Germany, Switzerland, and Italy. Experience high-speed Eurostar train rides, ascends to Eiffel Tower, gondola rides in Venice, and Swiss cable cars.",
+        tripHighlights: [
+            "London Eye flight and Eurostar high-speed train ride",
+            "Eiffel Tower top-level access in Paris",
+            "Scenic cable car ride to Mount Titlis in the Swiss Alps",
+            "Classic romantic Gondola ride on Venice canals"
+        ],
+        amenities: ["4-Star Hotels", "All Flights Included", "Eurostar Ticket", "Eiffel Access", "Swiss Cable Car", "Venice Gondola", "Expert Guide", "Daily Continental Meals"],
+        tourPlan: [
+            { day: "Day 01", title: "Welcome to London", desc: "Arrive in London. Transfer to your premium hotel. In the evening, enjoy a flight on the iconic London Eye." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img10.png"
+        ]
+    },
+    {
+        id: 11,
+        title: "Enchanting Kashmir Valley Special Group Tour",
+        price: 38000,
+        rating: 4.7,
+        reviews: 88,
+        duration: 7,
+        cities: 4,
+        countries: 1,
+        datesCount: 5,
+        image: "/assets/img/home1/destination-card-img1.jpg",
+        themes: ["family", "summer"],
+        departures: ["Mumbai", "New Delhi", "Ahmedabad", "Indore", "Nagpur"],
+        inclusions: ["hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Family"],
+        highlights: "Srinagar deluxe houseboat stay, classic Shikara ride on Dal lake, snow-filled Gulmarg gondola ride, and Pahalgam valley excursions.",
+        location: "Srinagar, Kashmir",
+        durationText: "7 Days / 6 Nights",
+        tourType: "Scenic Family Tour",
+        groupSize: "20 People",
+        languages: "Hindi, English",
+        description: "Escape to the paradise on Earth. Stay in a deluxe wooden houseboat on Dal Lake, enjoy a classic Shikara boat ride, ride the high-altitude Gulmarg Gondola over snow fields, and explore the beautiful saffron fields and valleys of Pahalgam.",
+        tripHighlights: [
+            "Deluxe Houseboat stay with traditional Wazwan dinner",
+            "Gulmarg Gondola cable car ride (Phase 1 tickets included)",
+            "Scenic Shikara boat ride on Srinagar's Dal Lake",
+            "Excursions to Betaab Valley & Aru Valley in Pahalgam"
+        ],
+        amenities: ["Houseboat Stay", "Deluxe Hotels", "Shikara Ride", "Gondola Tickets", "All Meals", "AC Cab Transfer", "Tour Guide"],
+        tourPlan: [
+            { day: "Day 01", title: "Srinagar Houseboat Welcome", desc: "Arrive at Srinagar Airport. Transfer to your deluxe houseboat on Dal lake. Enjoy a sunset Shikara ride." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img1.jpg"
+        ]
+    },
+    {
+        id: 12,
+        title: "Scenic Ladakh Adventure Road Trip",
+        price: 42000,
+        rating: 4.8,
+        reviews: 33,
+        duration: 8,
+        cities: 3,
+        countries: 1,
+        datesCount: 4,
+        image: "/assets/img/home1/destination-card-img2.jpg",
+        themes: ["exotic"],
+        departures: ["New Delhi", "Mumbai", "Bengaluru"],
+        inclusions: ["hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Adventure", "Trending"],
+        highlights: "Leh Palace heritage walk, pristine Pangong Tso Lake camping, high pass Khardung La motorable road drive, and Nubra Valley double-humped camel ride.",
+        location: "Leh, Ladakh",
+        durationText: "8 Days / 7 Nights",
+        tourType: "Adventure Road Trip",
+        groupSize: "12 Adventure Seekers",
+        languages: "English, Hindi",
+        description: "Embark on an epic high-altitude road trip in Ladakh. Discover the historic Leh Palace, cross Khardung La (one of the highest motorable roads in the world), ride camels in the cold desert of Nubra Valley, and camp under stars by the deep blue Pangong Tso Lake.",
+        tripHighlights: [
+            "Lakeside luxury tent camping at pristine Pangong Tso",
+            "Drive across the famous high-altitude Khardung La Pass",
+            "Bactrian double-humped camel ride in Nubra Valley",
+            "Visit historic Thiksey Monastery and Magnetic Hill"
+        ],
+        amenities: ["Monastery Visits", "Lakeside Camps", "Oxygen Cylinders", "4x4 Travel Coach", "AC Hotels in Leh", "All Meals", "Local Guide"],
+        tourPlan: [
+            { day: "Day 01", title: "Leh Airport Arrival & Acclimatization", desc: "Fly into Leh airport. Check-in to your hotel and rest. Full day complete rest is mandatory for altitude acclimatization." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img2.jpg"
+        ]
+    },
+    {
+        id: 13,
+        title: "Splendors of South Africa Safari & Cape Town",
+        price: 175000,
+        rating: 4.9,
+        reviews: 21,
+        duration: 10,
+        cities: 5,
+        countries: 1,
+        datesCount: 3,
+        image: "/assets/img/home1/destination-card-img3.jpg",
+        themes: ["exotic", "bestseller"],
+        departures: ["Mumbai", "New Delhi", "Bengaluru"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Wildlife"],
+        highlights: "Kruger National Park big-5 safari game drive, scenic Table Mountain cableway, Cape of Good Hope coastal tour, and Garden Route drives.",
+        location: "Cape Town & Kruger",
+        durationText: "10 Days / 9 Nights",
+        tourType: "Wildlife & Coastal Scenic",
+        groupSize: "16 People",
+        languages: "English",
+        description: "Discover South Africa's diverse wonders. Spot lions, leopards, rhinos, elephants, and buffaloes on a Kruger National Park safari. Ascend Table Mountain by cable car, drive along the stunning coastal routes of Cape Peninsula, and explore the Garden Route.",
+        tripHighlights: [
+            "Full-day game drive in world-renowned Kruger National Park",
+            "Cable car ride to Table Mountain in Cape Town",
+            "Scenic Peninsula drive to Cape of Good Hope & Boulders Penguin Beach",
+            "Wine tasting experience in Stellenbosch winelands"
+        ],
+        amenities: ["4-Star Hotels", "Safari Game Drive", "Table Mountain Pass", "Wine Tasting", "All Flights", "National Park Fees", "AC Coach"],
+        tourPlan: [
+            { day: "Day 01", title: "Cape Town Arrival", desc: "Arrive in Cape Town. Transfer to your hotel located near the Victoria & Alfred Waterfront. Evening at leisure." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img3.jpg"
+        ]
+    },
+    {
+        id: 14,
+        title: "Best of Himachal (Shimla & Manali Highlights)",
+        price: 28000,
+        rating: 4.6,
+        reviews: 112,
+        duration: 6,
+        cities: 3,
+        countries: 1,
+        datesCount: 7,
+        image: "/assets/img/home1/destination-card-img4.jpg",
+        themes: ["family", "summer"],
+        departures: ["Mumbai", "New Delhi", "Ahmedabad", "Nagpur", "Hyderabad"],
+        inclusions: ["hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Summer Special"],
+        highlights: "Shimla Mall Road walks, Solang Valley adventure sports, Rohtang Pass high altitude snow point, and holy Manikaran hot spring bath.",
+        location: "Manali, Himachal Pradesh",
+        durationText: "6 Days / 5 Nights",
+        tourType: "Hill Station Holiday",
+        groupSize: "25 People",
+        languages: "Hindi",
+        description: "Enjoy a cooling mountain escape to Shimla and Manali. Walk the bustling Mall Road of Shimla, see snow peaks at Rohtang Pass, participate in paragliding or zorbing in Solang Valley, and seek blessings at the sacred Manikaran hot springs.",
+        tripHighlights: [
+            "Walking tour of historic British-era Shimla Mall Road",
+            "Adventure activities and snow slides in Solang Valley",
+            "Excursion to the spectacular high-altitude Rohtang Pass",
+            "Visit Manikaran Sahib gurudwara and natural hot springs"
+        ],
+        amenities: ["Deluxe Hotels", "Mall Road Walk", "Solang Excursion", "Vegetarian Meals", "Comfortable Bus", "Local Driver Guide"],
+        tourPlan: [
+            { day: "Day 01", title: "Delhi to Shimla Drive", desc: "Meet in Delhi and board the tourist coach. Enjoy a scenic hill drive to Shimla. Check-in to hotel." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img4.jpg"
+        ]
+    },
+    {
+        id: 15,
+        title: "Dubai Delights – Luxury Family Experience",
+        price: 48000,
+        rating: 4.8,
+        reviews: 29,
+        duration: 6,
+        cities: 2,
+        countries: 1,
+        datesCount: 3,
+        image: "/assets/img/home1/package-card-img5.png",
+        themes: ["family", "bestseller"],
+        departures: ["Mumbai", "New Delhi", "Ahmedabad"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Family"],
+        highlights: "Ascend Burj Khalifa observation deck, enjoy a thrilling Desert Safari with BBQ dinner, shop at Dubai Mall, and relax on a Marina Dhow Cruise.",
+        location: "Dubai, UAE",
+        durationText: "6 Days / 5 Nights",
+        tourType: "Modern City Escape",
+        groupSize: "18 People",
+        languages: "English, Hindi, Arabic",
+        description: "A thrilling family vacation in the futuristic oasis of Dubai. Ascend to the 124th floor of Burj Khalifa, explore the massive malls, slide down waterslides, ride 4x4s over red sand dunes in a desert safari with live belly dancing and a BBQ dinner.",
+        tripHighlights: [
+            "Burj Khalifa 124th floor observation deck entry ticket",
+            "Thrilling Desert Safari with dune bashing & BBQ dinner",
+            "Relaxing Marina Dhow Cruise with international buffet dinner",
+            "Guided half-day city tour of old and new Dubai"
+        ],
+        amenities: ["Burj Khalifa Tickets", "Desert Safari", "Dhow Cruise", "4-Star Hotels", "All Transfers", "Daily Buffet Breakfast", "English Speaking Guide"],
+        tourPlan: [
+            { day: "Day 01", title: "Dubai Arrival & Marina Dhow Cruise", desc: "Arrive at Dubai airport. Transfer to hotel. In the evening, board a luxury wooden Dhow for a cruise along Dubai Marina with dinner." }
+        ],
+        images: [
+            "/assets/img/home1/package-card-img5.png"
+        ]
+    },
+    {
+        id: 16,
+        title: "Best of Japan Cherry Blossom & Culture Tour",
+        price: 195000,
+        rating: 4.9,
+        reviews: 41,
+        duration: 8,
+        cities: 4,
+        countries: 1,
+        datesCount: 3,
+        image: "/assets/img/home1/destination-card-img2.jpg",
+        themes: ["exotic", "bestseller"],
+        departures: ["Mumbai", "New Delhi", "Bengaluru"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing", "guide"],
+        badges: ["Group Tour", "Bestseller"],
+        highlights: "Tokyo Senso-ji temple, Mt. Fuji panoramic viewing, ride the famous Bullet Train (Shinkansen), and explore historic Kyoto shrines.",
+        location: "Tokyo & Kyoto, Japan",
+        durationText: "8 Days / 7 Nights",
+        tourType: "Heritage & Modernity Tour",
+        groupSize: "14 People",
+        languages: "English, Japanese",
+        description: "Experience the unique contrast of ancient traditions and futuristic technology in Japan. Explore the ancient shrines of Kyoto, view the majestic snow-capped Mt. Fuji, ride the ultra-fast Shinkansen Bullet Train, and experience the neon-lit streets of Tokyo during the cherry blossom season.",
+        tripHighlights: [
+            "Ride the high-speed Shinkansen Bullet Train from Shizuoka to Kyoto",
+            "Visit the scenic Mt. Fuji 5th Station for panoramic alpine views",
+            "Explore historic temples in Kyoto including Kinkaku-ji Golden Pavilion",
+            "Walk through Tokyo's historic Asakusa district and Senso-ji Temple"
+        ],
+        amenities: ["Shinkansen ticket", "Mt. Fuji Excursion", "Kyoto passes", "4-Star Hotels", "Bullet Train Ride", "All Meals", "Bilingual Guide", "All Flight Tickets"],
+        tourPlan: [
+            { day: "Day 01", title: "Arrive in Tokyo", desc: "Arrive at Tokyo Haneda/Narita Airport. Check-in to your premium Tokyo hotel. Rest or take a walk in Shibuya." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img2.jpg"
+        ]
+    },
+    {
+        id: 17,
+        title: "Wonders of Turkey & Istanbul Highlights",
+        price: 118000,
+        rating: 4.7,
+        reviews: 31,
+        duration: 9,
+        cities: 5,
+        countries: 1,
+        datesCount: 4,
+        image: "/assets/img/home1/destination-card-img7.jpg",
+        themes: ["exotic"],
+        departures: ["Mumbai", "New Delhi", "Ahmedabad"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Group Tour", "Exotic"],
+        highlights: "Explore Blue Mosque, Grand Bazaar, experience unique Cappadocia hot air balloon flight, thermal pools in Pamukkale, and Ephesus ancient ruins.",
+        location: "Istanbul & Cappadocia",
+        durationText: "9 Days / 8 Nights",
+        tourType: "Scenic Scenic & Heritage",
+        groupSize: "16 People",
+        languages: "English, Turkish",
+        description: "A magical route through East meets West. Discover the historical palaces, mosques, and busy bazaars of Istanbul, witness the fairy-tale cave landscapes of Cappadocia, relax in the calcium thermal pools of Pamukkale, and explore the ancient Greco-Roman city of Ephesus.",
+        tripHighlights: [
+            "Hot Air Balloon flight over Cappadocia's fairy chimneys (optional/included)",
+            "Guided city tour of Istanbul including Hagia Sophia & Topkapi Palace",
+            "Walk along the ancient white travertine pools of Pamukkale",
+            "Explore the massive preserved library and theatre at Ephesus ruins"
+        ],
+        amenities: ["Cave Hotel stay", "Domestic Flights", "Hagia Sophia Entry", "Pamukkale Entry", "4-Star Stays", "Expert Guide", "All Meals"],
+        tourPlan: [
+            { day: "Day 01", title: "Istanbul Arrival", desc: "Arrive in Istanbul. Meet your guide and transfer to your hotel. Evening Bosporus Sunset Cruise." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img7.jpg"
+        ]
+    },
+    {
+        id: 18,
+        title: "Tanzania Wild Safari & Zanzibar Beach Resort",
+        price: 220000,
+        rating: 4.8,
+        reviews: 15,
+        duration: 9,
+        cities: 4,
+        countries: 1,
+        datesCount: 2,
+        image: "/assets/img/home1/destination-card-img8.jpg",
+        themes: ["exotic"],
+        departures: ["Mumbai", "New Delhi"],
+        inclusions: ["flights", "hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Wild Safari", "Premium"],
+        highlights: "Serengeti National Park game drive, massive Ngorongoro Crater safari, and luxury beach retreat in Stone Town, Zanzibar.",
+        location: "Serengeti & Zanzibar",
+        durationText: "9 Days / 8 Nights",
+        tourType: "Wildlife Safari & Beach",
+        groupSize: "8 People (Small Group)",
+        languages: "English, Swahili",
+        description: "Combine wildlife thrills with relaxing beach luxury. Spot the 'Big Five' in the open savannahs of Serengeti National Park and the deep volcanic Ngorongoro Crater. Later, fly to the spice island of Zanzibar to relax on white-sand beaches and explore the historic Stone Town.",
+        tripHighlights: [
+            "Game drives in custom 4x4 open-roof safari landcruisers",
+            "Visit Ngorongoro Conservation Area, a UNESCO World Heritage site",
+            "Fly to Zanzibar and stay in a premium beachfront luxury resort",
+            "Spice tour and heritage walk in historic Stone Town"
+        ],
+        amenities: ["4x4 Land Cruiser", "Serengeti Flight", "Safari Lodge", "Beach Resort", "Park Entry Fees", "Bilingual Driver Guide", "All Meals Included"],
+        tourPlan: [
+            { day: "Day 01", title: "Kilimanjaro Arrival & Arusha", desc: "Arrive at Kilimanjaro Airport. Transfer to your safari lodge in Arusha for safari briefings." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img8.jpg"
+        ]
+    },
+    {
+        id: 19,
+        title: "Fiji & Bora Bora Island Luxury Escape",
+        price: 310000,
+        rating: 4.9,
+        reviews: 8,
+        duration: 10,
+        cities: 2,
+        countries: 2,
+        datesCount: 2,
+        image: "/assets/img/home1/destination-card-img9.jpg",
+        themes: ["honeymoon", "exotic"],
+        departures: ["Mumbai", "New Delhi", "Bengaluru"],
+        inclusions: ["hotels", "meals", "transfers"],
+        badges: ["Couple Tour", "Luxury"],
+        highlights: "Private luxury overwater bungalow stay, coral reef snorkeling cruise, private beach dinners, and traditional Fijian cultural dinner show.",
+        location: "Nadi, Fiji & Bora Bora",
+        durationText: "10 Days / 9 Nights",
+        tourType: "Luxury Private Island Escape",
+        groupSize: "Couple Independent Tour",
+        languages: "English, Fijian",
+        description: "The ultimate tropical luxury escape. Experience premium overwater bungalows in Bora Bora, swim in deep turquoise lagoons, snorkel with stingrays, and enjoy a traditional Fijian cultural fire-walking show and private beachside dinner.",
+        tripHighlights: [
+            "5 Nights in Bora Bora Overwater Villa + 4 Nights in Fiji Resort",
+            "Private snorkeling boat cruise to coral gardens & lagoon gardens",
+            "Romantic sunset dinner cruise with champagne",
+            "Exclusive Fijian Kava cultural ceremony and fire dance show"
+        ],
+        amenities: ["Luxury Overwater Villa", "Private Beach Dinner", "Lagoon Snorkeling", "Sunset Cruise", "All Island Flights", "All Meals", "Premium Spa"],
+        tourPlan: [
+            { day: "Day 01", title: "Nadi Fiji Arrival", desc: "Arrive at Nadi airport. Traditional shell lei welcome. Private transfer to your beachfront resort." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img9.jpg"
+        ]
+    },
+    {
+        id: 20,
+        title: "Scenic New Zealand South Island Highlights",
+        price: 290000,
+        rating: 4.9,
+        reviews: 34,
+        duration: 10,
+        cities: 5,
+        countries: 1,
+        datesCount: 3,
+        image: "/assets/img/home1/destination-card-img4.jpg",
+        themes: ["exotic", "family"],
+        departures: ["Mumbai", "New Delhi", "Bengaluru"],
+        inclusions: ["hotels", "meals", "transfers", "sightseeing"],
+        badges: ["Self Drive", "Nature Special"],
+        highlights: "Explore Queenstown adventure capital, scenic cruise at Milford Sound, view Mount Cook glaciers, and visit Lake Tekapo stargazing reserve.",
+        location: "Queenstown, New Zealand",
+        durationText: "10 Days / 9 Nights",
+        tourType: "Scenic Nature Tour",
+        groupSize: "12 People",
+        languages: "English",
+        description: "A gorgeous journey through New Zealand's South Island. Drive through dramatic snow-capped peaks, cruise along the sheer cliffs of Milford Sound, stargaze at the Dark Sky Reserve at Lake Tekapo, and experience the adventure capital of Queenstown.",
+        tripHighlights: [
+            "Milford Sound Nature Cruise with buffet lunch on board",
+            "Scenic drive through Southern Alps & Mount Cook National Park",
+            "Mt. John Observatory Stargazing experience in Lake Tekapo",
+            "Ride the Skyline Gondola in Queenstown for panoramic views"
+        ],
+        amenities: ["Milford Cruise", "Queenstown Gondola", "4-Star Hotels", "Private AC Coach", "Daily Breakfast & Dinner", "National Park Fees", "Local Nature Guide"],
+        tourPlan: [
+            { day: "Day 01", title: "Christchurch Arrival", desc: "Arrive in Christchurch. Transfer to your hotel. Afternoon city garden tour." }
+        ],
+        images: [
+            "/assets/img/home1/destination-card-img4.jpg"
+        ]
+    }
+];
+
+export const hotelList = [
+    {
+        id: 1,
+        title: "Grand Palace Hotel & Spa",
+        price: 18000,
+        rating: 4.9,
+        reviews: 124,
+        stars: 5,
+        image: "/assets/img/home1/package-card-img7.png",
+        location: "Zurich, Switzerland",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Overlooking Lake Zurich, world-class luxury spa, Michelin-starred fine dining restaurant, and stunning rooftop bar."
+    },
+    {
+        id: 2,
+        title: "Bali Beach Resort & Villas",
+        price: 8500,
+        rating: 4.8,
+        reviews: 94,
+        stars: 4,
+        image: "/assets/img/home1/package-card-img8.png",
+        location: "Bali, Indonesia",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Oceanfront luxury private pool villas, direct beach access, tropical outdoor pool, yoga sessions, and international beachfront cuisine."
+    },
+    {
+        id: 3,
+        title: "Maldives Overwater Resort & Spa",
+        price: 32000,
+        rating: 4.9,
+        reviews: 68,
+        stars: 5,
+        image: "/assets/img/home1/package-card-img6.png",
+        location: "Maldives",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Private Overwater Villas with direct lagoon slide, all-inclusive luxury spa package, and underwater restaurant dining experience."
+    },
+    {
+        id: 4,
+        title: "The Cairo Oasis Palace",
+        price: 12000,
+        rating: 4.6,
+        reviews: 54,
+        stars: 4,
+        image: "/assets/img/home1/package-card-img1.png",
+        location: "Cairo, Egypt",
+        amenities: ["wifi", "restaurant", "spa", "ac"],
+        highlights: "Spectacular views of the Great Pyramids, historic Egyptian architecture, landscaped oasis garden pool, and traditional local bazaar dining."
+    },
+    {
+        id: 5,
+        title: "Kyoto Imperial Heritage Inn",
+        price: 15500,
+        rating: 4.8,
+        reviews: 82,
+        stars: 4,
+        image: "/assets/img/home1/destination-card-img2.jpg",
+        location: "Kyoto, Japan",
+        amenities: ["wifi", "restaurant", "ac"],
+        highlights: "Located in the heart of Gion district, traditional Japanese style tatami rooms, garden view dining, and steps away from Yasaka Shrine."
+    },
+    {
+        id: 6,
+        title: "Table Mountain Vista Suites",
+        price: 14000,
+        rating: 4.7,
+        reviews: 41,
+        stars: 5,
+        image: "/assets/img/home1/destination-card-img3.jpg",
+        location: "Cape Town, South Africa",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Stunning cliffside view of Table Mountain and Camps Bay, infinity pool, luxury modern penthouse suites, and selected vintage wine tasting."
+    },
+    {
+        id: 7,
+        title: "Burj Al Sahab Residences",
+        price: 22000,
+        rating: 4.9,
+        reviews: 150,
+        stars: 5,
+        image: "/assets/img/home1/package-card-img5.png",
+        location: "Dubai, UAE",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Iconic downtown Dubai location next to Burj Khalifa, rooftop infinity pool, 24/7 butler service, and private helicopter landing pads."
+    },
+    {
+        id: 8,
+        title: "The Swiss Alpine Chalet & Spa",
+        price: 26000,
+        rating: 4.9,
+        reviews: 73,
+        stars: 5,
+        image: "/assets/img/home1/package-card-img4.png",
+        location: "Lucerne, Switzerland",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Authentic Swiss chalet architecture, heated indoor-outdoor hot tubs, snow mountain views, and luxury fireside lounge bar."
+    },
+    {
+        id: 9,
+        title: "Vietnam Lotus Garden Retreat",
+        price: 6500,
+        rating: 4.7,
+        reviews: 49,
+        stars: 4,
+        image: "/assets/img/home1/package-card-img9.png",
+        location: "Hanoi, Vietnam",
+        amenities: ["wifi", "pool", "restaurant", "ac"],
+        highlights: "Charming boutique hotel in the French Quarter, garden-view spa rooms, rooftop cocktail lounge, and cooking masterclass programs."
+    },
+    {
+        id: 10,
+        title: "Kashmir Valley Houseboats",
+        price: 7500,
+        rating: 4.6,
+        reviews: 110,
+        stars: 4,
+        image: "/assets/img/home1/destination-card-img1.jpg",
+        location: "Srinagar, India",
+        amenities: ["wifi", "restaurant", "ac"],
+        highlights: "Luxury hand-carved cedarwood houseboats anchored on Dal Lake, gourmet Kashmiri Wazwan cuisine, and complimentary morning Shikara tours."
+    },
+    {
+        id: 11,
+        title: "Taj Aravali Resort & Spa",
+        price: 19500,
+        rating: 4.9,
+        reviews: 188,
+        stars: 5,
+        image: "/assets/img/home1/destination-card-img5.jpg",
+        location: "Udaipur, India",
+        amenities: ["wifi", "pool", "restaurant", "spa", "ac"],
+        highlights: "Sprawling luxury resort amidst the Aravali hills, grand central pool, luxury tents and suites, and historic Mewar dining halls."
+    },
+    {
+        id: 12,
+        title: "Tokyo Neon Skyline Hotel",
+        price: 16000,
+        rating: 4.7,
+        reviews: 95,
+        stars: 4,
+        image: "/assets/img/home1/destination-card-img6.jpg",
+        location: "Tokyo, Japan",
+        amenities: ["wifi", "restaurant", "ac"],
+        highlights: "Breathtaking neon cityscape views of Tokyo, premium clean modern capsule & suite options, and steps away from Shibuya Crossing."
+    }
+];
+
+export const hotelAds = [
+    {
+        badge: "Special Promo Deal",
+        headline: "Save Up To 20% on Swiss Alps Bookings!",
+        subtext: "Book any premium chalet in Lucerne or Zurich before this weekend and get complimentary spa passes. Use promo code: SWISSSPA20",
+        btnText: "Copy Promo Code",
+        action: "SWISSSPA20",
+        image: "/assets/img/home1/package-card-img4.png",
+        themeClass: "gold"
+    },
+    {
+        badge: "Limited Offer",
+        headline: "Free Dinner & Airport Speedboat Transfer in Maldives!",
+        subtext: "Reserve a minimum 3-night stay at Maldives Overwater Resort and get daily premium dinners and return airport transfers completely free. Code: MALDIVESFREE",
+        btnText: "Copy Promo Code",
+        action: "MALDIVESFREE",
+        image: "/assets/img/home1/package-card-img6.png",
+        themeClass: "emerald"
+    }
+];

@@ -39,10 +39,10 @@
             TOP BAR  (Premium Slate-Blue Row)
         ============================================= */
         .ft-topbar {
-            background: #0f172a;
-            /* Slate 900 */
+            background: #0f121d;
+            /* Slate/Navy 950 */
             color: #f8fafc;
-            padding: 4px 0;
+            padding: 6px 0;
             font-size: 12px;
             position: relative;
             z-index: 1001;
@@ -55,29 +55,68 @@
             justify-content: space-between;
         }
 
-        .ft-topbar-inquiry {
+        .ft-topbar-left {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 12.5px;
-            color: #cbd5e1;
         }
 
-        .ft-topbar-inquiry i {
-            color: #10b981;
-            /* Brand Mint Green */
-            font-size: 13px;
-        }
-
-        .ft-topbar-inquiry strong {
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .ft-topbar-actions {
+        .ft-topbar-info {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ft-info-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: #cbd5e1;
+        }
+
+        .ft-info-item i {
+            color: #10b981;
+            /* Brand Mint Green */
+            font-size: 12.5px;
+        }
+
+        .ft-info-item strong {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .ft-topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ft-topbar-socials {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ft-social-link {
+            color: #94a3b8;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            text-decoration: none;
+        }
+
+        .ft-social-link:hover {
+            color: #ffffff;
+            background: #24b25a;
+            transform: translateY(-1px);
+            text-decoration: none;
         }
 
         .ft-country-switcher {
@@ -123,24 +162,24 @@
         }
 
         .ft-top-inquiry-btn {
-            background: linear-gradient(135deg, #f43f5e, #e11d48);
-            /* Hot Coral to Rose Red */
+            background: linear-gradient(135deg, #24b25a, #10b981);
+            /* Brand Green to Mint */
             color: #ffffff;
             border: none;
             border-radius: 30px;
-            padding: 6px 20px;
-            font-size: 11.5px;
+            padding: 5px 16px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
         }
 
         .ft-top-inquiry-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.5);
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.35);
         }
 
         /* =============================================
@@ -1116,7 +1155,7 @@
         }
 
         .ft-pkg-badge.red {
-            background: #24b25a;
+            background: #ef4444;
             color: #fff;
         }
 
@@ -3626,4 +3665,35 @@
                 opacity: 1 !important;
                 visibility: visible !important;
             }
+        }
+
+        /* Skeleton Loading pulse classes */
+        @keyframes ft-skeleton-pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .ft-skeleton-dest-card {
+            flex-shrink: 0;
+            width: calc((100% - 48px) / 5);
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ft-skeleton-dest-img {
+            height: 180px;
+            border-radius: 14px;
+            background: #e2e8f0;
+            animation: ft-skeleton-pulse 1.5s infinite ease-in-out;
+            margin-bottom: 6px;
+        }
+        .ft-skeleton-dest-meta {
+            padding: 0 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
