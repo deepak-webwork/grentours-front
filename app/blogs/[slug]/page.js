@@ -135,7 +135,7 @@ export default function BlogDetailPage() {
 
     return (
         <div className="blog-detail-section py-5 bg-light-subtle">
-            <div className="container">
+            <div className="container-xl">
                 {/* Breadcrumbs */}
                 <nav aria-label="breadcrumb" className="mb-4">
                     <ol className="breadcrumb">

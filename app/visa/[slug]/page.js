@@ -110,18 +110,21 @@ export default async function VisaDetailPage({ params }) {
 
             {/* Dynamic Skyline Hero Section */}
             <div className="visa-hero" style={{ backgroundImage: `linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.7)), url(${getImageUrl(visa.image_url)})` }}>
-                <div className="visa-hero-container">
-                    <span className={`visa-hero-badge ${getCategoryBadgeClass(visa.visa_category || visa.category)}`}>
-                        {getCategoryLabel(visa.visa_category || visa.category)}
-                    </span>
-                    <h1 className="visa-hero-title">{visa.title || `${visa.country_name} Visa`}</h1>
-                    <p className="visa-hero-subtitle">
-                        {visa.short_description || `Complete step-by-step documentation, guidelines, pricing, and processing options for ${visa.country_name}.`}
-                    </p>
+                <div className="container-xl">
+                    <div className="visa-hero-container">
+                        <span className={`visa-hero-badge ${getCategoryBadgeClass(visa.visa_category || visa.category)}`}>
+                            {getCategoryLabel(visa.visa_category || visa.category)}
+                        </span>
+                        <h1 className="visa-hero-title">{visa.title || `${visa.country_name} Visa`}</h1>
+                        <p className="visa-hero-subtitle">
+                            {visa.short_description || `Complete step-by-step documentation, guidelines, pricing, and processing options for ${visa.country_name}.`}
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div className="visa-detail-layout">
+            <div className="container-xl">
+                <div className="visa-detail-layout">
                 {/* Left Column — Detailed Content */}
                 <div>
                     <Link href="/" className="visa-back-link">
@@ -199,11 +202,12 @@ export default async function VisaDetailPage({ params }) {
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
 
             {/* Popular Holiday Packages for Country */}
             {packages && packages.length > 0 && (
-                <div className="visa-packages-section container py-5">
+                <div className="visa-packages-section container-xl py-5">
                     <div className="ft-section-header mb-4 text-center">
                         <h2 className="font-weight-bold" style={{ color: '#0f172a', fontSize: '1.75rem' }}>Popular Holiday Packages for {visa.country_name}</h2>
                         <p className="text-muted">Handpicked itineraries and premium hotels curated just for you.</p>
@@ -215,7 +219,7 @@ export default async function VisaDetailPage({ params }) {
 
             {/* Related Visa Destinations with Same Tag */}
             {relatedVisas && relatedVisas.length > 0 && (
-                <div className="visa-packages-section container py-5 pt-0">
+                <div className="visa-packages-section container-xl py-5 pt-0">
                     <div className="ft-section-header mb-4 text-center">
                         <h2 className="font-weight-bold" style={{ color: '#0f172a', fontSize: '1.75rem' }}>
                             Other {activeCategory === 'e-visa' ? 'E-Visa' : (activeCategory === 'stamped' ? 'Stamped Visa' : 'Visa on Arrival')} Destinations

@@ -74,7 +74,7 @@ export default function PopularPackagesSwiper({ packages }) {
                                         <div className="ft-pkg-price-label">Starting From</div>
                                         <div className="ft-pkg-price">₹ {pkg.price ? pkg.price.toLocaleString('en-IN') : 'N/A'} <span>/ person</span></div>
                                     </div>
-                                    <Link href={`/packages/${pkg.id}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
+                                    <Link href={`/packages/${pkg.slug || pkg.id}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
                                         view details
                                     </Link>
                                 </div>

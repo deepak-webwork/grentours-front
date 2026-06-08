@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import Topbar from '../components/layout/Topbar';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import EnquiryProvider from '../components/enquiry/EnquiryProvider';
 
 export const metadata = {
     title: "Grentours – Holiday Packages, Group Tours & International Vacations",
@@ -28,16 +29,21 @@ export default function RootLayout({ children }) {
                 <link rel="stylesheet" href="/assets/css/all.min.css" />
                 <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
                 <link rel="stylesheet" href="/assets/css/home-style.css" />
+                <link rel="stylesheet" href="/assets/css/enquiry-modal.css" />
+                <link rel="stylesheet" href="/assets/css/search-modal.css" />
+                <link rel="stylesheet" href="/assets/css/travel-media.css" />
             </head>
             <body>
-                <Topbar />
-                <Suspense fallback={<div className="container py-3">Loading header...</div>}>
-                    <Header />
-                </Suspense>
+                <EnquiryProvider>
+                    <Topbar />
+                    <Suspense fallback={<div className="container py-3">Loading header...</div>}>
+                        <Header />
+                    </Suspense>
 
-                {children}
+                    {children}
 
-                <Footer />
+                    <Footer />
+                </EnquiryProvider>
             </body>
         </html>
     );

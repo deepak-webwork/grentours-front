@@ -41,7 +41,7 @@ export default function Topbar() {
     };
 
     const handleInquiryClick = () => {
-        window.dispatchEvent(new CustomEvent('open-inquiry-modal'));
+        window.dispatchEvent(new CustomEvent('open-enquiry-modal'));
     };
 
     return (
@@ -88,12 +88,12 @@ export default function Topbar() {
                                 ))}
                             </div>
                         )}
-                        
-                        <button 
-                            className="ft-top-inquiry-btn"
+                        <button
+                            type="button"
+                            className="ft-top-inquiry-btn d-none d-md-inline-flex"
                             onClick={handleInquiryClick}
                         >
-                            Send Inquiry
+                            <i className="bi bi-send-fill"></i> Get Free Quote
                         </button>
                     </div>
                 </div>

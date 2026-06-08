@@ -9,6 +9,26 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+const TRIP_TYPE_MAP = {
+    'one-way': 'one_way',
+    'round-trip': 'round_trip',
+    'multi-city': 'multi_city',
+};
+
+const TRAVEL_CLASS_MAP = {
+    'Economy': 'economy',
+    'Premium Economy': 'premium_economy',
+    'Business': 'business',
+    'First Class': 'first_class',
+};
+
+const PHONE_REGEX = /^[0-9+\-\s()]{7,20}$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function todayDateString() {
+    return new Date().toISOString().split('T')[0];
+}
+
 export default function FlightsPage() {
     // Trip Type: 'round-trip' | 'one-way' | 'multi-city'
     const [tripType, setTripType] = useState('round-trip');
@@ -93,65 +113,67 @@ export default function FlightsPage() {
         });
     });
 
-    // Form validation and API lead submission
+    const validateFlightForm = () => {
+        const trimmedName = name.trim();
+        const trimmedFrom = leavingFrom.trim();
+        const trimmedTo = goingTo.trim();
+        const trimmedPhone = phone.trim();
+        const trimmedEmail = email.trim();
+        const today = todayDateString();
+
+        if (!trimmedFrom) return 'Please enter where you are leaving from.';
+        if (!trimmedTo) return 'Please enter your flight destination.';
+        if (trimmedFrom.toLowerCase() === trimmedTo.toLowerCase()) {
+            return 'Destination must be different from origin.';
+        }
+        if (!departureDate) return 'Please select a departure date.';
+        if (departureDate < today) return 'Departure date cannot be in the past.';
+        if (tripType === 'round-trip') {
+            if (!returnDate) return 'Please select a return date for your round trip.';
+            if (returnDate <= departureDate) return 'Return date must be after departure date.';
+        }
+        if (!trimmedName || trimmedName.length < 2) return 'Please enter your full name (at least 2 characters).';
+        if (!trimmedPhone) return 'Please enter your phone number.';
+        if (!PHONE_REGEX.test(trimmedPhone)) return 'Please enter a valid phone number (7–20 digits).';
+        if (trimmedEmail && !EMAIL_REGEX.test(trimmedEmail)) return 'Please enter a valid email address.';
+        if (parseInt(infants, 10) > parseInt(adults, 10)) {
+            return 'Number of infants cannot exceed number of adults.';
+        }
+        if (userMessage.length > 2000) return 'Special requests must be 2000 characters or less.';
+        return '';
+    };
+
     const handleFlightInquirySubmit = async (e) => {
         e.preventDefault();
         setErrorMsg('');
 
-        // Simple client-side validation
-        if (!leavingFrom.trim()) {
-            setErrorMsg('Please enter where you are leaving from.');
-            return;
-        }
-        if (!goingTo.trim()) {
-            setErrorMsg('Please enter your flight destination.');
-            return;
-        }
-        if (!departureDate) {
-            setErrorMsg('Please select a departure date.');
-            return;
-        }
-        if (tripType === 'round-trip' && !returnDate) {
-            setErrorMsg('Please select a return date for your round trip.');
-            return;
-        }
-        if (!name.trim()) {
-            setErrorMsg('Please enter your name.');
-            return;
-        }
-        if (!phone.trim()) {
-            setErrorMsg('Please enter your phone number.');
+        const validationError = validateFlightForm();
+        if (validationError) {
+            setErrorMsg(validationError);
             return;
         }
 
         setIsSubmitting(true);
 
-        // Build flight details message string
-        const flightDetailsMessage = `Flight Inquiry Details:
-- Trip Type: ${tripType.toUpperCase()}
-- Leaving From: ${leavingFrom}
-- Going To: ${goingTo}
-- Departure Date: ${departureDate}
-- Return Date: ${tripType === 'round-trip' ? returnDate : 'N/A'}
-- Class: ${travelClass}
-- Passengers: Adults: ${adults}, Children: ${children}, Infants: ${infants}
-${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
-
         const payload = {
-            name: name,
-            mobile: phone,
-            email: email || null,
-            travel_date: departureDate,
-            adults: parseInt(adults),
-            children: parseInt(children) + parseInt(infants), // map both children & infants into children or keep count
-            budget: null,
-            message: flightDetailsMessage,
-            package_id: null,
+            name: name.trim(),
+            mobile: phone.trim(),
+            email: email.trim() || null,
+            leaving_from: leavingFrom.trim(),
+            going_to: goingTo.trim(),
+            departure_date: departureDate,
+            return_date: tripType === 'round-trip' ? returnDate : null,
+            travel_class: TRAVEL_CLASS_MAP[travelClass],
+            adults: parseInt(adults, 10),
+            children: parseInt(children, 10),
+            infants: parseInt(infants, 10),
+            trip_type: TRIP_TYPE_MAP[tripType],
+            message: userMessage.trim() || null,
         };
 
         try {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-            const response = await fetch(`${apiUrl}/api/v1/enquiries`, {
+            const response = await fetch(`${apiUrl}/api/v1/enquiries/flight`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -164,7 +186,7 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
 
             if (response.ok && data.success) {
                 setSubmittedData({
-                    id: data.data?.id || 'GR-' + Math.floor(1000 + Math.random() * 9000),
+                    id: data.data?.id ? `GR-FLT-${data.data.id}` : 'GR-FLT-PENDING',
                     leavingFrom,
                     goingTo,
                     departureDate,
@@ -177,7 +199,10 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
                     phone
                 });
             } else {
-                setErrorMsg(data.message || 'Something went wrong. Please try again.');
+                const errorDetails = data.errors
+                    ? Object.values(data.errors).flat().join(' ')
+                    : '';
+                setErrorMsg(errorDetails || data.message || 'Something went wrong. Please try again.');
             }
         } catch (err) {
             console.error('Submission error:', err);
@@ -194,16 +219,19 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
 
             {/* Flights Hero banner */}
             <div className="flights-hero">
-                <div className="flights-hero-container">
-                    <span className="flights-hero-badge">Worldwide Flight Bookings</span>
-                    <h1 className="flights-hero-title">Custom Flight Inquiries & Quotes</h1>
-                    <p className="flights-hero-subtitle">
-                        Compare premium airlines, secure flexible ticketing, and receive personalized assistance from our certified travel specialists.
-                    </p>
+                <div className="container-xl">
+                    <div className="flights-hero-container">
+                        <span className="flights-hero-badge">Worldwide Flight Bookings</span>
+                        <h1 className="flights-hero-title">Custom Flight Inquiries & Quotes</h1>
+                        <p className="flights-hero-subtitle">
+                            Compare premium airlines, secure flexible ticketing, and receive personalized assistance from our certified travel specialists.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div className="flights-detail-layout">
+            <div className="container-xl">
+                <div className="flights-detail-layout">
                 {/* LEFT COLUMN: Inquiry form / success confirmation */}
                 <div>
                     <Link href="/" className="visa-back-link">
@@ -289,6 +317,7 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
                                                 type="date" 
                                                 className="flight-form-input" 
                                                 value={departureDate}
+                                                min={todayDateString()}
                                                 onChange={(e) => setDepartureDate(e.target.value)}
                                                 required
                                             />
@@ -302,6 +331,7 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
                                                 type="date" 
                                                 className="flight-form-input" 
                                                 value={returnDate}
+                                                min={departureDate || todayDateString()}
                                                 onChange={(e) => setReturnDate(e.target.value)}
                                                 disabled={tripType !== 'round-trip'}
                                                 placeholder={tripType !== 'round-trip' ? 'No return required' : ''}
@@ -437,6 +467,7 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
                                                 style={{ minHeight: '80px', paddingLeft: '14px', paddingTop: '10px' }}
                                                 placeholder="Seat preferences, airline choice, stopover requirements..."
                                                 value={userMessage}
+                                                maxLength={2000}
                                                 onChange={(e) => setUserMessage(e.target.value)}
                                             />
                                         </div>
@@ -608,6 +639,7 @@ ${userMessage ? `- Message/Preferences: ${userMessage}` : ''}`;
                             </div>
                         )}
                     </div>
+                </div>
                 </div>
             </div>
         </div>

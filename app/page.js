@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { openEnquiryModal, getApiUrl, submitGeneralEnquiry } from '../lib/submitEnquiry';
+import TravelMediaSection from '../components/home/TravelMediaSection';
 
 export default function HomePage() {
     // Offers tabs state: 'tours' or 'hotels'
@@ -29,17 +31,9 @@ export default function HomePage() {
         attendees: ''
     });
     const [miceSubmitted, setMiceSubmitted] = useState(false);
-
-    // Quick enquiry form state
-    const [enquiryForm, setEnquiryForm] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        interest: 'Europe Tours',
-        month: 'Select Month',
-        message: ''
-    });
-    const [enquirySubmitted, setEnquirySubmitted] = useState(false);
+    const [miceSubmitting, setMiceSubmitting] = useState(false);
+    const [miceError, setMiceError] = useState('');
+    const [contactPhone, setContactPhone] = useState('+919825081806');
 
     // Scroll refs for custom smooth scrolls
     const themeScrollRef = useRef(null);
@@ -73,14 +67,19 @@ export default function HomePage() {
                     }
                 })
                 .catch(err => console.error('Error fetching themes:', err)),
-            fetch(`${apiUrl}/api/v1/packages`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success && data.data) {
-                        setPackages(data.data);
-                    }
-                })
-                .catch(err => console.error('Error fetching packages:', err)),
+            Promise.all([
+                fetch(`${apiUrl}/api/v1/packages?type=tour&limit=12`)
+                    .then(res => res.json())
+                    .then(data => data.success && data.data ? data.data : [])
+                    .catch(err => { console.error('Error fetching tours:', err); return []; }),
+                fetch(`${apiUrl}/api/v1/packages?type=hotel&limit=12`)
+                    .then(res => res.json())
+                    .then(data => data.success && data.data ? data.data : [])
+                    .catch(err => { console.error('Error fetching hotels:', err); return []; })
+            ])
+            .then(([tours, hotels]) => {
+                setPackages([...tours, ...hotels]);
+            }),
             fetch(`${apiUrl}/api/v1/destinations`)
                 .then(res => res.json())
                 .then(data => {
@@ -207,15 +206,15 @@ export default function HomePage() {
         return `https://www.youtube.com/embed/${reel.id}?autoplay=1&mute=0&rel=0`;
     };
 
-    // Open inquiry modal listener
     useEffect(() => {
-        const handleOpenModal = () => {
-            setShowMiceModal(true);
-        };
-        window.addEventListener('open-inquiry-modal', handleOpenModal);
-        return () => {
-            window.removeEventListener('open-inquiry-modal', handleOpenModal);
-        };
+        fetch(`${getApiUrl()}/api/v1/settings`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.success && data.settings?.contact_phone) {
+                    setContactPhone(data.settings.contact_phone.replace(/\s/g, ''));
+                }
+            })
+            .catch(() => {});
     }, []);
 
     // Swiper blog initialization on blogs load
@@ -281,20 +280,12 @@ export default function HomePage() {
         }
     };
 
-    // YouTube Shorts dataset
-    const travelShorts = [
-        { id: 'o7_F1bU4yQc', title: 'South Africa Trip', desc: 'South Africa Trip #shorts #southafrica' },
-        { id: 'm-WvQkRsw8A', title: 'Australia & New Zealand Tour', desc: 'Australia & New Zealand NRI Special Tour' },
-        { id: 'K_QyWc6wL5Y', title: 'Sayonara Sayonara Japan Life', desc: 'Sayonara Sayonara Indians Living Japan Life' },
-        { id: 'wN4_rA1L15I', title: 'Things To Do In Iceland', desc: 'Things To Do In Iceland #shorts #iceland' },
-        { id: 'F18KzC_xQhQ', title: 'Maldives Paradise 🌴', desc: 'Sparkling crystal-clear waters, white sandy beaches, and luxurious overwater villas of Maldives.' },
-        { id: '79bY0_y92tU', title: 'Glacier Express Train 🚂', desc: 'Experience the panoramic alpine train journey through majestic snowy valleys and high passes.' },
-        { id: 'U1J-FvL9dD4', title: 'Pamukkale Travertines 💦', desc: 'Marveling at the spectacular milky-white thermal spring terraces and ancient ruins of Turkey.' },
-        { id: 'V-E64c2U9Ew', title: 'Stunning Positano 🇮🇹', desc: 'Wandering along the colorful cliffside houses and dramatic coastal views of Italy\'s Amalfi Coast.' }
-    ];
-
     const playRandomShort = () => {
-        const sourceReels = reels.length > 0 ? reels : travelShorts;
+        const sourceReels = reels;
+        if (sourceReels.length === 0) {
+            alert('No reels available to play.');
+            return;
+        }
         const randomIndex = Math.floor(Math.random() * sourceReels.length);
         const short = sourceReels[randomIndex];
         if (short.video_url) {
@@ -306,27 +297,43 @@ export default function HomePage() {
                 isLandscape: false
             });
         } else {
-            setActiveReel({ id: short.id, title: short.title, desc: short.desc, isLandscape: false });
+            setActiveReel({ id: short.id || randomIndex, title: short.title || short.reel_title, desc: short.desc || short.title || short.reel_title, isLandscape: false });
         }
     };
 
-    // Quick enquiry handler
-    const handleQuickEnquirySubmit = (e) => {
+    const handleMiceEnquirySubmit = async (e) => {
         e.preventDefault();
-        setEnquirySubmitted(true);
-        setTimeout(() => setEnquirySubmitted(false), 5000);
-        setEnquiryForm({ name: '', phone: '', email: '', interest: 'Europe Tours', month: 'Select Month', message: '' });
-    };
+        setMiceError('');
+        setMiceSubmitting(true);
 
-    // MICE enquiry handler
-    const handleMiceEnquirySubmit = (e) => {
-        e.preventDefault();
-        setMiceSubmitted(true);
-        setTimeout(() => {
-            setMiceSubmitted(false);
-            setShowMiceModal(false);
-        }, 5000);
-        setMiceForm({ company: '', contactPerson: '', email: '', phone: '', eventType: '', attendees: '' });
+        const message = [
+            `MICE / Corporate Enquiry`,
+            `Company: ${miceForm.company}`,
+            `Event Type: ${miceForm.eventType}`,
+            `Attendees: ${miceForm.attendees}`,
+        ].join('\n');
+
+        try {
+            await submitGeneralEnquiry({
+                name: miceForm.contactPerson,
+                phone: miceForm.phone,
+                email: miceForm.email,
+                interest: 'MICE / Corporate Travel',
+                month: 'Select Month',
+                message,
+                type: 'general',
+            });
+            setMiceSubmitted(true);
+            setTimeout(() => {
+                setMiceSubmitted(false);
+                setShowMiceModal(false);
+                setMiceForm({ company: '', contactPerson: '', email: '', phone: '', eventType: '', attendees: '' });
+            }, 4000);
+        } catch (err) {
+            setMiceError(err.message || 'Failed to submit enquiry.');
+        } finally {
+            setMiceSubmitting(false);
+        }
     };
 
     // Filter packages by type
@@ -407,6 +414,7 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                 </div>
+
                                 {promoSlides && promoSlides.length > 0 ? (
                                     <div className="ft-promo-card">
                                         {promoSlides.length > 1 ? (
@@ -585,14 +593,40 @@ export default function HomePage() {
                                                                 <div className="ft-pkg-meta">
                                                                     <span className="ft-pkg-meta-item"><i className="bi bi-geo-alt"></i> {pkg.location || (pkg.destination ? pkg.destination.name : 'Explore')}</span>
                                                                     <span className="ft-pkg-meta-item"><i className="bi bi-moon-stars"></i> {pkg.duration_nights}N / {pkg.duration_days}D</span>
-                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-people"></i> Group</span>
+                                                                    <span className="ft-pkg-meta-item">
+                                                                        <i className="bi bi-people"></i> {
+                                                                            (() => {
+                                                                                if (pkg.attribute_values && pkg.attribute_values.length > 0) {
+                                                                                    const tourTypeAttr = pkg.attribute_values.find(
+                                                                                        av => av.attribute && (av.attribute.name === 'Tour Type' || av.attribute.slug === 'tour-type')
+                                                                                    );
+                                                                                    if (tourTypeAttr) {
+                                                                                        return tourTypeAttr.value;
+                                                                                    }
+                                                                                }
+                                                                                if (pkg.tags && pkg.tags.length > 0) {
+                                                                                    const relevantTag = pkg.tags.find(t => 
+                                                                                        t.name.toLowerCase().includes('tour') || 
+                                                                                        t.name.toLowerCase().includes('special') || 
+                                                                                        t.name.toLowerCase().includes('family') || 
+                                                                                        t.name.toLowerCase().includes('couple')
+                                                                                    );
+                                                                                    if (relevantTag) {
+                                                                                        return relevantTag.name;
+                                                                                    }
+                                                                                    return pkg.tags[0].name;
+                                                                                }
+                                                                                return 'Group Tour';
+                                                                            })()
+                                                                        }
+                                                                    </span>
                                                                 </div>
                                                                 <div className="ft-pkg-card-footer">
                                                                     <div>
                                                                         <div className="ft-pkg-price-label">Starting From</div>
                                                                         <div className="ft-pkg-price">₹ {pkg.price.toLocaleString('en-IN')} <span>/ person</span></div>
                                                                     </div>
-                                                                    <Link href={`/packages/${pkg.id}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
+                                                                    <Link href={`/packages/${pkg.slug}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
                                                                         view details
                                                                     </Link>
                                                                 </div>
@@ -657,7 +691,7 @@ export default function HomePage() {
                                                                         <div className="ft-pkg-price-label">Per Night</div>
                                                                         <div className="ft-pkg-price">₹ {pkg.price.toLocaleString('en-IN')}</div>
                                                                     </div>
-                                                                    <Link href={`/packages/${pkg.id}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
+                                                                    <Link href={`/hotels/${pkg.slug}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
                                                                         view details
                                                                     </Link>
                                                                 </div>
@@ -816,120 +850,16 @@ export default function HomePage() {
                 </div>
             </div>
 
-            {/* ========================================
-                 TRAVEL REELS & INSPIRATION
-            ======================================== */}
-            <div className="reels-section mb-55" data-aos="fade-up">
-                <div className="container-xl">
-                    <div className="reels-explore-panel">
+            <TravelMediaSection
+                reels={reels}
+                videos={videos}
+                reelsLoading={reelsLoading}
+                videosLoading={videosLoading}
+                loading={loading}
+                onPlayReel={setActiveReel}
+                onPlayRandom={playRandomShort}
+            />
 
-                        {/* Left Column: Travel Reels */}
-                        <div className="panel-left">
-                            <div className="panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                                <h3 style={{ margin: 0 }}>Travel reels</h3>
-                                <button className="shuffle-reels-btn border-0 text-white" onClick={playRandomShort} style={{ cursor: 'pointer' }}>
-                                    <i className="bi bi-shuffle"></i> Play Random Short
-                                </button>
-                            </div>
-                            <div className="vertical-reels-row">
-                                {reelsLoading ? (
-                                    [1, 2, 3, 4].map(idx => (
-                                        <div key={idx} className="v-reel-card ft-skeleton-card-img" style={{ height: 'auto', aspectRatio: '9/16' }}></div>
-                                    ))
-                                ) : (
-                                    (reels.length > 0 ? reels : travelShorts).map((reel, idx) => {
-                                        const title = reel.title || reel.reel_title || 'Travel Reel';
-                                        const desc = reel.desc || title;
-                                        const imgUrl = reel.thumbnail || '/assets/img/grentours_placeholder.png';
-                                        return (
-                                            <div key={idx} className="v-reel-card" onClick={() => setActiveReel({
-                                                id: reel.id,
-                                                video_url: reel.video_url,
-                                                title: title,
-                                                desc: desc,
-                                                isLandscape: false
-                                            })}>
-                                                <div className="v-reel-thumbnail">
-                                                    <img src={imgUrl} alt={title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                    <div className="v-reel-watermark">
-                                                        <img src="/assets/img/logo.png" alt="Grentours" style={{ height: '11px', filter: 'brightness(0) invert(1)' }} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                    </div>
-                                                    <div className="yt-play-btn">
-                                                        <svg viewBox="0 0 68 48">
-                                                            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                            <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                                        </svg>
-                                                    </div>
-                                                    <div className="v-reel-label">
-                                                        <span>{title}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Vertical Divider */}
-                        <div className="panel-divider"></div>
-
-                        {/* Right Column: Explore Travel Videos */}
-                        <div className="panel-right">
-                            <div className="panel-header">
-                                <h3>Explore Travel Videos</h3>
-                            </div>
-                            <div className="landscape-videos-scroll">
-                                {videosLoading ? (
-                                    [1, 2, 3].map(idx => (
-                                        <div key={idx} className="l-video-card" style={{ flex: '0 0 240px' }}>
-                                            <div className="ft-skeleton-card-img" style={{ aspectRatio: '16/9', height: 'auto', borderRadius: '12px' }}></div>
-                                            <div className="l-video-info mt-2">
-                                                <div className="ft-skeleton-line title"></div>
-                                                <div className="ft-skeleton-line meta mt-1"></div>
-                                            </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                    (videos.length > 0 ? videos : [
-                                        { id: 'V-E64c2U9Ew', title: 'Queensland Adventure with Meeta Shah', description: 'Everything you need to know about Queensland, Australia. Learn about key highlights, beaches, rainforests, and wildlife with our travel expert.', thumbnail: '/assets/img/home1/destination-card-img4.jpg', isLandscape: true },
-                                        { id: '79bY0_y92tU', title: 'Japan Podcast with Siddharth Shah', description: 'Siddharth Shah interviews Meghna Patadia, a Japan travel expert. Meghna shares her love for Japan, top cultural spots, and food recommendations.', thumbnail: '/assets/img/home1/destination-card-img5.jpg', isLandscape: true },
-                                        { id: 'U1J-FvL9dD4', title: 'Top 8 Locations in Singapore', description: 'Embark on a journey to Singapore. Flamingo Travels\' top 8 must-visit attractions, sights, and hidden gems.', thumbnail: '/assets/img/home1/destination-card-img7.jpg', isLandscape: true }
-                                    ]).map((video, idx) => {
-                                        const title = video.title || video.video_title || 'Travel Video';
-                                        const desc = video.description || title;
-                                        const imgUrl = video.thumbnail || '/assets/img/grentours_placeholder.png';
-                                        return (
-                                            <div key={idx} className="l-video-card" onClick={() => setActiveReel({
-                                                id: video.id,
-                                                video_url: video.video_url,
-                                                title: title,
-                                                desc: desc,
-                                                isLandscape: true
-                                            })}>
-                                                <div className="l-video-thumbnail">
-                                                    <img src={imgUrl} alt={title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                    <div className="yt-play-btn">
-                                                        <svg viewBox="0 0 68 48">
-                                                            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                            <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div className="l-video-info">
-                                                    <h4>{title}</h4>
-                                                    <p>{desc}</p>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                )}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             {/* ========================================
                  ABOUT US
@@ -994,7 +924,7 @@ export default function HomePage() {
                                     {/* Stat 1: Happy Families */}
                                     <div className="stat-card">
                                         <div className="stat-icon-wrap bg-heart-light">
-                                            <i className="bi bi-hearts"></i>
+                                            <i className="bi bi-heart-fill"></i>
                                         </div>
                                         <div className="stat-info">
                                             <h3 className="stat-number">2,10,000+</h3>
@@ -1169,8 +1099,8 @@ export default function HomePage() {
 
             {/* Sticky Mobile Bar */}
             <div className="ft-sticky-bottom">
-                <button className="s-btn s-primary" onClick={() => alert('Consultation form coming soon!')}>Get Free Quote</button>
-                <button className="s-btn s-call" onClick={() => window.open('tel:+919825081806')}><i className="bi bi-telephone-fill"></i> Call Us</button>
+                <button type="button" className="s-btn s-primary" onClick={openEnquiryModal}>Get Free Quote</button>
+                <button type="button" className="s-btn s-call" onClick={() => window.open(`tel:${contactPhone}`)}><i className="bi bi-telephone-fill"></i> Call Us</button>
             </div>
 
             {/* ========================================
@@ -1234,6 +1164,9 @@ export default function HomePage() {
                                 </div>
                             ) : (
                                 <form id="miceEnquiryForm" onSubmit={handleMiceEnquirySubmit}>
+                                    {miceError && (
+                                        <div className="alert alert-danger py-2 mb-3" style={{ fontSize: '12px' }}>{miceError}</div>
+                                    )}
                                     <div className="ft-form-group mb-3">
                                         <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Company Name *</label>
                                         <input
@@ -1321,7 +1254,9 @@ export default function HomePage() {
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="ft-mice-cta btn btn-success" style={{ marginTop: '10px', width: '100%', color: '#fff', border: 0 }}>Submit Inquiry <i className="bi bi-send-fill"></i></button>
+                                    <button type="submit" className="ft-mice-cta btn btn-success" style={{ marginTop: '10px', width: '100%', color: '#fff', border: 0 }} disabled={miceSubmitting}>
+                                        {miceSubmitting ? 'Submitting...' : <>Submit Inquiry <i className="bi bi-send-fill"></i></>}
+                                    </button>
                                 </form>
                             )}
                         </div>

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import { hotelList, hotelAds } from '../../data/travel-data';
+import ListFilterHeader from '../../components/listing/ListFilterHeader';
 
 function HotelsListContent() {
     // Filter states
@@ -11,9 +11,129 @@ function HotelsListContent() {
     const [selectedAmenities, setSelectedAmenities] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState('rating');
+    const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+    // Data states
+    const [hotels, setHotels] = useState([]);
+    const [availableAmenities, setAvailableAmenities] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    const [offset, setOffset] = useState(0);
+    
+    const ITEMS_PER_PAGE = 10;
+    
+    // Debounce timer
+    const debounceTimer = useRef(null);
+
+    useEffect(() => {
+        if (mobileFilterOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [mobileFilterOpen]);
 
     // Clipboard promo state
     const [copiedCode, setCopiedCode] = useState('');
+
+    // Fetch hotels from API
+    const fetchHotels = async (isLoadMore = false) => {
+        if (!isLoadMore) {
+            setLoading(true);
+        } else {
+            setLoadingMore(true);
+        }
+        
+        try {
+            const params = new URLSearchParams();
+            params.append('limit', ITEMS_PER_PAGE);
+            params.append('offset', isLoadMore ? offset : 0);
+            if (searchQuery) params.append('search', searchQuery);
+            if (priceLimit) params.append('max_price', priceLimit);
+            if (selectedStars.length > 0) params.append('stars', selectedStars.join(','));
+            if (selectedAmenities.length > 0) params.append('amenities', selectedAmenities.join(','));
+            
+            let sortParam = 'rating';
+            if (sortOption === 'price-low') sortParam = 'price_low';
+            if (sortOption === 'price-high') sortParam = 'price_high';
+            if (sortOption === 'reviews') sortParam = 'reviews';
+            params.append('sort', sortParam);
+
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+            const res = await fetch(`${apiUrl}/api/v1/hotels?${params.toString()}`);
+            const data = await res.json();
+            if (data.success) {
+                if (isLoadMore) {
+                    setHotels(prev => [...prev, ...data.data]);
+                } else {
+                    setHotels(data.data);
+                    if (data.filters?.amenities) {
+                        setAvailableAmenities(data.filters.amenities);
+                    }
+                }
+                setHasMore(data.data.length === ITEMS_PER_PAGE && hotels.length + data.data.length < data.total);
+            }
+        } catch (error) {
+            console.error('Error fetching hotels:', error);
+        } finally {
+            if (!isLoadMore) {
+                setLoading(false);
+            } else {
+                setLoadingMore(false);
+            }
+        }
+    };
+
+    // Initial fetch and filter changes (with debounce for search)
+    useEffect(() => {
+        if (debounceTimer.current) {
+            clearTimeout(debounceTimer.current);
+        }
+        
+        if (searchQuery) {
+            // Debounce search
+            debounceTimer.current = setTimeout(() => {
+                setOffset(0);
+                fetchHotels();
+            }, 300);
+        } else {
+            // Immediate for other filters
+            setOffset(0);
+            fetchHotels();
+        }
+        
+        return () => {
+            if (debounceTimer.current) {
+                clearTimeout(debounceTimer.current);
+            }
+        };
+    }, [priceLimit, selectedStars, selectedAmenities, searchQuery, sortOption]);
+    
+    // Handle scroll to load more
+    useEffect(() => {
+        const handleScroll = () => {
+            if (loading || loadingMore || !hasMore) return;
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            if (scrollTop + windowHeight >= documentHeight - 500) {
+                setOffset(prev => prev + ITEMS_PER_PAGE);
+            }
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [loading, loadingMore, hasMore]);
+    
+    // Fetch more when offset changes
+    useEffect(() => {
+        if (offset > 0) {
+            fetchHotels(true);
+        }
+    }, [offset]);
 
     const handleStarChange = (starsNum) => {
         setSelectedStars(prev => 
@@ -21,9 +141,9 @@ function HotelsListContent() {
         );
     };
 
-    const handleAmenityChange = (amenityKey) => {
+    const handleAmenityChange = (amenityId) => {
         setSelectedAmenities(prev => 
-            prev.includes(amenityKey) ? prev.filter(a => a !== amenityKey) : [...prev, amenityKey]
+            prev.includes(amenityId) ? prev.filter(a => a !== amenityId) : [...prev, amenityId]
         );
     };
 
@@ -41,64 +161,24 @@ function HotelsListContent() {
         setTimeout(() => setCopiedCode(''), 3000);
     };
 
-    // Filter Logic
-    const filteredHotels = hotelList.filter(hotel => {
-        // Price limit
-        if (hotel.price > priceLimit) return false;
-
-        // Search Query
-        if (searchQuery) {
-            const query = searchQuery.toLowerCase();
-            const matchesTitle = hotel.title.toLowerCase().includes(query);
-            const matchesLocation = hotel.location.toLowerCase().includes(query);
-            const matchesHighlights = hotel.highlights.toLowerCase().includes(query);
-            if (!matchesTitle && !matchesLocation && !matchesHighlights) return false;
-        }
-
-        // Star rating
-        if (selectedStars.length > 0) {
-            if (!selectedStars.includes(hotel.stars)) return false;
-        }
-
-        // Amenities
-        if (selectedAmenities.length > 0) {
-            const matchesAllAmenities = selectedAmenities.every(a => hotel.amenities.includes(a));
-            if (!matchesAllAmenities) return false;
-        }
-
-        return true;
-    });
-
-    // Sort Logic
-    const sortedHotels = [...filteredHotels].sort((a, b) => {
-        if (sortOption === 'price-low') {
-            return a.price - b.price;
-        }
-        if (sortOption === 'price-high') {
-            return b.price - a.price;
-        }
-        if (sortOption === 'rating') {
-            return b.rating - a.rating;
-        }
-        // default by reviews
-        return b.reviews - a.reviews;
-    });
-
-    // Amenity Details
-    const amenityMap = {
-        wifi: { label: "Free Wifi", icon: "bi-wifi" },
-        pool: { label: "Swimming Pool", icon: "bi-water" },
-        restaurant: { label: "Restaurant", icon: "bi-egg-fried" },
-        spa: { label: "Luxury Spa", icon: "bi-gem" },
-        ac: { label: "Air Conditioning", icon: "bi-snow" }
+    // Amenity map (for icons)
+    const getAmenityIcon = (amenityName) => {
+        const lowerName = amenityName.toLowerCase();
+        if (lowerName.includes('wifi')) return 'bi-wifi';
+        if (lowerName.includes('pool') || lowerName.includes('swim')) return 'bi-water';
+        if (lowerName.includes('restaurant') || lowerName.includes('food')) return 'bi-egg-fried';
+        if (lowerName.includes('spa')) return 'bi-gem';
+        if (lowerName.includes('air') || lowerName.includes('ac')) return 'bi-snow';
+        return 'bi-check-circle';
     };
 
     return (
         <div className="packages-wrapper py-4">
+            <link rel="stylesheet" href="/assets/css/packages-style.css" />
             <div className="container-xl">
                 {/* Breadcrumbs */}
                 <div className="packages-breadcrumb mb-3">
-                    <a href="/">Home</a> &nbsp;/&nbsp; 
+                    <Link href="/">Home</Link> &nbsp;/&nbsp; 
                     <span className="active">Hotels &amp; Resorts Listings</span>
                 </div>
 
@@ -106,7 +186,7 @@ function HotelsListContent() {
                 <div className="list-header-card p-4 rounded-4 bg-white shadow-sm border border-light mb-4">
                     <div className="list-header-info">
                         <h1 className="h3 fw-bold text-dark mb-1">Luxury Hotels &amp; Resorts</h1>
-                        <p className="text-muted mb-0">Showing {sortedHotels.length} handpicked premium hotel stays</p>
+                        <p className="text-muted mb-0">Showing {hotels.length} handpicked premium hotel stays</p>
                     </div>
                     <div className="list-header-controls d-flex align-items-center gap-3">
                         <div className="sort-select-wrapper d-flex align-items-center gap-2">
@@ -128,18 +208,18 @@ function HotelsListContent() {
                 </div>
 
                 {/* 2-Column Layout */}
-                <div className="row g-4">
+                <div className="row g-4 position-relative">
                     
                     {/* COLUMN 1: SIDEBAR FILTERS (col-lg-4) */}
-                    <aside className="col-lg-4">
+                    <aside className={`col-lg-4 filter-sidebar-mobile ${mobileFilterOpen ? 'show' : ''}`}>
                         <div className="filter-card bg-white p-4 rounded-4 shadow-sm border border-light sticky-top" style={{top: '120px'}}>
-                            <div className="filter-header d-flex justify-content-between align-items-center pb-3 border-bottom mb-3">
-                                <h2 className="h5 fw-bold mb-0 text-dark"><i className="bi bi-funnel-fill text-success"></i> Filter Hotels</h2>
-                                <button className="reset-filter-btn btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" style={{fontSize: '11px'}} onClick={resetFilters}>
-                                    Reset All
-                                </button>
-                            </div>
+                            <ListFilterHeader
+                                title="Filters"
+                                onReset={resetFilters}
+                                onClose={() => setMobileFilterOpen(false)}
+                            />
 
+                            <div className="filter-drawer-body">
                             {/* Search Query */}
                             <div className="filter-group mb-4">
                                 <label className="form-label small fw-bold text-dark mb-2">Search Destination / Hotel</label>
@@ -202,142 +282,162 @@ function HotelsListContent() {
                             </div>
 
                             {/* Amenities Checklist */}
-                            <div className="filter-group">
-                                <span className="small fw-bold text-dark d-block mb-2">Hotel Amenities</span>
-                                <div className="d-flex flex-column gap-2">
-                                    {Object.entries(amenityMap).map(([key, item]) => (
-                                        <label key={key} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
-                                            <div className="d-flex align-items-center gap-2">
-                                                <input 
-                                                    type="checkbox" 
-                                                    className="form-check-input m-0 cursor-pointer"
-                                                    checked={selectedAmenities.includes(key)}
-                                                    onChange={() => handleAmenityChange(key)}
-                                                />
-                                                <span className="text-muted d-flex align-items-center gap-2">
-                                                    <i className={`bi ${item.icon} text-success`}></i> {item.label}
-                                                </span>
-                                            </div>
-                                        </label>
-                                    ))}
-                                </div>
+            <div className="filter-group">
+                <span className="small fw-bold text-dark d-block mb-2">Hotel Amenities</span>
+                <div className="d-flex flex-column gap-2">
+                    {availableAmenities.map((amenity) => (
+                        <label key={amenity.id} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
+                            <div className="d-flex align-items-center gap-2">
+                                <input 
+                                    type="checkbox" 
+                                    className="form-check-input m-0 cursor-pointer"
+                                    checked={selectedAmenities.includes(amenity.id)}
+                                    onChange={() => handleAmenityChange(amenity.id)}
+                                />
+                                <span className="text-muted d-flex align-items-center gap-2">
+                                    <i className={`bi ${getAmenityIcon(amenity.name)} text-success`}></i> {amenity.name}
+                                </span>
+                            </div>
+                        </label>
+                    ))}
+                </div>
+            </div>
                             </div>
 
-                        </div>
-                    </aside>
+                            <div className="filter-drawer-footer d-lg-none">
+                                <button type="button" className="filter-drawer-apply-btn" onClick={() => setMobileFilterOpen(false)}>
+                                    Show {hotels.length} Results
+                                </button>
+                            </div>
 
-                    {/* COLUMN 2: HOTELS LIST & ADS (col-lg-8) */}
-                    <main className="col-lg-8">
-                        <div className="d-flex flex-column gap-4">
-                            
-                            {sortedHotels.length === 0 ? (
-                                <div className="alert alert-light text-center py-5 rounded-4 shadow-sm border border-light">
-                                    <i className="bi bi-building fs-1 text-muted d-block mb-3"></i>
-                                    <h4 className="fw-bold text-dark">No Stays Found</h4>
-                                    <p className="text-muted small">Try modifying your filter selections or budget limit.</p>
-                                    <button className="btn btn-sm btn-success rounded-pill px-4 mt-2 fw-bold" onClick={resetFilters}>
-                                        Clear Filters
-                                    </button>
+        </div>
+    </aside>
+
+    {mobileFilterOpen && (
+        <div className="filter-backdrop d-lg-none" onClick={() => setMobileFilterOpen(false)} />
+    )}
+
+    {/* COLUMN 2: HOTELS LIST & ADS (col-lg-8) */}
+    <main className="col-lg-8">
+        <div className="packages-list-container">
+            
+            {loading ? (
+                <div className="packages-empty-state">
+                    <div className="spinner-border text-success"></div>
+                    <h3 className="mt-3">Loading Hotels...</h3>
+                </div>
+            ) : hotels.length === 0 ? (
+                <div className="packages-empty-state">
+                    <i className="bi bi-building"></i>
+                    <h3>No Stays Found</h3>
+                    <p>Try modifying your filter selections or budget limit.</p>
+                    <button className="btn btn-sm btn-success rounded-pill px-4 mt-2 fw-bold" onClick={resetFilters}>
+                        Clear Filters
+                    </button>
+                </div>
+            ) : (
+                hotels.map((hotel, index) => {
+                    return (
+                        <React.Fragment key={hotel.id}>
+                            <article className="package-card-premium">
+                                {/* Card Image */}
+                                <div className="card-img-side">
+                                    <img 
+                                        src={hotel.image || '/assets/img/grentours_placeholder.png'} 
+                                        alt={hotel.title} 
+                                        onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} 
+                                    />
+                                    <span className="card-ribbon orange">{hotel.stars} Star Stay</span>
                                 </div>
-                            ) : (
-                                sortedHotels.map((hotel, index) => {
-                                    // Inject Promo Ads at specific intervals (e.g. after every 3rd hotel)
-                                    const showAd = index > 0 && index % 3 === 0;
-                                    const adObj = hotelAds[Math.floor(index / 3) % hotelAds.length];
 
-                                    return (
-                                        <React.Fragment key={hotel.id}>
-                                            {showAd && adObj && (
-                                                <div className={`ft-hotel-ad-banner p-4 rounded-4 border-0 text-white shadow-sm position-relative overflow-hidden d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 ${adObj.themeClass}`} style={{
-                                                    background: adObj.themeClass === 'gold' 
-                                                        ? 'linear-gradient(135deg, #d97706 0%, #78350f 100%)' 
-                                                        : 'linear-gradient(135deg, #059669 0%, #064e3b 100%)'
-                                                }}>
-                                                    <div style={{zIndex: 2, maxWidth: '70%'}}>
-                                                        <span className="badge bg-white text-dark px-3 py-1 rounded-pill fw-bold text-uppercase mb-2" style={{fontSize: '9px'}}>{adObj.badge}</span>
-                                                        <h4 className="fw-bold text-white mb-2">{adObj.headline}</h4>
-                                                        <p className="small text-light mb-0" style={{lineHeight: '1.6'}}>{adObj.subtext}</p>
-                                                    </div>
-                                                    <div className="flex-shrink-0" style={{zIndex: 2}}>
-                                                        <button 
-                                                            className="btn btn-light text-dark fw-bold rounded-pill px-4 py-2 text-uppercase shadow-sm"
-                                                            style={{fontSize: '12px'}}
-                                                            onClick={() => copyPromoCode(adObj.action)}
-                                                        >
-                                                            {copiedCode === adObj.action ? 'Copied!' : adObj.btnText}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            )}
+                                {/* Card Details */}
+                                <div className="card-details-side">
+                                    <div>
+                                        <div className="card-tags">
+                                            <span className="tag-badge outline text-success border-success-subtle">{hotel.location}</span>
+                                        </div>
+                                        <h3>
+                                            <Link href={`/hotels/${hotel.slug}`} className="text-dark fw-bold text-decoration-none">
+                                                {hotel.title}
+                                            </Link>
+                                        </h3>
+                                        <div className="card-ratings">
+                                            <span className="rating-stars">
+                                                {Array.from({ length: hotel.stars }).map((_, i) => (
+                                                    <i key={i} className="bi bi-star-fill text-warning"></i>
+                                                ))}
+                                            </span>
+                                            <span className="fw-bold text-dark ms-1">{hotel.rating}</span>
+                                            <span className="review-count">({hotel.reviews} customer reviews)</span>
+                                        </div>
+                                        <p className="card-highlights">
+                                            {hotel.highlights}
+                                        </p>
 
-                                            <article className="ft-list-card bg-white rounded-4 overflow-hidden shadow-sm border border-light d-flex flex-column flex-md-row">
-                                                {/* Card Image */}
-                                                <div className="card-visual position-relative flex-shrink-0" style={{width: '260px', height: '200px'}}>
-                                                    <img src={hotel.image || '/assets/img/grentours_placeholder.png'} alt={hotel.title} className="w-100 h-100" style={{objectFit: 'cover'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                    <span className="badge bg-danger position-absolute top-0 start-0 m-3 fw-bold" style={{fontSize: '11px'}}>
-                                                        {hotel.stars} Star Stay
-                                                    </span>
-                                                </div>
+                                        {/* Compact specifications row */}
+                                        <div className="card-specs-row">
+                                            <span className="spec-pill" title="Location">
+                                                <i className="bi bi-geo-alt-fill text-danger"></i> {hotel.location}
+                                            </span>
+                                            {hotel.amenities.slice(0, 3).map(a => (
+                                                <span key={a.id} className="spec-pill" title={a.name}>
+                                                    <i className={`bi ${getAmenityIcon(a.name)} text-success`}></i> {a.name}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
 
-                                                {/* Card Details */}
-                                                <div className="card-info-side p-4 flex-grow-1 d-flex flex-column justify-content-between">
-                                                    <div>
-                                                        <div className="d-flex align-items-center gap-2 mb-2">
-                                                            <div className="d-flex align-items-center gap-0.5 text-warning" style={{fontSize: '11px'}}>
-                                                                {Array.from({ length: hotel.stars }).map((_, i) => (
-                                                                    <i key={i} className="bi bi-star-fill"></i>
-                                                                ))}
-                                                            </div>
-                                                            <div className="d-flex align-items-center gap-1 text-muted ms-2" style={{fontSize: '11px'}}>
-                                                                <span className="fw-bold text-dark">{hotel.rating}</span>
-                                                                <span>({hotel.reviews} customer reviews)</span>
-                                                            </div>
-                                                        </div>
-                                                        <h3 className="h5 fw-bold text-dark mb-2">{hotel.title}</h3>
-                                                        <p className="text-muted small text-truncate-2 mb-3" style={{height: '38px'}}>
-                                                            {hotel.highlights}
-                                                        </p>
-                                                    </div>
+                                    <div className="inclusions-row mt-3">
+                                        {hotel.amenities.slice(0, 3).map(a => (
+                                            <span key={a.id} className="inclusion-item">
+                                                <i className={`bi ${getAmenityIcon(a.name)}`}></i> {a.name}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
 
-                                                    <div className="d-flex flex-wrap gap-3 mb-0 pt-2 border-top border-light-subtle" style={{fontSize: '11px'}}>
-                                                        {hotel.amenities.map(a => {
-                                                            const details = amenityMap[a];
-                                                            if (!details) return null;
-                                                            return (
-                                                                <span key={a} className="text-muted d-flex align-items-center gap-1">
-                                                                    <i className={`bi ${details.icon} text-success`}></i> {details.label}
-                                                                </span>
-                                                            );
-                                                        })}
-                                                    </div>
-                                                </div>
-
-                                                {/* Price & Book Section */}
-                                                <div className="card-price-side p-4 bg-light bg-opacity-50 border-start border-light-subtle d-flex flex-column justify-content-between align-items-end text-end" style={{width: '200px'}}>
-                                                    <div>
-                                                        <span className="text-muted small d-block">Price / Night</span>
-                                                        <div className="h4 fw-bold text-success my-1">₹ {hotel.price.toLocaleString('en-IN')}</div>
-                                                        <span className="text-muted d-block" style={{fontSize: '10px'}}>excl. local room taxes</span>
-                                                    </div>
-                                                    <div className="w-100 d-flex flex-column gap-2 mt-3">
-                                                        <button className="btn btn-sm btn-success rounded-pill fw-bold w-100 py-1.5" style={{fontSize: '12px'}} onClick={() => alert(`Initiating room booking flow for ${hotel.title}...`)}>
-                                                            Book Stay
-                                                        </button>
-                                                        <button className="btn btn-sm btn-outline-success rounded-pill fw-bold w-100 py-1.5" style={{fontSize: '12px'}} onClick={() => alert('Opening consultation form...')}>
-                                                            Send Inquiry
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </React.Fragment>
-                                    );
-                                })
-                            )}
+                                {/* Price & Book Section */}
+                                <div className="card-price-side">
+                                    <div>
+                                        <span className="price-label">Price / Night</span>
+                                        <div className="price-value">₹ {hotel.price.toLocaleString('en-IN')}</div>
+                                        <span className="price-subtitle">excl. local room taxes</span>
+                                    </div>
+                                    <div className="card-actions-stack">
+                                        <Link href={`/hotels/${hotel.slug}`} className="action-btn-primary text-decoration-none text-center">
+                                            View Details
+                                        </Link>
+                                        <Link href={`/hotels/${hotel.slug}#inquiry`} className="action-btn-secondary text-decoration-none text-center">
+                                            Send Inquiry
+                                        </Link>
+                                    </div>
+                                </div>
+                            </article>
+                        </React.Fragment>
+                    );
+                })
+            )}
+            
+            {/* Loading More Indicator */}
+            {loadingMore && (
+                <div className="text-center py-5">
+                    <div className="spinner-border text-success" role="status">
+                        <span className="visually-hidden">Loading more hotels...</span>
+                    </div>
+                    <p className="mt-3 text-muted fw-semibold">Loading more hotels...</p>
+                </div>
+            )}
 
                         </div>
                     </main>
 
                 </div>
+            </div>
+
+            <div className="d-lg-none position-fixed bottom-0 start-50 translate-middle-x mb-4" style={{ zIndex: 999 }}>
+                <button type="button" className="btn btn-success shadow-lg rounded-pill px-4 py-2.5 fw-bold d-flex align-items-center gap-2" onClick={() => setMobileFilterOpen(true)}>
+                    <i className="bi bi-funnel-fill" /> Filter &amp; Sort
+                </button>
             </div>
         </div>
     );

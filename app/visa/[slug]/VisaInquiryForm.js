@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { submitGeneralEnquiry } from '../../../lib/submitEnquiry';
 
 export default function VisaInquiryForm({ countryName }) {
     const [formData, setFormData] = useState({
@@ -21,37 +22,27 @@ export default function VisaInquiryForm({ countryName }) {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setFormSubmitting(true);
 
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        fetch(`${apiUrl}/api/v1/enquiries`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+        try {
+            await submitGeneralEnquiry({
                 name: formData.name,
-                email: formData.email,
                 phone: formData.phone,
-                interest: `${countryName || 'Visa'} Application Enquiry`,
+                email: formData.email,
+                interest: `${countryName || 'Visa'} Visa`,
                 month: formData.travelMonth,
-                message: formData.message
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
+                message: formData.message,
+                type: 'visa',
+            });
             setFormSubmitted(true);
-        })
-        .catch(err => {
+        } catch (err) {
             console.error('Error submitting enquiry:', err);
-            // Default fallback to success/mock experience for demo completeness
-            setFormSubmitted(true);
-        })
-        .finally(() => {
+            alert(err.message || 'Failed to submit enquiry.');
+        } finally {
             setFormSubmitting(false);
-        });
+        }
     };
 
     if (formSubmitted) {
