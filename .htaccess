@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteCond %{REQ_HEADER:Upgrade} =websocket [NC]
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]

@@ -3,10 +3,15 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { tourPackages } from '../../data/travel-data';
 
 function PackagesListContent() {
     const searchParams = useSearchParams();
+
+    // Data states
+    const [rawPackages, setRawPackages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
     // Filter states
     const [priceLimit, setPriceLimit] = useState(500000);
@@ -19,6 +24,29 @@ function PackagesListContent() {
     // Comparison state
     const [compareList, setCompareList] = useState([]);
     const [showCompareDialog, setShowCompareDialog] = useState(false);
+
+    // Fetch packages dynamically
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+                const res = await fetch(`${apiUrl}/api/v1/packages`);
+                if (!res.ok) throw new Error("Failed to fetch packages");
+                const resData = await res.json();
+                if (resData.success) {
+                    setRawPackages(resData.data);
+                } else {
+                    throw new Error(resData.message || "Failed to load packages");
+                }
+            } catch (err) {
+                console.error("Error loading packages:", err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPackages();
+    }, []);
 
     // Initial load from URL search params
     useEffect(() => {
@@ -45,6 +73,65 @@ function PackagesListContent() {
             maximumFractionDigits: 0
         }).format(num);
     };
+
+    // Normalize packages from dynamic API structure to match frontend expectations
+    const tourPackagesList = rawPackages.map(pkg => {
+        const durationDays = pkg.duration_days || 5;
+        const durationNights = pkg.duration_nights || (durationDays - 1);
+        
+        const getImageUrl = (url) => {
+            if (!url) return '/assets/img/grentours_placeholder.png';
+            if (url.startsWith('http://') || url.startsWith('https://')) {
+                return url;
+            }
+            if (url.startsWith('/assets/') || url.startsWith('assets/')) {
+                return url.startsWith('/') ? url : `/${url}`;
+            }
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+            return `${apiUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+        };
+
+        const themes = Array.isArray(pkg.themes) 
+            ? pkg.themes.map(t => t.slug || t.name?.toLowerCase()) 
+            : [];
+
+        const badges = Array.isArray(pkg.tags) 
+            ? pkg.tags.map(t => t.name) 
+            : [];
+
+        const amenities = Array.isArray(pkg.amenities)
+            ? pkg.amenities.map(a => a.name)
+            : [];
+
+        // Distribute departure cities deterministically for filter realism
+        const staticDepartures = ['Mumbai', 'New Delhi', 'Bengaluru', 'Ahmedabad', 'Kolkata', 'Hyderabad', 'Chennai'];
+        const departures = staticDepartures.filter((_, idx) => (pkg.id + idx) % 2 === 0 || idx === 0);
+
+        return {
+            id: pkg.id,
+            slug: pkg.slug,
+            title: pkg.title || "Holiday Package",
+            price: parseFloat(pkg.price || 0),
+            rating: pkg.rating || 4.8,
+            reviews: pkg.reviews || 15,
+            duration: durationDays,
+            durationText: `${durationDays} Days / ${durationNights} Nights`,
+            image: getImageUrl(pkg.image),
+            themes: themes,
+            departures: departures,
+            inclusions: Array.isArray(pkg.inclusions) ? pkg.inclusions : ["hotels", "meals", "transfers"],
+            badges: badges,
+            highlights: pkg.highlights || "",
+            location: pkg.location || "India",
+            tourType: pkg.package_type || "Holiday Tour",
+            groupSize: "15 People",
+            languages: "English, Hindi",
+            description: pkg.overview || pkg.description || "",
+            amenities: amenities,
+            tourPlan: pkg.tourPlan || [],
+            images: pkg.images || [getImageUrl(pkg.image)]
+        };
+    });
 
     // Handle filter actions
     const handleThemeChange = (themeVal) => {
@@ -75,7 +162,7 @@ function PackagesListContent() {
     };
 
     // Filter logic
-    const filteredPackages = tourPackages.filter(pkg => {
+    const filteredPackages = tourPackagesList.filter(pkg => {
         // Price limit
         if (pkg.price > priceLimit) return false;
 
@@ -149,8 +236,41 @@ function PackagesListContent() {
         setCompareList([]);
     };
 
+    // Loading State
+    if (loading) {
+        return (
+            <div className="packages-wrapper py-5 text-center">
+                <link rel="stylesheet" href="/assets/css/packages-style.css" />
+                <div className="container-xl py-5">
+                    <div className="spinner-border text-success" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="mt-3 text-muted fw-semibold">Loading holiday packages...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Error State
+    if (error) {
+        return (
+            <div className="packages-wrapper py-5 text-center">
+                <link rel="stylesheet" href="/assets/css/packages-style.css" />
+                <div className="container-xl py-5">
+                    <i className="bi bi-exclamation-triangle-fill text-danger fs-1"></i>
+                    <h3 className="mt-3 fw-bold">Failed to Load Packages</h3>
+                    <p className="text-muted">{error}</p>
+                    <button className="btn btn-success rounded-pill px-4 mt-2" onClick={() => window.location.reload()}>
+                        Retry
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="packages-wrapper py-4">
+            <link rel="stylesheet" href="/assets/css/packages-style.css" />
             <div className="container-xl">
                 {/* Breadcrumbs */}
                 <div className="packages-breadcrumb mb-3">
@@ -185,16 +305,21 @@ function PackagesListContent() {
                 </div>
 
                 {/* 2-Column Grid Layout */}
-                <div className="row g-4">
+                <div className="row g-4 position-relative">
                     
-                    {/* COLUMN 1: SIDEBAR FILTERS (col-lg-4) */}
-                    <aside className="col-lg-4">
+                    {/* COLUMN 1: SIDEBAR FILTERS */}
+                    <aside className={`col-lg-4 filter-sidebar-mobile ${mobileFilterOpen ? 'show' : ''}`}>
                         <div className="filter-card bg-white p-4 rounded-4 shadow-sm border border-light sticky-top" style={{top: '120px'}}>
                             <div className="filter-header d-flex justify-content-between align-items-center pb-3 border-bottom mb-3">
-                                <h2 className="h5 fw-bold mb-0 text-dark"><i className="bi bi-funnel-fill text-success"></i> Filter Search</h2>
-                                <button className="reset-filter-btn btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" style={{fontSize: '11px'}} onClick={resetAllFilters}>
-                                    Reset All
-                                </button>
+                                <h2 className="h5 fw-bold mb-0 text-dark">
+                                    <i className="bi bi-funnel-fill text-success"></i> Filter Search
+                                </h2>
+                                <div className="d-flex align-items-center gap-2">
+                                    <button className="reset-filter-btn btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" style={{fontSize: '11px'}} onClick={resetAllFilters}>
+                                        Reset All
+                                    </button>
+                                    <button className="btn-close d-lg-none" onClick={() => setMobileFilterOpen(false)}></button>
+                                </div>
                             </div>
 
                             {/* Search bar inside filters */}
@@ -308,6 +433,11 @@ function PackagesListContent() {
                         </div>
                     </aside>
 
+                    {/* Semi-transparent backdrop for mobile filter drawer */}
+                    {mobileFilterOpen && (
+                        <div className="filter-backdrop d-lg-none" onClick={() => setMobileFilterOpen(false)}></div>
+                    )}
+
                     {/* COLUMN 2: PACKAGE LIST (col-lg-8) */}
                     <main className="col-lg-8">
                         <div className="d-flex flex-column gap-3">
@@ -324,7 +454,7 @@ function PackagesListContent() {
                                 sortedPackages.map(pkg => (
                                     <article className="ft-list-card bg-white rounded-4 overflow-hidden shadow-sm border border-light d-flex flex-column flex-md-row" key={pkg.id}>
                                         {/* Card Image */}
-                                        <div className="card-visual position-relative flex-shrink-0" style={{width: '260px', height: '200px'}}>
+                                        <div className="card-visual position-relative flex-shrink-0">
                                             <img src={pkg.image || '/assets/img/grentours_placeholder.png'} alt={pkg.title} className="w-100 h-100" style={{objectFit: 'cover'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
                                             {pkg.badges && pkg.badges.length > 0 && (
                                                 <span className="badge bg-danger position-absolute top-0 start-0 m-3 fw-bold" style={{fontSize: '11px'}}>
@@ -357,8 +487,12 @@ function PackagesListContent() {
                                                         <span className="text-muted">({pkg.reviews})</span>
                                                     </div>
                                                 </div>
-                                                <h3 className="h5 fw-bold text-dark mb-2">{pkg.title}</h3>
-                                                <p className="text-muted small text-truncate-2 mb-3" style={{height: '38px'}}>
+                                                <h3 className="h5 fw-bold text-dark mb-2">
+                                                    <Link href={`/packages/${pkg.id}`} className="text-decoration-none text-dark hover-success">
+                                                        {pkg.title}
+                                                    </Link>
+                                                </h3>
+                                                <p className="text-muted small text-truncate-2 mb-3">
                                                     {pkg.highlights}
                                                 </p>
                                             </div>
@@ -373,7 +507,7 @@ function PackagesListContent() {
                                         </div>
 
                                         {/* Card Actions / Price Side */}
-                                        <div className="card-price-side p-4 bg-light bg-opacity-50 border-start border-light-subtle d-flex flex-column justify-content-between align-items-end text-end" style={{width: '200px'}}>
+                                        <div className="card-price-side p-4 bg-light bg-opacity-50 border-start border-light-subtle d-flex flex-column justify-content-between align-items-end text-end">
                                             <div>
                                                 <span className="text-muted small d-block">Starts From</span>
                                                 <div className="h4 fw-bold text-success my-1">{formatINR(pkg.price)}</div>
@@ -395,6 +529,13 @@ function PackagesListContent() {
                     </main>
 
                 </div>
+            </div>
+
+            {/* Mobile filter floating trigger button */}
+            <div className="d-lg-none position-fixed bottom-0 start-50 translate-middle-x mb-4" style={{ zIndex: 999 }}>
+                <button className="btn btn-success shadow-lg rounded-pill px-4 py-2.5 fw-bold d-flex align-items-center gap-2" onClick={() => setMobileFilterOpen(true)}>
+                    <i className="bi bi-funnel-fill"></i> Filter &amp; Sort
+                </button>
             </div>
 
             {/* Floating Comparison Drawer */}
@@ -474,3 +615,4 @@ export default function PackagesListPage() {
         </Suspense>
     );
 }
+

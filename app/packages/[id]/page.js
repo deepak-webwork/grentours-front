@@ -8,6 +8,8 @@ import { tourPackages } from '../../../data/travel-data';
 export default function PackageDetailPage() {
     const params = useParams();
     const [pkg, setPkg] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
     const [openDayIndex, setOpenDayIndex] = useState(0);
     
@@ -22,19 +24,92 @@ export default function PackageDetailPage() {
     const [bookingSubmitted, setBookingSubmitted] = useState(false);
 
     useEffect(() => {
-        const id = parseInt(params.id);
-        const selectedPkg = tourPackages.find(p => p.id === id) || tourPackages.find(p => p.id === 4);
-        setPkg(selectedPkg);
-    }, [params]);
+        const fetchPackageDetail = async () => {
+            try {
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+                const res = await fetch(`${apiUrl}/api/v1/packages/${params.id}`);
+                if (!res.ok) throw new Error("Package details could not be loaded");
+                const resData = await res.json();
+                if (resData.success && resData.data) {
+                    const data = resData.data;
+                    const durationDays = data.duration_days || 5;
+                    const durationNights = data.duration_nights || (durationDays - 1);
+                    
+                    const getImageUrl = (url) => {
+                        if (!url) return '/assets/img/grentours_placeholder.png';
+                        if (url.startsWith('http://') || url.startsWith('https://')) {
+                            return url;
+                        }
+                        if (url.startsWith('/assets/') || url.startsWith('assets/')) {
+                            return url.startsWith('/') ? url : `/${url}`;
+                        }
+                        return `${apiUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+                    };
 
-    if (!pkg) {
+                    const images = Array.isArray(data.images) && data.images.length > 0 
+                        ? data.images.map(img => getImageUrl(img)) 
+                        : [getImageUrl(data.image)];
+
+                    const normalized = {
+                        id: data.id,
+                        slug: data.slug,
+                        title: data.title || "Holiday Package",
+                        price: parseFloat(data.price || 0),
+                        rating: data.rating || 4.8,
+                        reviews: data.reviews || 15,
+                        duration: durationDays,
+                        durationText: `${durationDays} Days / ${durationNights} Nights`,
+                        image: getImageUrl(data.image),
+                        images: images,
+                        location: data.location || "India",
+                        tourType: data.package_type || "Guided Group Tour",
+                        groupSize: "15 People",
+                        languages: "English, Hindi",
+                        description: data.overview || data.description || "",
+                        tripHighlights: data.tripHighlights || [],
+                        amenities: Array.isArray(data.amenities) ? data.amenities.map(a => a.name) : [],
+                        tourPlan: Array.isArray(data.tourPlan) ? data.tourPlan : []
+                    };
+                    setPkg(normalized);
+                } else {
+                    throw new Error(resData.message || "Failed to load details");
+                }
+            } catch (err) {
+                console.error("Error loading package details:", err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        if (params.id) {
+            fetchPackageDetail();
+        }
+    }, [params.id]);
+
+    if (loading) {
         return (
             <div className="container py-5 text-center">
+                <link rel="stylesheet" href="/assets/css/packages-style.css" />
                 <div className="spinner-border text-success"></div>
                 <p className="mt-2 text-muted">Loading tour details...</p>
             </div>
         );
     }
+
+    if (error || !pkg) {
+        return (
+            <div className="container py-5 text-center">
+                <link rel="stylesheet" href="/assets/css/packages-style.css" />
+                <i className="bi bi-exclamation-triangle-fill text-danger fs-1"></i>
+                <h3 className="mt-3 fw-bold">Package Not Found</h3>
+                <p className="text-muted">{error || "The requested package could not be retrieved."}</p>
+                <Link href="/packages" className="btn btn-success rounded-pill px-4 mt-2">
+                    Back to Packages
+                </Link>
+            </div>
+        );
+    }
+
 
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('en-IN', {
@@ -113,6 +188,7 @@ export default function PackageDetailPage() {
 
     return (
         <div className="details-wrapper py-4">
+            <link rel="stylesheet" href="/assets/css/packages-style.css" />
             <div className="container-xl">
                 
                 {/* Breadcrumbs */}

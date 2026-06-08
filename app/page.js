@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 export default function HomePage() {
     // Offers tabs state: 'tours' or 'hotels'
@@ -45,79 +47,23 @@ export default function HomePage() {
     const destScrollRef = useRef(null);
     const visaScrollRef = useRef(null);
 
-    const defaultThemes = [
-        {
-            name: 'Chardham Tours',
-            slug: 'spiritual',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/chardham-theme.jpg',
-            packages_count: 3
-        },
-        {
-            name: 'Super Seller Packages',
-            slug: 'bestseller',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/trending-scandinavia.jpg',
-            packages_count: 21
-        },
-        {
-            name: 'Summer 2026 Tour',
-            slug: 'summer',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/summer-tours.jpg',
-            packages_count: 62
-        },
-        {
-            name: 'Honeymoon',
-            slug: 'honeymoon',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/honeymoo-tours.jpg',
-            packages_count: 59
-        },
-        {
-            name: 'Maharaj Tour',
-            slug: 'family',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/chef-cooking.jpg',
-            packages_count: 5
-        },
-        {
-            name: 'Short Breaks',
-            slug: 'short-breaks',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/short-breaks-tours.jpg',
-            packages_count: 7
-        },
-        {
-            name: 'Exotic Tours',
-            slug: 'exotic',
-            image_url: '/assets/img/home1/destination-card-img9.jpg',
-            packages_count: 13
-        },
-        {
-            name: 'Self Drive',
-            slug: 'self-drive',
-            image_url: 'https://imgcdn.flamingotravels.co.in/Images/Website/ExploreDestinationByTheme/self-drive-001.jpg',
-            packages_count: 6
-        },
-        {
-            name: 'Group Tours',
-            slug: 'family',
-            image_url: '/assets/img/home1/destination-card-img7.jpg',
-            packages_count: 14
-        },
-        {
-            name: 'Fixed Departure',
-            slug: 'bestseller',
-            image_url: '/assets/img/home1/destination-card-img9.jpg',
-            packages_count: 18
-        }
-    ];
-
-    const [themes, setThemes] = useState(defaultThemes);
+    const [themes, setThemes] = useState([]);
     const [packages, setPackages] = useState([]);
     const [destinations, setDestinations] = useState([]);
     const [blogs, setBlogs] = useState([]);
+    const [visaDestinations, setVisaDestinations] = useState([]);
+    const [reels, setReels] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [advertisements, setAdvertisements] = useState([]);
     const [blogsLoading, setBlogsLoading] = useState(true);
+    const [visaLoading, setVisaLoading] = useState(true);
+    const [reelsLoading, setReelsLoading] = useState(true);
+    const [videosLoading, setVideosLoading] = useState(true);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        
+
         Promise.all([
             fetch(`${apiUrl}/api/v1/themes`)
                 .then(res => res.json())
@@ -151,7 +97,42 @@ export default function HomePage() {
                     }
                 })
                 .catch(err => console.error('Error fetching blogs:', err))
-                .finally(() => setBlogsLoading(false))
+                .finally(() => setBlogsLoading(false)),
+            fetch(`${apiUrl}/api/v1/visa-destinations`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.destinations) {
+                        setVisaDestinations(data.destinations);
+                    }
+                })
+                .catch(err => console.error('Error fetching visas:', err))
+                .finally(() => setVisaLoading(false)),
+            fetch(`${apiUrl}/api/v1/travel-reels`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.reels) {
+                        setReels(data.reels);
+                    }
+                })
+                .catch(err => console.error('Error fetching reels:', err))
+                .finally(() => setReelsLoading(false)),
+            fetch(`${apiUrl}/api/v1/travel-videos`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.videos) {
+                        setVideos(data.videos);
+                    }
+                })
+                .catch(err => console.error('Error fetching videos:', err))
+                .finally(() => setVideosLoading(false)),
+            fetch(`${apiUrl}/api/v1/homepage/advertisements`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.banners) {
+                        setAdvertisements(data.banners);
+                    }
+                })
+                .catch(err => console.error('Error fetching advertisements:', err))
         ]).finally(() => {
             setLoading(false);
         });
@@ -160,6 +141,9 @@ export default function HomePage() {
     const getThemeImage = (url) => {
         if (!url) return '/assets/img/grentours_placeholder.png';
         if (url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        }
+        if (url.startsWith('/assets/')) {
             return url;
         }
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
@@ -183,6 +167,21 @@ export default function HomePage() {
         if (url.startsWith('http://') || url.startsWith('https://')) {
             return url;
         }
+        if (url.startsWith('/assets/')) {
+            return url;
+        }
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+        return `${apiUrl}${url}`;
+    };
+
+    const getAdImage = (url) => {
+        if (!url) return '/assets/img/grentours_placeholder.png';
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+        }
+        if (url.startsWith('/assets/')) {
+            return url;
+        }
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
         return `${apiUrl}${url}`;
     };
@@ -197,6 +196,15 @@ export default function HomePage() {
         }
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
         return `${apiUrl}${url}`;
+    };
+
+    const getEmbedUrl = (reel) => {
+        if (!reel) return '';
+        if (reel.video_url) {
+            const separator = reel.video_url.includes('?') ? '&' : '?';
+            return `${reel.video_url}${separator}autoplay=1&mute=0&rel=0`;
+        }
+        return `https://www.youtube.com/embed/${reel.id}?autoplay=1&mute=0&rel=0`;
     };
 
     // Open inquiry modal listener
@@ -220,17 +228,24 @@ export default function HomePage() {
             new window.Swiper(".trav-blog-slider", {
                 slidesPerView: 4,
                 speed: 800,
-                spaceBetween: 16,
+                spaceBetween: 20,
                 loop: blogs.length >= 4,
                 autoplay: {
-                    delay: 3000,
+                    delay: 3500,
                     disableOnInteraction: false,
                 },
+                navigation: {
+                    nextEl: ".blog-swiper-next",
+                    prevEl: ".blog-swiper-prev",
+                },
+                pagination: {
+                    el: ".blog-swiper-pagination",
+                    clickable: true,
+                },
                 breakpoints: {
-                    280: { slidesPerView: 1.3 },
+                    280: { slidesPerView: 1.1 },
                     576: { slidesPerView: 2 },
                     768: { slidesPerView: 3 },
-                    992: { slidesPerView: 4 },
                     1200: { slidesPerView: 4 }
                 }
             });
@@ -279,9 +294,20 @@ export default function HomePage() {
     ];
 
     const playRandomShort = () => {
-        const randomIndex = Math.floor(Math.random() * travelShorts.length);
-        const short = travelShorts[randomIndex];
-        setActiveReel({ id: short.id, title: short.title, desc: short.desc, isLandscape: false });
+        const sourceReels = reels.length > 0 ? reels : travelShorts;
+        const randomIndex = Math.floor(Math.random() * sourceReels.length);
+        const short = sourceReels[randomIndex];
+        if (short.video_url) {
+            setActiveReel({
+                id: short.id,
+                video_url: short.video_url,
+                title: short.title || short.reel_title,
+                desc: short.description || short.title || short.reel_title,
+                isLandscape: false
+            });
+        } else {
+            setActiveReel({ id: short.id, title: short.title, desc: short.desc, isLandscape: false });
+        }
     };
 
     // Quick enquiry handler
@@ -307,6 +333,34 @@ export default function HomePage() {
     const dbTours = packages.filter(p => p.package_type === 'tour');
     const dbHotels = packages.filter(p => p.package_type === 'hotel');
 
+    // Distribute ads into Slot 1 (Promo) and Slot 2 (Sidebar) using odd/even indices
+    const promoAds = advertisements.filter((_, idx) => idx % 2 === 0);
+    const sidebarAds = advertisements.filter((_, idx) => idx % 2 !== 0);
+
+    const promoSlides = [];
+    promoAds.forEach(ad => {
+        const images = ad.desktop_images && ad.desktop_images.length > 0 ? ad.desktop_images : [];
+        images.forEach(img => {
+            promoSlides.push({
+                image: img,
+                link_url: ad.link_url,
+                title: ad.title
+            });
+        });
+    });
+
+    const sidebarSlides = [];
+    sidebarAds.forEach(ad => {
+        const images = ad.desktop_images && ad.desktop_images.length > 0 ? ad.desktop_images : [];
+        images.forEach(img => {
+            sidebarSlides.push({
+                image: img,
+                link_url: ad.link_url,
+                title: ad.title
+            });
+        });
+    });
+
     return (
         <>
             {/* ========================================
@@ -315,13 +369,13 @@ export default function HomePage() {
             <div className="ft-main-layout">
                 <div className="container-xl">
                     <div className="row g-3">
-                        
+
                         {/* ====== RIGHT SIDEBAR col-lg-4 ====== */}
                         <div className="col-lg-4" data-aos="fade-up">
                             <div className="ft-sidebar ft-sidebar-sticky">
 
                                 {/* MICE Corporate Travel Card */}
-                                <div className="ft-mice-card" data-aos="fade-up" onClick={() => setShowMiceModal(true)} style={{cursor: 'pointer'}}>
+                                <div className="ft-mice-card" data-aos="fade-up" onClick={() => setShowMiceModal(true)} style={{ cursor: 'pointer' }}>
                                     <div className="ft-mice-header">
                                         <div className="mice-top-row">
                                             <div className="mice-big-logo">
@@ -353,90 +407,78 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Promo card */}
-                                <div className="ft-promo-card">
-                                    <div className="ft-promo-img">
-                                        <img src="/assets/img/bali-20526.png" alt="Bali Offer Banner" />
+                                {promoSlides && promoSlides.length > 0 ? (
+                                    <div className="ft-promo-card">
+                                        {promoSlides.length > 1 ? (
+                                            <Swiper
+                                                modules={[Pagination, Autoplay]}
+                                                pagination={{ clickable: true }}
+                                                autoplay={{ delay: 4000, disableOnInteraction: false }}
+                                                className="promo-swiper"
+                                                style={{ borderRadius: '12px', overflow: 'hidden' }}
+                                            >
+                                                {promoSlides.map((slide, i) => (
+                                                    <SwiperSlide key={i}>
+                                                        <Link href={slide.link_url || '#'} className="d-block w-100 h-100">
+                                                            <div className="ft-promo-img">
+                                                                <img src={getAdImage(slide.image)} alt={slide.title} />
+                                                            </div>
+                                                        </Link>
+                                                    </SwiperSlide>
+                                                ))}
+                                            </Swiper>
+                                        ) : (
+                                            <Link href={promoSlides[0].link_url || '#'} className="d-block w-100 h-100">
+                                                <div className="ft-promo-img">
+                                                    <img src={getAdImage(promoSlides[0].image)} alt={promoSlides[0].title} />
+                                                </div>
+                                            </Link>
+                                        )}
                                     </div>
-                                </div>
+                                ) : (
+                                    <div className="ft-promo-card">
+                                        <div className="ft-promo-img">
+                                            <img src="/assets/img/bali-20526.png" alt="Bali Offer Banner" />
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* Partner/Airline Banner */}
-                                <div className="ft-sidebar-ad">
-                                    <div className="ft-sidebar-ad-img">
-                                        <img src="/assets/img/AIR_Banner_f2_1.webp" alt="Partner Airline Banner" />
+                                {sidebarSlides && sidebarSlides.length > 0 ? (
+                                    <div className="ft-sidebar-ad">
+                                        {sidebarSlides.length > 1 ? (
+                                            <Swiper
+                                                modules={[Pagination, Autoplay]}
+                                                pagination={{ clickable: true }}
+                                                autoplay={{ delay: 4500, disableOnInteraction: false }}
+                                                className="sidebar-ad-swiper"
+                                                style={{ borderRadius: '12px', overflow: 'hidden' }}
+                                            >
+                                                {sidebarSlides.map((slide, i) => (
+                                                    <SwiperSlide key={i}>
+                                                        <Link href={slide.link_url || '#'} className="d-block w-100 h-100">
+                                                            <div className="ft-sidebar-ad-img">
+                                                                <img src={getAdImage(slide.image)} alt={slide.title} />
+                                                            </div>
+                                                        </Link>
+                                                    </SwiperSlide>
+                                                ))}
+                                            </Swiper>
+                                        ) : (
+                                            <Link href={sidebarSlides[0].link_url || '#'} className="d-block w-100 h-100">
+                                                <div className="ft-sidebar-ad-img">
+                                                    <img src={getAdImage(sidebarSlides[0].image)} alt={sidebarSlides[0].title} />
+                                                </div>
+                                            </Link>
+                                        )}
                                     </div>
-                                </div>
-
-                                {/* Quick Enquiry Form */}
-                                <div className="ft-enquiry-card bg-white p-4 rounded-4 shadow-sm border border-light">
-                                    <h4 className="fw-bold mb-3 d-flex align-items-center gap-2" style={{color: '#0f172a'}}>
-                                        <i className="bi bi-send-fill text-success"></i> Plan Your Custom Trip
-                                    </h4>
-                                    <p className="text-muted small mb-4">Tell us where you want to go and our travel specialists will curate a personalized itinerary for you.</p>
-
-                                    {enquirySubmitted ? (
-                                        <div className="alert alert-success text-center py-4 rounded-3 border-0">
-                                            <i className="bi bi-check-circle-fill fs-2 text-success d-block mb-2"></i>
-                                            <span className="fw-bold d-block">Inquiry Sent Successfully!</span>
-                                            <span className="small text-muted mt-1 d-block">Our agent will call you within 2-4 hours.</span>
+                                ) : (
+                                    <div className="ft-sidebar-ad">
+                                        <div className="ft-sidebar-ad-img">
+                                            <img src="/assets/img/AIR_Banner_f2_1.webp" alt="Partner Airline Banner" />
                                         </div>
-                                    ) : (
-                                        <form onSubmit={handleQuickEnquirySubmit}>
-                                            <div className="mb-3">
-                                                <label className="form-label small fw-semibold text-muted mb-1">Your Name *</label>
-                                                <input 
-                                                    type="text" 
-                                                    className="form-control rounded-3 py-2 border-light-subtle" 
-                                                    required 
-                                                    placeholder="Enter full name"
-                                                    value={enquiryForm.name}
-                                                    onChange={(e) => setEnquiryForm({...enquiryForm, name: e.target.value})}
-                                                />
-                                            </div>
-                                            <div className="mb-3">
-                                                <label className="form-label small fw-semibold text-muted mb-1">Mobile Number *</label>
-                                                <input 
-                                                    type="tel" 
-                                                    className="form-control rounded-3 py-2 border-light-subtle" 
-                                                    required 
-                                                    placeholder="+91 XXXXX XXXXX"
-                                                    value={enquiryForm.phone}
-                                                    onChange={(e) => setEnquiryForm({...enquiryForm, phone: e.target.value})}
-                                                />
-                                            </div>
-                                            <div className="mb-3">
-                                                <label className="form-label small fw-semibold text-muted mb-1">Interested In *</label>
-                                                <select 
-                                                    className="form-select rounded-3 py-2 border-light-subtle"
-                                                    value={enquiryForm.interest}
-                                                    onChange={(e) => setEnquiryForm({...enquiryForm, interest: e.target.value})}
-                                                >
-                                                    <option value="Europe Tours">Europe Tours</option>
-                                                    <option value="Bali / Asia Tours">Bali / Asia Tours</option>
-                                                    <option value="Maldives Resort stay">Maldives Resort stay</option>
-                                                    <option value="Egypt & Nile Cruise">Egypt & Nile Cruise</option>
-                                                    <option value="Chardham Yatra">Chardham Yatra</option>
-                                                    <option value="Other">Other Exotic Escape</option>
-                                                </select>
-                                            </div>
-                                            <div className="mb-4">
-                                                <label className="form-label small fw-semibold text-muted mb-1">Any Specific Requirements?</label>
-                                                <textarea 
-                                                    className="form-control rounded-3 border-light-subtle" 
-                                                    rows="3" 
-                                                    placeholder="Enter special meals, dates, room options..."
-                                                    value={enquiryForm.message}
-                                                    onChange={(e) => setEnquiryForm({...enquiryForm, message: e.target.value})}
-                                                />
-                                            </div>
-                                            <button type="submit" className="btn btn-success w-100 py-2.5 rounded-pill fw-bold text-uppercase" style={{fontSize: '13px', letterSpacing: '0.5px'}}>
-                                                Send Enquiry <i className="bi bi-arrow-right ms-1"></i>
-                                            </button>
-                                        </form>
-                                    )}
-                                </div>
-
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -455,15 +497,25 @@ export default function HomePage() {
                                             <i className="bi bi-chevron-left"></i>
                                         </button>
                                         <div className="ft-theme-scroll" id="themeScrollEl" ref={themeScrollRef}>
-                                            {themes.map((theme, idx) => (
-                                                <Link key={idx} href={`/packages?theme=${theme.slug}`} className="ft-theme-card">
-                                                    <div className="ft-theme-img">
-                                                        <img src={getThemeImage(theme.image_url)} alt={theme.name} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                    </div>
-                                                    <p>{theme.name}</p>
-                                                    <span>{theme.packages_count ?? 0}+ Tours</span>
-                                                </Link>
-                                            ))}
+                                            {loading ? (
+                                                [1, 2, 3, 4, 5].map((i) => (
+                                                    <div className="ft-theme-card skeleton-pulse" key={i} style={{ minWidth: '130px', height: '140px', background: '#e2e8f0', borderRadius: '12px', flexShrink: 0 }}></div>
+                                                ))
+                                            ) : themes.length > 0 ? (
+                                                themes.map((theme, idx) => (
+                                                    <Link key={idx} href={`/packages?theme=${theme.slug}`} className="ft-theme-card">
+                                                        <div className="ft-theme-img">
+                                                            <img src={getThemeImage(theme.image_url)} alt={theme.name} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                        </div>
+                                                        <p>{theme.name}</p>
+                                                        <span>{theme.packages_count ?? 0}+ Tours</span>
+                                                    </Link>
+                                                ))
+                                            ) : (
+                                                <div className="w-100 text-center py-4 text-muted">
+                                                    No themes available at the moment.
+                                                </div>
+                                            )}
                                         </div>
                                         <button className="ft-theme-arrow right" onClick={() => handleScroll(themeScrollRef, 280)}>
                                             <i className="bi bi-chevron-right"></i>
@@ -562,7 +614,7 @@ export default function HomePage() {
 
                                     {/* Hotels row */}
                                     {offersTab === 'hotels' && (
-                                        <div id="hotelsRow" style={{display: 'block'}}>
+                                        <div id="hotelsRow" style={{ display: 'block' }}>
                                             <div className="ft-pkg-row">
                                                 {loading ? (
                                                     <>
@@ -598,7 +650,7 @@ export default function HomePage() {
                                                                 <div className="ft-pkg-card-title">{pkg.title}</div>
                                                                 <div className="ft-pkg-meta">
                                                                     <span className="ft-pkg-meta-item"><i className="bi bi-geo-alt"></i> {pkg.location || (pkg.destination ? pkg.destination.name : 'Explore')}</span>
-                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-star-fill" style={{color: '#f59e0b'}}></i> {pkg.tags && pkg.tags.length > 0 ? pkg.tags[0].name : 'Hotel'}</span>
+                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-star-fill" style={{ color: '#f59e0b' }}></i> {pkg.tags && pkg.tags.length > 0 ? pkg.tags[0].name : 'Hotel'}</span>
                                                                 </div>
                                                                 <div className="ft-pkg-card-footer">
                                                                     <div>
@@ -617,7 +669,7 @@ export default function HomePage() {
                                                         No hotels available at the moment.
                                                     </div>
                                                 )}
-</div>
+                                            </div>
                                         </div>
                                     )}
 
@@ -634,50 +686,50 @@ export default function HomePage() {
                                             <i className="bi bi-chevron-left"></i>
                                         </button>
                                         <div className="ft-dest-row" id="destScrollEl" ref={destScrollRef}>
-                                             {(() => {
-                                                 if (loading) {
-                                                     return [1, 2, 3, 4, 5].map((i) => (
-                                                         <div className="ft-skeleton-dest-card" key={i}>
-                                                             <div className="ft-skeleton-dest-img"></div>
-                                                             <div className="ft-skeleton-dest-meta">
-                                                                 <div className="ft-skeleton-line" style={{ width: '80%', height: '14px' }}></div>
-                                                                 <div className="ft-skeleton-line" style={{ width: '50%', height: '10px' }}></div>
-                                                             </div>
-                                                         </div>
-                                                     ));
-                                                 }
-                                                 const trendingDests = destinations.filter(d => d.is_trending);
-                                                 const displayDests = trendingDests.length > 0 ? trendingDests : destinations;
+                                            {(() => {
+                                                if (loading) {
+                                                    return [1, 2, 3, 4, 5].map((i) => (
+                                                        <div className="ft-skeleton-dest-card" key={i}>
+                                                            <div className="ft-skeleton-dest-img"></div>
+                                                            <div className="ft-skeleton-dest-meta">
+                                                                <div className="ft-skeleton-line" style={{ width: '80%', height: '14px' }}></div>
+                                                                <div className="ft-skeleton-line" style={{ width: '50%', height: '10px' }}></div>
+                                                            </div>
+                                                        </div>
+                                                    ));
+                                                }
+                                                const trendingDests = destinations.filter(d => d.is_trending);
+                                                const displayDests = trendingDests.length > 0 ? trendingDests : destinations;
 
-                                                 if (displayDests.length === 0) {
-                                                     return (
-                                                         <div className="w-100 text-center py-4 text-muted">
-                                                             No destinations available at the moment.
-                                                         </div>
-                                                     );
-                                                 }
+                                                if (displayDests.length === 0) {
+                                                    return (
+                                                        <div className="w-100 text-center py-4 text-muted">
+                                                            No destinations available at the moment.
+                                                        </div>
+                                                    );
+                                                }
 
-                                                 return displayDests.map((dest, idx) => (
-                                                     <Link href={`/packages?q=${encodeURIComponent(dest.name)}`} className="ft-dest-card text-decoration-none" key={idx} style={{ display: 'block' }}>
-                                                         <div className="ft-dest-img-wrap">
-                                                             <img src={getDestinationImage(dest.image)} alt={dest.name} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                         </div>
-                                                         <div className="ft-dest-meta-wrap">
-                                                             <div className="ft-dest-meta-row">
-                                                                 <span className="ft-dest-name">{dest.name}</span>
-                                                                 <span className="ft-dest-price-wrap">
-                                                                     <span className="ft-dest-price-label">From</span>
-                                                                     <span className="ft-dest-price">
-                                                                         {dest.starting_price !== null && dest.starting_price !== undefined ? `₹${dest.starting_price.toLocaleString('en-IN')}` : 'N/A'}
-                                                                     </span>
-                                                                 </span>
-                                                             </div>
-                                                             <div className="ft-dest-packages">{dest.packages_count || 0} Packages</div>
-                                                         </div>
-                                                     </Link>
-                                                 ));
-                                             })()}
-                                         </div>
+                                                return displayDests.map((dest, idx) => (
+                                                    <Link href={`/packages?q=${encodeURIComponent(dest.name)}`} className="ft-dest-card text-decoration-none" key={idx} style={{ display: 'block' }}>
+                                                        <div className="ft-dest-img-wrap">
+                                                            <img src={getDestinationImage(dest.image)} alt={dest.name} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                        </div>
+                                                        <div className="ft-dest-meta-wrap">
+                                                            <div className="ft-dest-meta-row">
+                                                                <span className="ft-dest-name">{dest.name}</span>
+                                                                <span className="ft-dest-price-wrap">
+                                                                    <span className="ft-dest-price-label">From</span>
+                                                                    <span className="ft-dest-price">
+                                                                        {dest.starting_price !== null && dest.starting_price !== undefined ? `₹${dest.starting_price.toLocaleString('en-IN')}` : 'N/A'}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <div className="ft-dest-packages">{dest.packages_count || 0} Packages</div>
+                                                        </div>
+                                                    </Link>
+                                                ));
+                                            })()}
+                                        </div>
                                         <button className="ft-dest-slide-btn next-btn" onClick={() => handleDestScroll('right')}>
                                             <i className="bi bi-chevron-right"></i>
                                         </button>
@@ -686,25 +738,25 @@ export default function HomePage() {
 
                                 {/* EASY VISA DESTINATIONS */}
                                 <div className="ft-card-section" data-aos="fade-up">
-                                    <div className="ft-section-header" style={{flexWrap: 'wrap', gap: '10px'}}>
+                                    <div className="ft-section-header" style={{ flexWrap: 'wrap', gap: '10px' }}>
                                         <h2>Easy Visa Destinations</h2>
                                         <div className="visa-tabs" role="tablist" aria-label="Visa destination filters">
-                                            <button 
-                                                type="button" 
+                                            <button
+                                                type="button"
                                                 className={`visa-tab ${visaFilter === 'e-visa' ? 'active' : ''}`}
                                                 onClick={() => setVisaFilter('e-visa')}
                                             >
                                                 Countries - with E Visa
                                             </button>
-                                            <button 
-                                                type="button" 
+                                            <button
+                                                type="button"
                                                 className={`visa-tab ${visaFilter === 'stamped' ? 'active' : ''}`}
                                                 onClick={() => setVisaFilter('stamped')}
                                             >
                                                 Countries required Stamped Visa
                                             </button>
-                                            <button 
-                                                type="button" 
+                                            <button
+                                                type="button"
                                                 className={`visa-tab ${visaFilter === 'arrival' ? 'active' : ''}`}
                                                 onClick={() => setVisaFilter('arrival')}
                                             >
@@ -719,28 +771,34 @@ export default function HomePage() {
                                             </button>
                                             <div className="visa-scroll" id="visaScroll" ref={visaScrollRef}>
                                                 <div className="visa-inner">
-                                                    
-                                                    {[
-                                                        { name: 'South Africa', count: '21+ Tours', category: 'e-visa', img: '/assets/img/home1/destination-card-img1.jpg' },
-                                                        { name: 'Japan', count: '8+ Tours', category: 'stamped', img: '/assets/img/home1/destination-card-img2.jpg' },
-                                                        { name: 'Europe', count: '24+ Tours', category: 'stamped', img: '/assets/img/home1/destination-card-img3.jpg' },
-                                                        { name: 'New Zealand', count: '34+ Tours', category: 'e-visa', img: '/assets/img/home1/destination-card-img4.jpg' },
-                                                        { name: 'Vietnam', count: '12+ Tours', category: 'arrival', img: '/assets/img/home1/destination-card-img5.jpg' },
-                                                        { name: 'Bali', count: '18+ Tours', category: 'arrival', img: '/assets/img/home1/destination-card-img6.jpg' },
-                                                        { name: 'Turkey', count: '15+ Tours', category: 'e-visa', img: '/assets/img/home1/destination-card-img7.jpg' },
-                                                        { name: 'Tanzania', count: '5+ Tours', category: 'stamped', img: '/assets/img/home1/destination-card-img8.jpg' },
-                                                        { name: 'Fiji & Bora Bora', count: '2+ Tours', category: 'arrival', img: '/assets/img/home1/destination-card-img9.jpg' }
-                                                    ].filter(item => item.category === visaFilter).map((visa, idx) => (
-                                                        <Link href={`/packages?q=${encodeURIComponent(visa.name)}`} className="visa-card text-decoration-none" key={idx} style={{display: 'block'}}>
-                                                            <div className="visa-card-img">
-                                                                <img src={visa.img} alt={visa.name} />
-                                                            </div>
-                                                            <div className="visa-card-info">
-                                                                <p className="visa-card-name">{visa.name}</p>
-                                                                <p className="visa-card-count">{visa.count}</p>
-                                                            </div>
-                                                        </Link>
-                                                    ))}
+
+                                                    {visaLoading ? (
+                                                        [1, 2, 3, 4].map(n => (
+                                                            <div className="visa-card skeleton-pulse" key={n} style={{
+                                                                minWidth: '220px',
+                                                                height: '240px',
+                                                                background: '#e2e8f0',
+                                                                borderRadius: '12px',
+                                                                flexShrink: 0
+                                                            }}></div>
+                                                        ))
+                                                    ) : visaDestinations.filter(item => item.category === visaFilter).length === 0 ? (
+                                                        <div className="no-visas-msg" style={{ width: '100%', textAlign: 'center', padding: '40px', color: '#64748b' }}>
+                                                            <p>No countries available in this category yet.</p>
+                                                        </div>
+                                                    ) : (
+                                                        visaDestinations.filter(item => item.category === visaFilter).map((visa, idx) => (
+                                                            <Link href={`/visa/${visa.slug}`} className="visa-card text-decoration-none" key={idx} style={{ display: 'block' }}>
+                                                                <div className="visa-card-img">
+                                                                    <img src={getDestinationImage(visa.img)} alt={visa.name} />
+                                                                </div>
+                                                                <div className="visa-card-info">
+                                                                    <p className="visa-card-name">{visa.name}</p>
+                                                                    <p className="visa-card-count">{visa.count}</p>
+                                                                </div>
+                                                            </Link>
+                                                        ))
+                                                    )}
 
                                                 </div>
                                             </div>
@@ -767,86 +825,49 @@ export default function HomePage() {
 
                         {/* Left Column: Travel Reels */}
                         <div className="panel-left">
-                            <div className="panel-header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'}}>
-                                <h3 style={{margin: 0}}>Travel reels</h3>
-                                <button className="shuffle-reels-btn border-0 text-white" onClick={playRandomShort} style={{cursor: 'pointer'}}>
+                            <div className="panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                                <h3 style={{ margin: 0 }}>Travel reels</h3>
+                                <button className="shuffle-reels-btn border-0 text-white" onClick={playRandomShort} style={{ cursor: 'pointer' }}>
                                     <i className="bi bi-shuffle"></i> Play Random Short
                                 </button>
                             </div>
                             <div className="vertical-reels-row">
-                                
-                                <div className="v-reel-card" onClick={() => setActiveReel({ id: 'o7_F1bU4yQc', title: 'South Africa Trip', desc: 'South Africa Trip #shorts #southafrica', isLandscape: false })}>
-                                    <div className="v-reel-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img1.jpg" alt="South Africa" />
-                                        <div className="v-reel-watermark">
-                                            <img src="/assets/img/logo.png" alt="Grentours" style={{height: '11px', filter: 'brightness(0) invert(1)'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                        </div>
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
-                                        </div>
-                                        <div className="v-reel-label">
-                                            <span>South Africa Trip<br />#shorts #southafrica</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="v-reel-card" onClick={() => setActiveReel({ id: 'm-WvQkRsw8A', title: 'Australia & New Zealand Tour', desc: 'Australia & New Zealand NRI Special Tour', isLandscape: false })}>
-                                    <div className="v-reel-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img9.jpg" alt="Australia & New Zealand" />
-                                        <div className="v-reel-watermark">
-                                            <img src="/assets/img/logo.png" alt="Grentours" style={{height: '11px', filter: 'brightness(0) invert(1)'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                        </div>
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
-                                        </div>
-                                        <div className="v-reel-label">
-                                            <span>Australia &amp; New<br />Zealand NRI Special<br />Tour</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="v-reel-card" onClick={() => setActiveReel({ id: 'K_QyWc6wL5Y', title: 'Sayonara Sayonara Japan Life', desc: 'Sayonara Sayonara Indians Living Japan Life', isLandscape: false })}>
-                                    <div className="v-reel-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img2.jpg" alt="Japan Life" />
-                                        <div className="v-reel-watermark">
-                                            <img src="/assets/img/logo.png" alt="Grentours" style={{height: '11px', filter: 'brightness(0) invert(1)'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                        </div>
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
-                                        </div>
-                                        <div className="v-reel-label">
-                                            <span>Sayonara Sayonara<br />Indians Living Japan<br />Life</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="v-reel-card" onClick={() => setActiveReel({ id: 'wN4_rA1L15I', title: 'Things To Do In Iceland', desc: 'Things To Do In Iceland #shorts #iceland', isLandscape: false })}>
-                                    <div className="v-reel-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img3.jpg" alt="Iceland" />
-                                        <div className="v-reel-watermark">
-                                            <img src="/assets/img/logo.png" alt="Grentours" style={{height: '11px', filter: 'brightness(0) invert(1)'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                        </div>
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
-                                        </div>
-                                        <div className="v-reel-label">
-                                            <span>Things To Do In Iceland</span>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                {reelsLoading ? (
+                                    [1, 2, 3, 4].map(idx => (
+                                        <div key={idx} className="v-reel-card ft-skeleton-card-img" style={{ height: 'auto', aspectRatio: '9/16' }}></div>
+                                    ))
+                                ) : (
+                                    (reels.length > 0 ? reels : travelShorts).map((reel, idx) => {
+                                        const title = reel.title || reel.reel_title || 'Travel Reel';
+                                        const desc = reel.desc || title;
+                                        const imgUrl = reel.thumbnail || '/assets/img/grentours_placeholder.png';
+                                        return (
+                                            <div key={idx} className="v-reel-card" onClick={() => setActiveReel({
+                                                id: reel.id,
+                                                video_url: reel.video_url,
+                                                title: title,
+                                                desc: desc,
+                                                isLandscape: false
+                                            })}>
+                                                <div className="v-reel-thumbnail">
+                                                    <img src={imgUrl} alt={title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                    <div className="v-reel-watermark">
+                                                        <img src="/assets/img/logo.png" alt="Grentours" style={{ height: '11px', filter: 'brightness(0) invert(1)' }} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                    </div>
+                                                    <div className="yt-play-btn">
+                                                        <svg viewBox="0 0 68 48">
+                                                            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
+                                                            <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                                        </svg>
+                                                    </div>
+                                                    <div className="v-reel-label">
+                                                        <span>{title}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                )}
                             </div>
                         </div>
 
@@ -859,55 +880,50 @@ export default function HomePage() {
                                 <h3>Explore Travel Videos</h3>
                             </div>
                             <div className="landscape-videos-scroll">
-                                
-                                <div className="l-video-card" onClick={() => setActiveReel({ id: 'V-E64c2U9Ew', title: 'Queensland Adventure with Meeta Shah', desc: 'Everything you need to know about Queensland, Australia. Learn about key highlights, beaches, rainforests, and wildlife with our travel expert.', isLandscape: true })}>
-                                    <div className="l-video-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img4.jpg" alt="Queensland Adventure" />
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
+                                {videosLoading ? (
+                                    [1, 2, 3].map(idx => (
+                                        <div key={idx} className="l-video-card" style={{ flex: '0 0 240px' }}>
+                                            <div className="ft-skeleton-card-img" style={{ aspectRatio: '16/9', height: 'auto', borderRadius: '12px' }}></div>
+                                            <div className="l-video-info mt-2">
+                                                <div className="ft-skeleton-line title"></div>
+                                                <div className="ft-skeleton-line meta mt-1"></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="l-video-info">
-                                        <h4>Queensland Adventure with Meeta ...</h4>
-                                        <p>Everything You Need to Know About Queensland. Complete itinerary, guide, and experiences...</p>
-                                    </div>
-                                </div>
-
-                                <div className="l-video-card" onClick={() => setActiveReel({ id: '79bY0_y92tU', title: 'Japan Podcast with Siddharth Shah', desc: 'Siddharth Shah interviews Meghna Patadia, a Japan travel expert. Meghna shares her love for Japan, top cultural spots, and food recommendations.', isLandscape: true })}>
-                                    <div className="l-video-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img5.jpg" alt="Japan Podcast" />
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="l-video-info">
-                                        <h4>Japan Podcast with Siddharth Sha...</h4>
-                                        <p>Siddharth Shah interviews Meghna Patadia, a Japan travel expert. Meghna shares her love for Japan and...</p>
-                                    </div>
-                                </div>
-
-                                <div className="l-video-card" onClick={() => setActiveReel({ id: 'U1J-FvL9dD4', title: 'Top 8 Locations in Singapore', desc: 'Embark on a journey to Singapore. Flamingo Travels\' top 8 must-visit attractions, sights, and hidden gems.', isLandscape: true })}>
-                                    <div className="l-video-thumbnail">
-                                        <img src="/assets/img/home1/destination-card-img7.jpg" alt="Singapore Locations" />
-                                        <div className="yt-play-btn">
-                                            <svg viewBox="0 0 68 48">
-                                                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
-                                                <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="l-video-info">
-                                        <h4>Top 8 Locations in Singapore</h4>
-                                        <p>Embark on a journey to Singapore. Flamingo Travels' top 8 must-visit attractions and sights...</p>
-                                    </div>
-                                </div>
-
+                                    ))
+                                ) : (
+                                    (videos.length > 0 ? videos : [
+                                        { id: 'V-E64c2U9Ew', title: 'Queensland Adventure with Meeta Shah', description: 'Everything you need to know about Queensland, Australia. Learn about key highlights, beaches, rainforests, and wildlife with our travel expert.', thumbnail: '/assets/img/home1/destination-card-img4.jpg', isLandscape: true },
+                                        { id: '79bY0_y92tU', title: 'Japan Podcast with Siddharth Shah', description: 'Siddharth Shah interviews Meghna Patadia, a Japan travel expert. Meghna shares her love for Japan, top cultural spots, and food recommendations.', thumbnail: '/assets/img/home1/destination-card-img5.jpg', isLandscape: true },
+                                        { id: 'U1J-FvL9dD4', title: 'Top 8 Locations in Singapore', description: 'Embark on a journey to Singapore. Flamingo Travels\' top 8 must-visit attractions, sights, and hidden gems.', thumbnail: '/assets/img/home1/destination-card-img7.jpg', isLandscape: true }
+                                    ]).map((video, idx) => {
+                                        const title = video.title || video.video_title || 'Travel Video';
+                                        const desc = video.description || title;
+                                        const imgUrl = video.thumbnail || '/assets/img/grentours_placeholder.png';
+                                        return (
+                                            <div key={idx} className="l-video-card" onClick={() => setActiveReel({
+                                                id: video.id,
+                                                video_url: video.video_url,
+                                                title: title,
+                                                desc: desc,
+                                                isLandscape: true
+                                            })}>
+                                                <div className="l-video-thumbnail">
+                                                    <img src={imgUrl} alt={title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                    <div className="yt-play-btn">
+                                                        <svg viewBox="0 0 68 48">
+                                                            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"></path>
+                                                            <polygon points="27,15 44,24 27,33" fill="#fff"></polygon>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div className="l-video-info">
+                                                    <h4>{title}</h4>
+                                                    <p>{desc}</p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                )}
                             </div>
                         </div>
 
@@ -925,7 +941,7 @@ export default function HomePage() {
 
                             {/* Left: Interactive Video/Awards Cover */}
                             <div className="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                                <div className="about-video-card" onClick={() => setActiveReel({ id: 'V-E64c2U9Ew', title: 'Grentours Achievement & Journey', desc: 'Discover our history, awards, and how we cater to thousands of happy families worldwide.', isLandscape: true })} style={{cursor: 'pointer'}}>
+                                <div className="about-video-card" onClick={() => setActiveReel({ id: 'V-E64c2U9Ew', title: 'Grentours Achievement & Journey', desc: 'Discover our history, awards, and how we cater to thousands of happy families worldwide.', isLandscape: true })} style={{ cursor: 'pointer' }}>
                                     <img src="/assets/img/home1/about_awards.png" alt="Grentours Award Ceremony" className="about-video-img" onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
                                     <div className="about-video-overlay">
                                         <div className="about-play-btn">
@@ -1033,11 +1049,26 @@ export default function HomePage() {
             <div className="blog-section mb-55" data-aos="fade-up">
                 <div className="container">
                     <div className="trav-blog-wrap">
-                        <div className="ft-section-header">
-                            <h2>Latest Travel Blog</h2>
-                            <Link href="#">View All <i className="bi bi-arrow-right"></i></Link>
+                        <div className="ft-section-header flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3 mb-4">
+                            <div>
+                                <h2 className="m-0 font-weight-bold" style={{ fontSize: '1.75rem', color: '#1e293b' }}>Latest Travel Blog</h2>
+                                <p className="text-muted m-0 small mt-1">Get travel tips, destination guides, and stories from our experts.</p>
+                            </div>
+                            <div className="d-flex align-items-center gap-3">
+                                <Link href="/blogs" className="view-all-btn text-decoration-none">
+                                    View All <i className="bi bi-arrow-right"></i>
+                                </Link>
+                                <div className="d-flex gap-2">
+                                    <button className="blog-swiper-prev blog-nav-btn" aria-label="Previous slide">
+                                        <i className="bi bi-chevron-left"></i>
+                                    </button>
+                                    <button className="blog-swiper-next blog-nav-btn" aria-label="Next slide">
+                                        <i className="bi bi-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        
+
                         {blogsLoading ? (
                             <div className="row g-3">
                                 {[1, 2, 3, 4].map(idx => (
@@ -1059,27 +1090,61 @@ export default function HomePage() {
                                 <span>No travel blogs available at the moment.</span>
                             </div>
                         ) : (
-                            <div className="swiper trav-blog-slider">
-                                <div className="swiper-wrapper">
-                                    {blogs.map(blog => (
-                                        <div key={blog.id} className="swiper-slide">
-                                            <Link href={`/blogs/${blog.slug}`} className="trav-blog-card text-decoration-none">
-                                                <div className="trav-blog-img">
-                                                    <img 
-                                                        src={getBlogImage(blog.cover_image)} 
-                                                        alt={blog.title} 
-                                                        onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }}
-                                                    />
-                                                </div>
-                                                <div className="trav-blog-body">
-                                                    <p className="trav-blog-title text-dark fw-bold">{blog.title}</p>
-                                                    <p className="trav-blog-summary text-muted">{blog.summary}</p>
-                                                    <p className="trav-blog-meta text-muted"><span>{blog.created_at}</span> &bull; {blog.author || 'grentours'}</p>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    ))}
-                                </div>
+                            <div className="blog-slider-container">
+                                <Swiper
+                                    modules={[Navigation, Pagination, Autoplay]}
+                                    spaceBetween={16}
+                                    slidesPerView={1}
+                                    autoplay={{ delay: 3000, disableOnInteraction: false }}
+                                    navigation={{
+                                        nextEl: '.blog-swiper-next',
+                                        prevEl: '.blog-swiper-prev',
+                                    }}
+                                    pagination={{
+                                        clickable: true,
+                                        el: '.blog-swiper-pagination'
+                                    }}
+                                    breakpoints={{
+                                        576: { slidesPerView: 2 },
+                                        768: { slidesPerView: 3 },
+                                        992: { slidesPerView: 4 }
+                                    }}
+                                    className="trav-blog-slider"
+                                >
+                                    {blogs.map(blog => {
+                                        const formattedDate = (() => {
+                                            try {
+                                                const d = new Date(blog.created_at);
+                                                if (isNaN(d.getTime())) return blog.created_at;
+                                                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                                            } catch (e) {
+                                                return blog.created_at;
+                                            }
+                                        })();
+                                        return (
+                                            <SwiperSlide key={blog.id} style={{ height: 'auto', display: 'flex' }}>
+                                                <Link href={`/blogs/${blog.slug}`} className="trav-blog-card text-decoration-none">
+                                                    <div className="trav-blog-img">
+                                                        <span className="blog-category-badge">TRAVEL GUIDE</span>
+                                                        <img
+                                                            src={getBlogImage(blog.cover_image)}
+                                                            alt={blog.title}
+                                                            onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }}
+                                                        />
+                                                    </div>
+                                                    <div className="trav-blog-body">
+                                                        <p className="trav-blog-title fw-bold">{blog.title}</p>
+                                                        <p className="trav-blog-summary">{blog.summary}</p>
+                                                        <p className="trav-blog-meta">
+                                                            <span>{formattedDate}</span> &bull; {blog.author?.name || 'Grentours'}
+                                                        </p>
+                                                    </div>
+                                                </Link>
+                                            </SwiperSlide>
+                                        );
+                                    })}
+                                </Swiper>
+                                <div className="blog-swiper-pagination"></div>
                             </div>
                         )}
                     </div>
@@ -1114,15 +1179,15 @@ export default function HomePage() {
 
             {/* Premium Reels Modal */}
             {activeReel && (
-                <div id="reelsModal" className="reels-modal active" style={{display: 'flex'}}>
+                <div id="reelsModal" className="reels-modal active" style={{ display: 'flex' }}>
                     <div className="reels-modal-backdrop" onClick={() => setActiveReel(null)}></div>
                     <div className="reels-modal-content">
                         <button className="reels-modal-close" onClick={() => setActiveReel(null)}><i className="bi bi-x-lg"></i></button>
                         <div className="reels-modal-body">
-                            <div className="reels-video-container">
-                                <iframe 
-                                    id="reelsVideoPlayer" 
-                                    src={`https://www.youtube.com/embed/${activeReel.id}?autoplay=1&mute=0&rel=0`} 
+                            <div className={`reels-video-container ${activeReel.isLandscape ? 'landscape-player' : ''}`}>
+                                <iframe
+                                    id="reelsVideoPlayer"
+                                    src={getEmbedUrl(activeReel)}
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowFullScreen
@@ -1150,17 +1215,17 @@ export default function HomePage() {
 
             {/* MICE Enquiry Modal */}
             {showMiceModal && (
-                <div className="reels-modal active" id="miceModal" style={{display: 'flex'}}>
+                <div className="reels-modal active" id="miceModal" style={{ display: 'flex' }}>
                     <div className="reels-modal-backdrop" onClick={() => setShowMiceModal(false)}></div>
-                    <div className="reels-modal-content" style={{maxWidth: '500px', borderRadius: '12px', background: '#fff', border: '1px solid #ddd', boxShadow: '0 10px 40px rgba(0,0,0,0.2)'}}>
-                        <button className="reels-modal-close" onClick={() => setShowMiceModal(false)} style={{color: '#333', background: 'rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.1)'}}>
+                    <div className="reels-modal-content" style={{ maxWidth: '500px', borderRadius: '12px', background: '#fff', border: '1px solid #ddd', boxShadow: '0 10px 40px rgba(0,0,0,0.2)' }}>
+                        <button className="reels-modal-close" onClick={() => setShowMiceModal(false)} style={{ color: '#333', background: 'rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.1)' }}>
                             <i className="bi bi-x-lg"></i>
                         </button>
-                        <div style={{padding: '24px'}}>
-                            <span className="ft-mice-tag" style={{marginBottom: '8px', display: 'inline-block'}}>MICE TRAVEL</span>
-                            <h3 style={{fontSize: '18px', fontWeight: 700, color: '#222', marginBottom: '6px'}}>Plan Corporate Event</h3>
-                            <p style={{marginBottom: '18px', color: '#666', fontSize: '11.5px', lineHeight: 1.5}}>Provide details of your business travel or event and our MICE experts will craft a bespoke, premium itinerary for you.</p>
-                            
+                        <div style={{ padding: '24px' }}>
+                            <span className="ft-mice-tag" style={{ marginBottom: '8px', display: 'inline-block' }}>MICE TRAVEL</span>
+                            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#222', marginBottom: '6px' }}>Plan Corporate Event</h3>
+                            <p style={{ marginBottom: '18px', color: '#666', fontSize: '11.5px', lineHeight: 1.5 }}>Provide details of your business travel or event and our MICE experts will craft a bespoke, premium itinerary for you.</p>
+
                             {miceSubmitted ? (
                                 <div className="alert alert-success text-center py-4 rounded-3 border-0">
                                     <i className="bi bi-check-circle-fill fs-2 text-success d-block mb-2"></i>
@@ -1170,51 +1235,51 @@ export default function HomePage() {
                             ) : (
                                 <form id="miceEnquiryForm" onSubmit={handleMiceEnquirySubmit}>
                                     <div className="ft-form-group mb-3">
-                                        <label style={{color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block'}}>Company Name *</label>
-                                        <input 
-                                            type="text" 
-                                            required 
-                                            style={{border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa'}} 
+                                        <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Company Name *</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa' }}
                                             placeholder="e.g. Acme Corp"
                                             value={miceForm.company}
-                                            onChange={(e) => setMiceForm({...miceForm, company: e.target.value})}
+                                            onChange={(e) => setMiceForm({ ...miceForm, company: e.target.value })}
                                         />
                                     </div>
                                     <div className="ft-form-group mb-3">
-                                        <label style={{color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block'}}>Contact Person *</label>
-                                        <input 
-                                            type="text" 
-                                            required 
-                                            style={{border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa'}} 
+                                        <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Contact Person *</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa' }}
                                             placeholder="Your Full Name"
                                             value={miceForm.contactPerson}
-                                            onChange={(e) => setMiceForm({...miceForm, contactPerson: e.target.value})}
+                                            onChange={(e) => setMiceForm({ ...miceForm, contactPerson: e.target.value })}
                                         />
                                     </div>
                                     <div className="row g-2 mb-3">
                                         <div className="col-md-6">
                                             <div className="ft-form-group">
-                                                <label style={{color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block'}}>Work Email *</label>
-                                                <input 
-                                                    type="email" 
-                                                    required 
-                                                    style={{border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa'}} 
+                                                <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Work Email *</label>
+                                                <input
+                                                    type="email"
+                                                    required
+                                                    style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa' }}
                                                     placeholder="name@company.com"
                                                     value={miceForm.email}
-                                                    onChange={(e) => setMiceForm({...miceForm, email: e.target.value})}
+                                                    onChange={(e) => setMiceForm({ ...miceForm, email: e.target.value })}
                                                 />
                                             </div>
                                         </div>
                                         <div className="col-md-6">
                                             <div className="ft-form-group">
-                                                <label style={{color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block'}}>Phone Number *</label>
-                                                <input 
-                                                    type="tel" 
-                                                    required 
-                                                    style={{border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa'}} 
+                                                <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Phone Number *</label>
+                                                <input
+                                                    type="tel"
+                                                    required
+                                                    style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa' }}
                                                     placeholder="+91 XXXXX XXXXX"
                                                     value={miceForm.phone}
-                                                    onChange={(e) => setMiceForm({...miceForm, phone: e.target.value})}
+                                                    onChange={(e) => setMiceForm({ ...miceForm, phone: e.target.value })}
                                                 />
                                             </div>
                                         </div>
@@ -1222,12 +1287,12 @@ export default function HomePage() {
                                     <div className="row g-2 mb-3">
                                         <div className="col-md-6">
                                             <div className="ft-form-group">
-                                                <label style={{color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block'}}>Event Type *</label>
-                                                <select 
-                                                    required 
-                                                    style={{border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa', cursor: 'pointer'}}
+                                                <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Event Type *</label>
+                                                <select
+                                                    required
+                                                    style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa', cursor: 'pointer' }}
                                                     value={miceForm.eventType}
-                                                    onChange={(e) => setMiceForm({...miceForm, eventType: e.target.value})}
+                                                    onChange={(e) => setMiceForm({ ...miceForm, eventType: e.target.value })}
                                                 >
                                                     <option value="">Select Event Type</option>
                                                     <option value="meeting">Meeting / Summit</option>
@@ -1239,12 +1304,12 @@ export default function HomePage() {
                                         </div>
                                         <div className="col-md-6">
                                             <div className="ft-form-group">
-                                                <label style={{color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block'}}>Attendees *</label>
-                                                <select 
-                                                    required 
-                                                    style={{border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa', cursor: 'pointer'}}
+                                                <label style={{ color: '#555', fontWeight: 600, fontSize: '11px', marginBottom: '4px', display: 'block' }}>Attendees *</label>
+                                                <select
+                                                    required
+                                                    style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa', cursor: 'pointer' }}
                                                     value={miceForm.attendees}
-                                                    onChange={(e) => setMiceForm({...miceForm, attendees: e.target.value})}
+                                                    onChange={(e) => setMiceForm({ ...miceForm, attendees: e.target.value })}
                                                 >
                                                     <option value="">Select Range</option>
                                                     <option value="10-50">10 - 50 Pax</option>
@@ -1255,8 +1320,8 @@ export default function HomePage() {
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <button type="submit" className="ft-mice-cta btn btn-success" style={{marginTop: '10px', width: '100%', color: '#fff', border: 0}}>Submit Inquiry <i className="bi bi-send-fill"></i></button>
+
+                                    <button type="submit" className="ft-mice-cta btn btn-success" style={{ marginTop: '10px', width: '100%', color: '#fff', border: 0 }}>Submit Inquiry <i className="bi bi-send-fill"></i></button>
                                 </form>
                             )}
                         </div>

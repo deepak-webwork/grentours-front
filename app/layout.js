@@ -4,8 +4,8 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
 export const metadata = {
-    title: "Green Tours – Holiday Packages, Group Tours & International Vacations",
-    description: "Green Tours – India's trusted travel company with 50+ years of expertise. Find holiday packages, group tours & international tours.",
+    title: "Grentours – Holiday Packages, Group Tours & International Vacations",
+    description: "Grentours – India's trusted travel company with 50+ years of expertise. Find holiday packages, group tours & international tours.",
 };
 
 export default function RootLayout({ children }) {
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
                 <link rel="icon" href="/assets/img/favicon.png" />
-                
+
                 {/* Google Fonts */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -34,9 +34,9 @@ export default function RootLayout({ children }) {
                 <Suspense fallback={<div className="container py-3">Loading header...</div>}>
                     <Header />
                 </Suspense>
-                
+
                 {children}
-                
+
                 <Footer />
             </body>
         </html>

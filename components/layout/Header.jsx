@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -11,6 +11,17 @@ export default function Header() {
     const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const [activeMobileMenu, setActiveMobileMenu] = useState(null); // 'packages' or 'themes' or 'guide'
+
+    useEffect(() => {
+        if (isMobileOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMobileOpen]);
 
     const handleSearchSubmit = (e) => {
         if (e.key === 'Enter') {
@@ -28,6 +39,9 @@ export default function Header() {
 
     return (
         <header className="ft-header-double">
+            {/* Dark Overlay for Mobile Navigation */}
+            <div className={`ft-nav-overlay ${isMobileOpen ? 'is-open' : ''}`} onClick={toggleMobileMenu}></div>
+
             {/* TOP HEADER: Logo & Search Bar */}
             <div className="ft-header-top">
                 <div className="container-xl">
@@ -51,16 +65,7 @@ export default function Header() {
                             </div>
                         </div>
 
-                        {/* Header Action Buttons (Login/Profile) */}
-                        <div className="ft-header-actions">
-                            <a href="#" className="ft-header-action-item wishlist-btn" title="Wishlist">
-                                <i className="bi bi-heart"></i>
-                            </a>
-                            <a href="#" className="ft-header-action-item login-btn" onClick={() => alert('Login system coming soon!')}>
-                                <i className="bi bi-person-circle"></i>
-                                <span>Login / Sign Up</span>
-                            </a>
-                        </div>
+
 
                         {/* Mobile Hamburger Menu Button */}
                         <button className="ft-mobile-btn" onClick={toggleMobileMenu}>
@@ -74,24 +79,14 @@ export default function Header() {
             <nav className="ft-navbar-bottom">
                 <div className="container-xl">
                     <div className="ft-navbar-bottom-wrap">
-                        <ul 
-                            className="ft-nav ft-nav-list mb-0"
-                            style={isMobileOpen ? {
-                                display: 'flex', 
-                                flexDirection: 'column',
-                                position: 'fixed', 
-                                top: '110px', 
-                                left: '0', 
-                                right: '0',
-                                background: '#fff', 
-                                boxShadow: '0 8px 24px rgba(0,0,0,.15)',
-                                padding: '10px 0', 
-                                zIndex: '998', 
-                                height: 'auto',
-                                overflowY: 'auto', 
-                                maxHeight: 'calc(100vh - 110px)'
-                            } : {}}
-                        >
+                        <ul className={`ft-nav ft-nav-list mb-0 ${isMobileOpen ? 'is-open' : ''}`}>
+                            {/* Mobile Drawer Header */}
+                            <li className="ft-drawer-header">
+                                <span className="ft-drawer-title">Menu</span>
+                                <button className="ft-drawer-close" onClick={toggleMobileMenu} aria-label="Close Menu">
+                                    <i className="bi bi-x"></i>
+                                </button>
+                            </li>
                             {/* Holiday Packages with Mega Menu */}
                             <li className={`ft-nav-li has-mega ${activeMobileMenu === 'packages' ? 'active-mobile' : ''}`}>
                                 <span className="ft-nav-link" onClick={() => toggleMobileSubmenu('packages')}>
@@ -288,10 +283,10 @@ export default function Header() {
 
                             {/* Flights */}
                             <li className="ft-nav-li">
-                                <a href="#" className="ft-nav-link" onClick={() => alert('Flight search is coming soon!')}>
-                                    <i className="bi bi-airplane ft-nav-icon"></i>
+                                <Link href="/flights" className="ft-nav-link">
+                                    <i className="bi bi-plane ft-nav-icon"></i>
                                     <span className="ft-nav-text">Flights</span>
-                                </a>
+                                </Link>
                             </li>
 
                             {/* Visas */}

@@ -1,0 +1,336 @@
+/* ─────────────────────────────────────────────────────────────
+   Grentours Flight Inquiry Page Design System (Vanilla CSS)
+   ───────────────────────────────────────────────────────────── */
+
+.flights-hero,
+.flights-hero-title,
+.flights-hero-subtitle,
+.flights-detail-layout,
+.flights-section-card,
+.trip-type-btn,
+.flight-form-label,
+.flight-form-input,
+.flight-form-select,
+.flight-submit-btn,
+.flight-success-card {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Hero Banner */
+.flights-hero {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.75) 100%), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop');
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.flights-hero-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    width: 100%;
+}
+
+.flights-hero-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(36, 178, 90, 0.2);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(36, 178, 90, 0.4);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+}
+
+.flights-hero-title {
+    font-weight: 750;
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.flights-hero-subtitle {
+    font-size: 1rem;
+    color: #f1f5f9;
+    max-width: 650px;
+    line-height: 1.6;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Page Layout */
+.flights-detail-layout {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.flights-detail-layout > div {
+    min-width: 0;
+}
+
+@media (min-width: 992px) {
+    .flights-detail-layout {
+        grid-template-columns: minmax(0, 2.15fr) minmax(0, 1fr);
+    }
+}
+
+/* Form Container Card */
+.flights-section-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+    margin-bottom: 25px;
+    border: 1px solid #e2e8f0;
+}
+
+.flights-section-title {
+    font-weight: 650;
+    font-size: 1.35rem;
+    color: #0f172a;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 12px;
+}
+
+.flights-section-title i {
+    color: #24b25a;
+    font-size: 1.5rem;
+}
+
+/* Trip Type Selector Segmented Tabs */
+.trip-type-selector {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 6px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    max-width: fit-content;
+}
+
+.trip-type-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.trip-type-btn.active {
+    background: #ffffff;
+    color: #24b25a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.trip-type-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.5);
+    color: #0f172a;
+}
+
+/* Input Styles */
+.flight-form-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.flight-input-icon-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.flight-input-icon-wrap i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 1.1rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.flight-form-input,
+.flight-form-select {
+    width: 100%;
+    padding: 12px 14px 12px 42px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    color: #0f172a;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.flight-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px 12px;
+}
+
+.flight-form-input:focus,
+.flight-form-select:focus {
+    border-color: #24b25a;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(36, 178, 90, 0.12);
+}
+
+.flight-form-input:focus + i {
+    color: #24b25a;
+}
+
+/* Submit Button & Animations */
+.flight-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #24b25a 0%, #1e954a 100%);
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: 650;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(36, 178, 90, 0.25);
+    margin-top: 25px;
+}
+
+.flight-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(36, 178, 90, 0.35);
+}
+
+.flight-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Success Card */
+.flight-success-card {
+    text-align: center;
+    padding: 35px 20px;
+    background: #f0fdf4;
+    border-radius: 16px;
+    border: 1px solid #bbf7d0;
+    box-shadow: 0 4px 15px rgba(36, 178, 90, 0.05);
+}
+
+.flight-success-card i.success-icon {
+    font-size: 3.5rem;
+    color: #24b25a;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.flight-success-card h3 {
+    color: #14532d;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.flight-success-card p {
+    color: #166534;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.flight-success-info-box {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #dcfce7;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.flight-success-info-box .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+}
+
+.flight-success-info-box .info-row:last-child {
+    margin-bottom: 0;
+}
+
+.flight-success-info-box .info-lbl {
+    color: #64748b;
+}
+
+.flight-success-info-box .info-val {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* Sidebar Ads Card Wrapping */
+.sidebar-ads-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (min-width: 992px) {
+    .sidebar-ads-container {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+/* Divider styling */
+.form-section-divider {
+    border: none;
+    border-top: 1px solid #f1f5f9;
+    margin: 25px 0;
+}
+
+/* Floating contact row details */
+.contact-section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-section-title i {
+    color: #24b25a;
+}

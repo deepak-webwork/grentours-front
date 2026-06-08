@@ -1002,3 +1002,132 @@
 .btn-compare-close:hover {
     color: #0f172a;
 }
+
+/* ==========================================================================
+   MOBILE-FOCUSED RESPONSIVE OVERRIDES FOR FT-LIST-CARD & FILTERS
+   ========================================================================== */
+@media (max-width: 991px) {
+    .filter-sidebar-mobile {
+        position: fixed !important;
+        top: 0;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 1050;
+        box-shadow: 4px 0 24px rgba(15, 23, 42, 0.15);
+        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
+        padding: 20px;
+        margin: 0 !important;
+    }
+    
+    .filter-sidebar-mobile.show {
+        left: 0;
+    }
+    
+    .filter-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.5);
+        z-index: 1040;
+    }
+}
+
+@media (max-width: 767px) {
+    .ft-list-card {
+        flex-direction: column !important;
+        margin-bottom: 20px;
+        border-radius: 16px !important;
+    }
+    
+    .card-visual {
+        width: 100% !important;
+        height: 200px !important;
+    }
+    
+    .card-info-side {
+        padding: 16px !important;
+    }
+    
+    .card-info-side h3 {
+        font-size: 16px !important;
+        line-height: 1.4;
+        margin-bottom: 8px !important;
+    }
+    
+    .card-price-side {
+        width: 100% !important;
+        border-left: none !important;
+        border-top: 1px solid #f1f5f9 !important;
+        padding: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: left !important;
+    }
+    
+    /* Price display row on mobile */
+    .card-price-side > div:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 12px;
+    }
+    
+    .card-price-side > div:first-child .text-muted {
+        font-size: 11px !important;
+    }
+    
+    .card-price-side .h4 {
+        margin: 0 !important;
+        font-size: 20px !important;
+    }
+    
+    /* Actions row on mobile */
+    .card-price-side .w-100 {
+        flex-direction: row !important;
+        gap: 12px !important;
+        margin-top: 0 !important;
+    }
+    
+    .card-price-side .w-100 a,
+    .card-price-side .w-100 button {
+        flex: 1;
+        padding: 10px !important;
+        font-size: 12px !important;
+        border-radius: 30px !important;
+    }
+    
+    /* Clean text display on mobile */
+    .card-info-side .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: auto !important;
+        margin-bottom: 12px !important;
+    }
+
+    .list-header-card {
+        padding: 16px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        text-align: center;
+    }
+    
+    .list-header-info h1 {
+        font-size: 18px !important;
+    }
+    
+    .sort-select-wrapper {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
