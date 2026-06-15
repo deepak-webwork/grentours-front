@@ -326,8 +326,7 @@
             padding: 6px 12px;
             border-radius: 6px;
             color: #475569;
-            /* Slate 600 */
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 600;
             transition: all 0.2s ease;
             cursor: pointer;
@@ -983,7 +982,12 @@
             flex-shrink: 0;
             text-align: center;
             cursor: pointer;
-            width: 90px;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .ft-theme-card:hover .ft-theme-img {
@@ -992,13 +996,14 @@
         }
 
         .ft-theme-img {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             overflow: hidden;
             margin: 0 auto 8px;
-            border: 2.5px solid #eee;
-            transition: border-color .2s, transform .25s;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .ft-theme-img img {

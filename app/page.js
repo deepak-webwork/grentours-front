@@ -534,7 +534,7 @@ export default function HomePage() {
                                 {/* TRAVEL OFFERS */}
                                 <div className="ft-card-section" data-aos="fade-up">
                                     <div className="ft-section-header">
-                                        <h2>Travel Offers by Green Tours</h2>
+                                        <h2>Travel Offers by Grentours</h2>
                                         <Link href={offersTab === 'tours' ? '/packages' : '/hotels'}>
                                             View All <i className="bi bi-arrow-right"></i>
                                         </Link>

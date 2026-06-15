@@ -88,8 +88,19 @@ export default function Header() {
                 <div className="ft-header-unified">
                     <div className="container-xl">
                         <div className="ft-header-main-wrap">
-                            <Link href="/" className="ft-logo">
-                                <img src="/assets/img/logo.png" alt="Grentours Logo" onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                            <Link href="/" className="ft-logo ft-logo-brand">
+                                <img
+                                    className="ft-logo-main"
+                                    src="/assets/img/logo.png"
+                                    alt="Grentours Logo"
+                                    onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }}
+                                />
+                                <img
+                                    src="/assets/img/iata-logo-high-quality-free-vector.jpg"
+                                    alt="IATA Accredited"
+                                    className="ft-iata-logo"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                />
                             </Link>
 
                             <nav className="ft-header-nav-desktop" aria-label="Main navigation">
