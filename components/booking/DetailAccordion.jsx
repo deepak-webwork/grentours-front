@@ -14,7 +14,7 @@ function PlanItem({ plan, isOpen, onToggle }) {
             >
                 <div className="day-header-left">
                     <span className="day-badge">{plan.day}</span>
-                    <span className="day-header-title">{plan.title}</span>
+                    <span className="day-header-title" dangerouslySetInnerHTML={{ __html: plan.title }} />
                 </div>
                 <i className="bi bi-chevron-down day-chevron" />
             </div>
@@ -24,10 +24,14 @@ function PlanItem({ plan, isOpen, onToggle }) {
                     {(plan.meals || plan.accommodation) && (
                         <div className="day-body-meta">
                             {plan.meals && (
-                                <span><i className="bi bi-egg-fried" /> {plan.meals}</span>
+                                <span>
+                                    <i className="bi bi-egg-fried" /> <span dangerouslySetInnerHTML={{ __html: plan.meals }} />
+                                </span>
                             )}
                             {plan.accommodation && (
-                                <span><i className="bi bi-building" /> {plan.accommodation}</span>
+                                <span>
+                                    <i className="bi bi-building" /> <span dangerouslySetInnerHTML={{ __html: plan.accommodation }} />
+                                </span>
                             )}
                         </div>
                     )}

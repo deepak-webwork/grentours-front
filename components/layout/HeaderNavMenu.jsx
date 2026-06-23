@@ -3,6 +3,65 @@
 import React from 'react';
 import Link from 'next/link';
 
+const THEME_STYLES_MAP = {
+    'honeymoon': {
+        icon: 'bi-heart-fill',
+        desc: 'Romantic Getaways',
+        badgeClass: 'badge-honeymoon',
+        badgeText: 'Romantic',
+        itemClass: 'type-honeymoon'
+    },
+    'adventure': {
+        icon: 'bi-compass',
+        desc: 'Thrilling Journeys',
+        badgeClass: 'badge-summer',
+        badgeText: 'Adventure',
+        itemClass: 'type-summer'
+    },
+    'luxury-stay': {
+        icon: 'bi-star-fill',
+        desc: 'Top Rated Vacations',
+        badgeClass: 'badge-bestseller-blue',
+        badgeText: 'Luxury',
+        itemClass: 'type-bestseller'
+    },
+    'spiritual': {
+        icon: 'bi-brightness-high',
+        desc: 'Spiritual Pilgrimage',
+        badgeClass: 'badge-spiritual',
+        badgeText: 'Spiritual',
+        itemClass: 'type-spiritual'
+    },
+    'bestseller': {
+        icon: 'bi-star-fill',
+        desc: 'Top Rated Vacations',
+        badgeClass: 'badge-bestseller-blue',
+        badgeText: 'Bestseller',
+        itemClass: 'type-bestseller'
+    },
+    'summer': {
+        icon: 'bi-sun-fill',
+        desc: 'Beat the heat',
+        badgeClass: 'badge-summer',
+        badgeText: 'Summer',
+        itemClass: 'type-summer'
+    }
+};
+
+const getThemeStyles = (theme) => {
+    const slug = theme.slug || '';
+    if (THEME_STYLES_MAP[slug]) {
+        return THEME_STYLES_MAP[slug];
+    }
+    return {
+        icon: 'bi-umbrella-fill',
+        desc: 'Special Curated Tour',
+        badgeClass: 'badge-summer',
+        badgeText: theme.name,
+        itemClass: 'type-summer'
+    };
+};
+
 function NavIcon({ name }) {
     return (
         <span className="ft-nav-icon-wrap">
@@ -11,7 +70,7 @@ function NavIcon({ name }) {
     );
 }
 
-export default function HeaderNavMenu({ navigationData, activeMobileMenu, toggleMobileSubmenu, onLinkClick }) {
+export default function HeaderNavMenu({ navigationData, themesData, activeMobileMenu, toggleMobileSubmenu, onLinkClick }) {
     const isMobile = Boolean(toggleMobileSubmenu);
 
     return (
@@ -96,46 +155,25 @@ export default function HeaderNavMenu({ navigationData, activeMobileMenu, toggle
                     <i className="bi bi-chevron-down ft-nav-arrow" />
                 </span>
                 <ul className="ft-dropdown-menu tour-themed-dropdown" style={activeMobileMenu === 'themes' ? { display: 'block' } : {}}>
-                    <li className="tour-dropdown-item type-spiritual">
-                        <Link href="/packages?theme=spiritual" onClick={onLinkClick}>
-                            <i className="bi bi-brightness-high" />
-                            <div className="dropdown-item-details">
-                                <span className="item-title">Chardham Yatra</span>
-                                <span className="item-desc">Spiritual Pilgrimage</span>
-                            </div>
-                            <span className="dropdown-tour-badge badge-spiritual">Spiritual</span>
-                        </Link>
-                    </li>
-                    <li className="tour-dropdown-item type-bestseller">
-                        <Link href="/packages?theme=bestseller" onClick={onLinkClick}>
-                            <i className="bi bi-star-fill" />
-                            <div className="dropdown-item-details">
-                                <span className="item-title">Super Seller Packages</span>
-                                <span className="item-desc">Top Rated Vacations</span>
-                            </div>
-                            <span className="dropdown-tour-badge badge-bestseller-blue">Bestseller</span>
-                        </Link>
-                    </li>
-                    <li className="tour-dropdown-item type-summer">
-                        <Link href="/packages?theme=summer" onClick={onLinkClick}>
-                            <i className="bi bi-sun-fill" />
-                            <div className="dropdown-item-details">
-                                <span className="item-title">Summer Special Tours</span>
-                                <span className="item-desc">Beat the heat</span>
-                            </div>
-                            <span className="dropdown-tour-badge badge-summer">Summer</span>
-                        </Link>
-                    </li>
-                    <li className="tour-dropdown-item type-honeymoon">
-                        <Link href="/packages?theme=honeymoon" onClick={onLinkClick}>
-                            <i className="bi bi-heart-fill" />
-                            <div className="dropdown-item-details">
-                                <span className="item-title">Honeymoon Specials</span>
-                                <span className="item-desc">Romantic Getaways</span>
-                            </div>
-                            <span className="dropdown-tour-badge badge-honeymoon">Romantic</span>
-                        </Link>
-                    </li>
+                    {themesData && themesData.length > 0 ? (
+                        themesData.map((theme) => {
+                            const styles = getThemeStyles(theme);
+                            return (
+                                <li key={theme.id} className={`tour-dropdown-item ${styles.itemClass}`}>
+                                    <Link href={`/packages?theme=${theme.slug}`} onClick={onLinkClick}>
+                                        <i className={`bi ${styles.icon}`} />
+                                        <div className="dropdown-item-details">
+                                            <span className="item-title">{theme.name}</span>
+                                            <span className="item-desc">{styles.desc}</span>
+                                        </div>
+                                        <span className={`dropdown-tour-badge ${styles.badgeClass}`}>{styles.badgeText}</span>
+                                    </Link>
+                                </li>
+                            );
+                        })
+                    ) : (
+                        <li className="p-3 text-muted text-center" style={{ fontSize: '12px' }}>Loading themes...</li>
+                    )}
                 </ul>
             </li>
 

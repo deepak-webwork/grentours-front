@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 
 export default function Topbar() {
     const [settings, setSettings] = useState({
-        contact_phone: '+91 22 6123 4567',
-        support_email: 'info@grentours.in',
+        contact_phone: '+91 99670 23911',
+        support_email: 'enquiry@grentours.com',
         contact_hours: 'Mon–Sat: 9 AM – 7 PM',
         social_links: [
             { platform: 'facebook', url: 'https://facebook.com/grentours' },

@@ -606,8 +606,10 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 12px 16px;
+    gap: 8px 12px;
     margin-bottom: 12px;
+    max-height: 40px;
+    overflow: hidden;
 }
 
 .inclusion-item {
@@ -654,36 +656,40 @@
 
 /* Pricing Side (Fully Integrated, Faint Dividers) */
 .card-price-side {
-    background: #ffffff;
-    padding: 20px;
+    background: #f8fafc;
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end; /* Clean right-aligned layout */
-    text-align: right;
+    align-items: center;
+    text-align: center;
     border-left: 1px solid #f1f5f9;
+    gap: 16px;
 }
 
 .price-label {
     font-size: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #94a3b8;
+    letter-spacing: 0.8px;
+    color: #64748b;
     font-weight: 600;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    display: block;
 }
 
 .price-value {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
     color: #0f172a;
     line-height: 1.1;
+    margin-bottom: 4px;
 }
 
 .price-subtitle {
-    font-size: 10.5px;
-    color: #94a3b8;
-    margin-bottom: 8px;
+    font-size: 11px;
+    color: #64748b;
+    display: block;
+    margin-bottom: 0;
 }
 
 .price-emi {
@@ -693,15 +699,15 @@
     background: #f0fdf4;
     padding: 2px 8px;
     border-radius: 4px;
-    margin-bottom: 14px;
+    margin-top: 6px;
+    display: inline-block;
 }
 
 .card-actions-stack {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-bottom: 10px;
+    gap: 8px;
 }
 
 .action-btn-primary {
@@ -710,18 +716,21 @@
     color: #ffffff;
     border: none;
     border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 11.5px;
+    padding: 9px 16px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     text-decoration: none;
     text-align: center;
+    box-shadow: 0 2px 6px rgba(36, 178, 90, 0.15);
 }
 
 .action-btn-primary:hover {
     background: #1d9448;
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(36, 178, 90, 0.3);
+    transform: translateY(-1px);
 }
 
 .action-btn-secondary {
@@ -730,8 +739,8 @@
     color: #475569;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
-    padding: 7px 12px;
-    font-size: 11.5px;
+    padding: 8px 16px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -743,6 +752,7 @@
     background: #f8fafc;
     color: #0f172a;
     border-color: #cbd5e1;
+    transform: translateY(-1px);
 }
 
 .card-bottom-links {

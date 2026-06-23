@@ -319,9 +319,9 @@
         }
 
         .ft-logo-brand .ft-iata-logo {
-            height: 34px;
+            height: 42px;
             width: auto;
-            max-width: 72px;
+            max-width: 95px;
             object-fit: contain;
             border-left: 1px solid #e2e8f0;
             padding-left: 12px;
@@ -3991,8 +3991,8 @@
             }
 
             .ft-logo-brand .ft-iata-logo {
-                height: 28px !important;
-                max-width: 56px !important;
+                height: 32px !important;
+                max-width: 75px !important;
                 padding-left: 8px !important;
             }
 

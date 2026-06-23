@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const LOGO_SRC = '/assets/img/logo.png';
+const LOGO_SRC = '/assets/img/logo-w.png';
 const LOGO_FALLBACK = '/assets/img/grentours_placeholder.png';
 
 const DEFAULT_SETTINGS = {
     site_name: 'Grentours',
-    contact_phone: '+91 22 6123 4567',
-    support_email: 'info@grentours.in',
+    contact_phone: '+91 99670 23911',
+    support_email: 'enquiry@grentours.com',
     contact_hours: 'Mon–Sat: 9 AM – 7 PM',
     address: 'Grentours House, Marine Lines, Mumbai – 400 020',
     footer_description:
@@ -53,8 +53,8 @@ export default function Footer() {
     }, []);
 
     const phoneDigits = (settings.contact_phone || '').replace(/\D/g, '');
-    const waLink = phoneDigits ? `https://wa.me/${phoneDigits}` : 'https://wa.me/919825081806';
-    const telLink = settings.contact_phone ? `tel:${settings.contact_phone.replace(/\s/g, '')}` : 'tel:+912261234567';
+    const waLink = phoneDigits ? `https://wa.me/${phoneDigits}` : 'https://wa.me/919967023911';
+    const telLink = settings.contact_phone ? `tel:${settings.contact_phone.replace(/\s/g, '')}` : 'tel:+919967023911';
 
     const packageLinks = destinations.map((dest) => ({
         href: `/packages?q=${encodeURIComponent(dest.name)}`,

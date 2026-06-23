@@ -11,11 +11,15 @@ export default function StayInquiryForm({
     dateLabel = 'Check-in Date',
     submitLabel = 'Send Inquiry',
 }) {
+    const startLabel = enquiryType === 'hotel' ? 'Check-in Date' : 'Start Date';
+    const endLabel = enquiryType === 'hotel' ? 'Check-out Date' : 'End Date';
+
     const [form, setForm] = useState({
         name: '',
         phone: '',
         email: '',
         date: '',
+        endDate: '',
         adults: 2,
         children: 0,
         message: '',
@@ -45,6 +49,7 @@ export default function StayInquiryForm({
                 email: form.email,
                 interest: packageTitle,
                 travelDate: form.date,
+                endDate: form.endDate,
                 message: form.message.trim() || null,
                 type: enquiryType,
                 adults: form.adults,
@@ -53,7 +58,7 @@ export default function StayInquiryForm({
             });
 
             setSubmitted(true);
-            setForm({ name: '', phone: '', email: '', date: '', adults: 2, children: 0, message: '' });
+            setForm({ name: '', phone: '', email: '', date: '', endDate: '', adults: 2, children: 0, message: '' });
             setTimeout(() => setSubmitted(false), 6000);
         } catch (err) {
             setErrorMsg(err.message || 'Failed to submit inquiry.');
@@ -125,17 +130,32 @@ export default function StayInquiryForm({
                     </div>
                 </div>
 
-                <div className="booking-form-group">
-                    <label>{dateLabel} *</label>
-                    <div className="booking-input-wrap">
-                        <i className="bi bi-calendar3"></i>
-                        <input
-                            type="date"
-                            min={today}
-                            value={form.date}
-                            onChange={(e) => setForm({ ...form, date: e.target.value })}
-                            required
-                        />
+                <div className="booking-form-row">
+                    <div className="booking-form-group">
+                        <label>{startLabel} *</label>
+                        <div className="booking-input-wrap">
+                            <i className="bi bi-calendar3"></i>
+                            <input
+                                type="date"
+                                min={today}
+                                value={form.date}
+                                onChange={(e) => setForm({ ...form, date: e.target.value })}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="booking-form-group">
+                        <label>{endLabel} *</label>
+                        <div className="booking-input-wrap">
+                            <i className="bi bi-calendar3"></i>
+                            <input
+                                type="date"
+                                min={form.date || today}
+                                value={form.endDate}
+                                onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+                                required
+                            />
+                        </div>
                     </div>
                 </div>
 

@@ -62,7 +62,7 @@ export default function FlightsPage() {
     // Fetch advertisements on page load
     useEffect(() => {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        fetch(`${apiUrl}/api/v1/homepage/advertisements`)
+        fetch(`${apiUrl}/api/v1/homepage/advertisements?placement=flights`)
             .then(res => res.json())
             .then(data => {
                 if (data.success && data.banners) {
@@ -126,7 +126,8 @@ export default function FlightsPage() {
         if (!trimmedName || trimmedName.length < 2) return 'Please enter your full name (at least 2 characters).';
         if (!trimmedPhone) return 'Please enter your phone number.';
         if (!PHONE_REGEX.test(trimmedPhone)) return 'Please enter a valid phone number (7–20 digits).';
-        if (trimmedEmail && !EMAIL_REGEX.test(trimmedEmail)) return 'Please enter a valid email address.';
+        if (!trimmedEmail) return 'Please enter your email address.';
+        if (!EMAIL_REGEX.test(trimmedEmail)) return 'Please enter a valid email address.';
         if (parseInt(infants, 10) > parseInt(adults, 10)) {
             return 'Number of infants cannot exceed number of adults.';
         }
@@ -407,7 +408,7 @@ export default function FlightsPage() {
 
                                 <div className="row g-3">
                                     <div className="col-md-4">
-                                        <label className="flight-form-label">Your Name</label>
+                                         <label className="flight-form-label">Your Name <span className="text-danger">*</span></label>
                                         <div className="flight-input-icon-wrap">
                                             <input 
                                                 type="text" 
@@ -421,7 +422,7 @@ export default function FlightsPage() {
                                         </div>
                                     </div>
                                     <div className="col-md-4">
-                                        <label className="flight-form-label">Mobile Number</label>
+                                        <label className="flight-form-label">Mobile Number <span className="text-danger">*</span></label>
                                         <div className="flight-input-icon-wrap">
                                             <input 
                                                 type="tel" 
@@ -435,7 +436,7 @@ export default function FlightsPage() {
                                         </div>
                                     </div>
                                     <div className="col-md-4">
-                                        <label className="flight-form-label">Email Address</label>
+                                        <label className="flight-form-label">Email Address <span className="text-danger">*</span></label>
                                         <div className="flight-input-icon-wrap">
                                             <input 
                                                 type="email" 
@@ -443,6 +444,7 @@ export default function FlightsPage() {
                                                 placeholder="Enter email address" 
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
+                                                required
                                             />
                                             <i className="bi bi-envelope-at"></i>
                                         </div>
@@ -557,7 +559,7 @@ export default function FlightsPage() {
                 <div>
                     <div className="sidebar-ads-container">
                         {/* Slot 1: Promo Swiper */}
-                        {promoSlides && promoSlides.length > 0 ? (
+                        {promoSlides && promoSlides.length > 0 && (
                             <div className="ft-promo-card">
                                 {promoSlides.length > 1 ? (
                                     <Swiper
@@ -585,16 +587,10 @@ export default function FlightsPage() {
                                     </Link>
                                 )}
                             </div>
-                        ) : (
-                            <div className="ft-promo-card">
-                                <div className="ft-promo-img">
-                                    <img src="/assets/img/bali-20526.png" alt="Bali Offer Banner" />
-                                </div>
-                            </div>
                         )}
 
                         {/* Slot 2: Sidebar Ad Swiper */}
-                        {sidebarSlides && sidebarSlides.length > 0 ? (
+                        {sidebarSlides && sidebarSlides.length > 0 && (
                             <div className="ft-sidebar-ad">
                                 {sidebarSlides.length > 1 ? (
                                     <Swiper
@@ -621,12 +617,6 @@ export default function FlightsPage() {
                                         </div>
                                     </Link>
                                 )}
-                            </div>
-                        ) : (
-                            <div className="ft-sidebar-ad">
-                                <div className="ft-sidebar-ad-img">
-                                    <img src="/assets/img/AIR_Banner_f2_1.webp" alt="Partner Airline Banner" />
-                                </div>
                             </div>
                         )}
                     </div>

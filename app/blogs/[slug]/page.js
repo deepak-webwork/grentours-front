@@ -12,6 +12,7 @@ export default function BlogDetailPage() {
 
     const [blog, setBlog] = useState(null);
     const [recentBlogs, setRecentBlogs] = useState([]);
+    const [advertisements, setAdvertisements] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -28,11 +29,12 @@ export default function BlogDetailPage() {
                     }
                     return res.json();
                 }),
-            fetch(`${apiUrl}/api/v1/blogs`)
+            fetch(`${apiUrl}/api/v1/blogs`),
+            fetch(`${apiUrl}/api/v1/homepage/advertisements?placement=blog_details`)
                 .then(res => res.json())
-                .catch(() => ({ success: false }))
+                .catch(() => ({ success: false, banners: [] }))
         ])
-        .then(([detailData, listData]) => {
+        .then(([detailData, listData, adsData]) => {
             if (detailData.success && detailData.article) {
                 setBlog(detailData.article);
                 // Set meta tags dynamically
@@ -49,6 +51,10 @@ export default function BlogDetailPage() {
                     .filter(a => a.slug !== slug)
                     .slice(0, 3);
                 setRecentBlogs(filtered);
+            }
+
+            if (adsData && adsData.success && adsData.banners) {
+                setAdvertisements(adsData.banners);
             }
         })
         .catch(err => {
@@ -200,22 +206,32 @@ export default function BlogDetailPage() {
                                 <p className="small text-secondary mb-0">Crafting tailored guidelines and itineraries to ensure your family trips are unforgettable and hassle-free.</p>
                             </div>
 
-                            {/* Advertisement Slot 1: Swiss Alps (Dynamic link pointing to PKG-SWS-002) */}
-                            <div className="card border-0 overflow-hidden shadow-sm rounded-4 mb-4 bg-dark text-white position-relative" style={{ height: '320px' }}>
-                                <img 
-                                    src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" 
-                                    alt="Swiss Alps Ad" 
-                                    className="w-100 h-100 object-fit-cover opacity-75"
-                                />
-                                <div className="card-img-overlay d-flex flex-column justify-content-end p-4 bg-gradient-dark">
-                                    <span className="badge bg-danger rounded-pill align-self-start mb-2 px-3 py-2 small">Special Deal</span>
-                                    <h4 className="fw-bold mb-1">Splendid Swiss Alps Rail Tour</h4>
-                                    <p className="small mb-3 text-light-muted">8 Days starting from ₹1,85,000</p>
-                                    <Link href="/packages/2" className="btn btn-success rounded-pill fw-semibold py-2 px-4 shadow">
-                                        Book Swiss Tour
-                                    </Link>
-                                </div>
-                            </div>
+                            {/* Dynamic Advertisement Slot 1 */}
+                            {advertisements && advertisements.length > 0 && advertisements.slice(0, 1).map((ad) => {
+                                const desktopImg = ad.desktop_images && ad.desktop_images.length > 0 ? getBlogImage(ad.desktop_images[0]) : '';
+                                if (!desktopImg) return null;
+                                return (
+                                    <div key={ad.id} className="card border-0 overflow-hidden shadow-sm rounded-4 mb-4 bg-dark text-white position-relative" style={{ height: '320px' }}>
+                                        <img 
+                                            src={desktopImg} 
+                                            alt={ad.title} 
+                                            className="w-100 h-100 object-fit-cover opacity-75"
+                                        />
+                                        <div className="card-img-overlay d-flex flex-column justify-content-end p-4 bg-gradient-dark">
+                                            {ad.subtitle && (
+                                                <span className="badge bg-danger rounded-pill align-self-start mb-2 px-3 py-2 small">{ad.subtitle}</span>
+                                            )}
+                                            <h4 className="fw-bold mb-1">{ad.title}</h4>
+                                            {ad.description && (
+                                                <p className="small mb-3 text-light-muted">{ad.description}</p>
+                                            )}
+                                            <Link href={ad.link_url || '#'} className="btn btn-success rounded-pill fw-semibold py-2 px-4 shadow">
+                                                {ad.cta_text || 'Explore Now'}
+                                            </Link>
+                                        </div>
+                                    </div>
+                                );
+                            })}
 
                             {/* Recent/Trending Blogs List */}
                             {recentBlogs.length > 0 && (
@@ -241,22 +257,32 @@ export default function BlogDetailPage() {
                                 </div>
                             )}
 
-                            {/* Advertisement Slot 2: Maldives (Dynamic link pointing to PKG-MLD-003) */}
-                            <div className="card border-0 overflow-hidden shadow-sm rounded-4 mb-4 bg-dark text-white position-relative" style={{ height: '320px' }}>
-                                <img 
-                                    src="https://images.unsplash.com/photo-1502784444187-359ac186c5bb?auto=format&fit=crop&w=600&q=80" 
-                                    alt="Maldives Resort Ad" 
-                                    className="w-100 h-100 object-fit-cover opacity-75"
-                                />
-                                <div className="card-img-overlay d-flex flex-column justify-content-end p-4 bg-gradient-dark">
-                                    <span className="badge bg-warning text-dark rounded-pill align-self-start mb-2 px-3 py-2 small">Honeymoon Choice</span>
-                                    <h4 className="fw-bold mb-1">Premium Maldives Water Villa</h4>
-                                    <p className="small mb-3 text-light-muted">4 Days starting from ₹1,25,000</p>
-                                    <Link href="/packages/3" className="btn btn-warning rounded-pill fw-semibold py-2 px-4 shadow text-dark">
-                                        Explore Resort
-                                    </Link>
-                                </div>
-                            </div>
+                            {/* Dynamic Advertisements Slot 2+ */}
+                            {advertisements && advertisements.length > 1 && advertisements.slice(1).map((ad) => {
+                                const desktopImg = ad.desktop_images && ad.desktop_images.length > 0 ? getBlogImage(ad.desktop_images[0]) : '';
+                                if (!desktopImg) return null;
+                                return (
+                                    <div key={ad.id} className="card border-0 overflow-hidden shadow-sm rounded-4 mb-4 bg-dark text-white position-relative" style={{ height: '320px' }}>
+                                        <img 
+                                            src={desktopImg} 
+                                            alt={ad.title} 
+                                            className="w-100 h-100 object-fit-cover opacity-75"
+                                        />
+                                        <div className="card-img-overlay d-flex flex-column justify-content-end p-4 bg-gradient-dark">
+                                            {ad.subtitle && (
+                                                <span className="badge bg-warning text-dark rounded-pill align-self-start mb-2 px-3 py-2 small">{ad.subtitle}</span>
+                                            )}
+                                            <h4 className="fw-bold mb-1">{ad.title}</h4>
+                                            {ad.description && (
+                                                <p className="small mb-3 text-light-muted">{ad.description}</p>
+                                            )}
+                                            <Link href={ad.link_url || '#'} className="btn btn-warning rounded-pill fw-semibold py-2 px-4 shadow text-dark">
+                                                {ad.cta_text || 'Explore Now'}
+                                            </Link>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </aside>
                     </div>
                 </div>

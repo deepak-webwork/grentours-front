@@ -10,6 +10,7 @@ export default function Header() {
     const [searchOpen, setSearchOpen] = useState(false);
     const [activeMobileMenu, setActiveMobileMenu] = useState(null);
     const [navigationData, setNavigationData] = useState([]);
+    const [themesData, setThemesData] = useState([]);
 
     useEffect(() => {
         if (isMobileOpen) {
@@ -62,6 +63,35 @@ export default function Header() {
         fetchNavigation();
     }, []);
 
+    useEffect(() => {
+        const fetchThemes = async () => {
+            try {
+                const CACHE_KEY = 'grentours_themes_dropdown_data';
+                const CACHE_EXPIRY_KEY = 'grentours_themes_dropdown_expiry';
+                const CACHE_TTL = 300000;
+                const cachedData = localStorage.getItem(CACHE_KEY);
+                const cachedExpiry = localStorage.getItem(CACHE_EXPIRY_KEY);
+                const now = Date.now();
+                if (cachedData && cachedExpiry && now < parseInt(cachedExpiry, 10)) {
+                    setThemesData(JSON.parse(cachedData));
+                    return;
+                }
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+                const res = await fetch(`${apiUrl}/api/v1/themes`);
+                if (!res.ok) throw new Error('Failed to fetch themes');
+                const resData = await res.json();
+                if (resData.success && resData.themes) {
+                    setThemesData(resData.themes);
+                    localStorage.setItem(CACHE_KEY, JSON.stringify(resData.themes));
+                    localStorage.setItem(CACHE_EXPIRY_KEY, (now + CACHE_TTL).toString());
+                }
+            } catch (err) {
+                console.error('Error fetching themes for dropdown:', err);
+            }
+        };
+        fetchThemes();
+    }, []);
+
     const toggleMobileMenu = () => setIsMobileOpen(!isMobileOpen);
     const closeMobile = () => setIsMobileOpen(false);
     const toggleMobileSubmenu = (menuKey) => {
@@ -96,7 +126,7 @@ export default function Header() {
                                     onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }}
                                 />
                                 <img
-                                    src="/assets/img/iata-logo-high-quality-free-vector.jpg"
+                                    src="/assets/img/iata.png"
                                     alt="IATA Accredited"
                                     className="ft-iata-logo"
                                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
@@ -107,6 +137,7 @@ export default function Header() {
                                 <ul className="ft-nav ft-nav-list ft-nav-list--desktop mb-0">
                                     <HeaderNavMenu
                                         navigationData={navigationData}
+                                        themesData={themesData}
                                         activeMobileMenu={null}
                                         toggleMobileSubmenu={undefined}
                                     />
@@ -150,6 +181,7 @@ export default function Header() {
                     <ul className="ft-drawer-nav-list mb-0">
                         <HeaderNavMenu
                             navigationData={navigationData}
+                            themesData={themesData}
                             activeMobileMenu={activeMobileMenu}
                             toggleMobileSubmenu={toggleMobileSubmenu}
                             onLinkClick={closeMobile}

@@ -26,7 +26,7 @@ function PackagesListContent() {
         }
         return () => { document.body.style.overflow = ''; };
     }, [mobileFilterOpen]);
-    
+
     const ITEMS_PER_PAGE = 10;
 
     // Filter states
@@ -36,6 +36,7 @@ function PackagesListContent() {
     const [selectedDurations, setSelectedDurations] = useState([]);
     const [sortOption, setSortOption] = useState('deals');
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedRegions, setSelectedRegions] = useState([]);
 
     // Comparison state
     const [compareList, setCompareList] = useState([]);
@@ -75,7 +76,7 @@ function PackagesListContent() {
     useEffect(() => {
         fetchPackages();
     }, []);
-    
+
     // Handle scroll to load more
     useEffect(() => {
         const handleScroll = () => {
@@ -83,16 +84,16 @@ function PackagesListContent() {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const windowHeight = window.innerHeight;
             const documentHeight = document.documentElement.scrollHeight;
-            
+
             if (scrollTop + windowHeight >= documentHeight - 500) {
                 setOffset(prev => prev + ITEMS_PER_PAGE);
             }
         };
-        
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [loading, loadingMore, hasMore]);
-    
+
     // Fetch more when offset changes
     useEffect(() => {
         if (offset > 0) {
@@ -116,6 +117,13 @@ function PackagesListContent() {
         } else {
             setSearchQuery('');
         }
+
+        const regionParam = searchParams.get('region');
+        if (regionParam) {
+            setSelectedRegions([regionParam]);
+        } else {
+            setSelectedRegions([]);
+        }
     }, [searchParams]);
 
     // Helpers
@@ -131,15 +139,15 @@ function PackagesListContent() {
     const tourPackagesList = rawPackages.map(pkg => {
         const durationDays = pkg.duration_days || 5;
         const durationNights = pkg.duration_nights || (durationDays - 1);
-        
+
         const getImageUrl = (url) => getMediaUrl(url);
 
-        const themes = Array.isArray(pkg.themes) 
-            ? pkg.themes.map(t => t.slug || t.name?.toLowerCase()) 
+        const themes = Array.isArray(pkg.themes)
+            ? pkg.themes.map(t => t.slug || t.name?.toLowerCase())
             : [];
 
-        const badges = Array.isArray(pkg.tags) 
-            ? pkg.tags.map(t => t.name) 
+        const badges = Array.isArray(pkg.tags)
+            ? pkg.tags.map(t => t.name)
             : [];
 
         const amenities = Array.isArray(pkg.amenities)
@@ -219,7 +227,7 @@ function PackagesListContent() {
 
     // Handle filter actions
     const handleThemeChange = (themeVal) => {
-        setSelectedThemes(prev => 
+        setSelectedThemes(prev =>
             prev.includes(themeVal) ? prev.filter(t => t !== themeVal) : [...prev, themeVal]
         );
     };
@@ -238,8 +246,14 @@ function PackagesListContent() {
     };
 
     const handleDurationChange = (durKey) => {
-        setSelectedDurations(prev => 
+        setSelectedDurations(prev =>
             prev.includes(durKey) ? prev.filter(d => d !== durKey) : [...prev, durKey]
+        );
+    };
+
+    const handleRegionChange = (regionKey) => {
+        setSelectedRegions(prev =>
+            prev.includes(regionKey) ? prev.filter(r => r !== regionKey) : [...prev, regionKey]
         );
     };
 
@@ -248,6 +262,7 @@ function PackagesListContent() {
         setSelectedThemes([]);
         setSelectedAttributes({});
         setSelectedDurations([]);
+        setSelectedRegions([]);
         setSortOption('deals');
         setSearchQuery('');
     };
@@ -295,6 +310,17 @@ function PackagesListContent() {
             if (selectedDurations.includes('8-11') && pkg.duration >= 8 && pkg.duration <= 11) durationMatch = true;
             if (selectedDurations.includes('11-above') && pkg.duration > 11) durationMatch = true;
             if (!durationMatch) return false;
+        }
+
+        // Selected Regions (Domestic vs International)
+        if (selectedRegions.length > 0) {
+            const isDomestic = pkg.country && pkg.country.toLowerCase() === 'india';
+            const isInternational = !pkg.country || pkg.country.toLowerCase() !== 'india';
+            
+            const matchesDomestic = selectedRegions.includes('domestic') && isDomestic;
+            const matchesInternational = selectedRegions.includes('international') && isInternational;
+            
+            if (!matchesDomestic && !matchesInternational) return false;
         }
 
         return true;
@@ -374,7 +400,7 @@ function PackagesListContent() {
             <div className="container-xl">
                 {/* Breadcrumbs */}
                 <div className="packages-breadcrumb mb-3">
-                    <Link href="/">Home</Link> &nbsp;/&nbsp; 
+                    <Link href="/">Home</Link> &nbsp;/&nbsp;
                     <span className="active">Holiday Packages Listings</span>
                 </div>
 
@@ -386,12 +412,12 @@ function PackagesListContent() {
                     </div>
                     <div className="list-header-controls d-flex align-items-center gap-3">
                         <div className="sort-select-wrapper d-flex align-items-center gap-2">
-                            <label className="text-muted small fw-semibold mb-0" style={{whiteSpace: 'nowrap'}}>
+                            <label className="text-muted small fw-semibold mb-0" style={{ whiteSpace: 'nowrap' }}>
                                 <i className="bi bi-sort-down-alt"></i> Sort by:
                             </label>
-                            <select 
-                                className="form-select form-select-sm rounded-3" 
-                                value={sortOption} 
+                            <select
+                                className="form-select form-select-sm rounded-3"
+                                value={sortOption}
                                 onChange={(e) => setSortOption(e.target.value)}
                             >
                                 <option value="deals">Deals &amp; Popularity</option>
@@ -406,10 +432,10 @@ function PackagesListContent() {
 
                 {/* 2-Column Grid Layout */}
                 <div className="row g-4 position-relative">
-                    
+
                     {/* COLUMN 1: SIDEBAR FILTERS */}
-                    <aside className={`col-lg-4 filter-sidebar-mobile ${mobileFilterOpen ? 'show' : ''}`}>
-                        <div className="filter-card bg-white p-4 rounded-4 shadow-sm border border-light sticky-top" style={{top: '120px'}}>
+                    <aside className={`col-lg-3 filter-sidebar-mobile ${mobileFilterOpen ? 'show' : ''}`}>
+                        <div className="filter-card bg-white p-4 rounded-4 shadow-sm border border-light sticky-top" style={{ top: '120px' }}>
                             <ListFilterHeader
                                 title="Filters"
                                 onReset={resetAllFilters}
@@ -417,115 +443,144 @@ function PackagesListContent() {
                             />
 
                             <div className="filter-drawer-body">
-                            {/* Search bar inside filters */}
-                            <div className="filter-group mb-4">
-                                <label className="form-label small fw-bold text-dark mb-2">Search Query</label>
-                                <div className="input-group input-group-sm">
-                                    <span className="input-group-text bg-white border-light-subtle"><i className="bi bi-search text-muted"></i></span>
-                                    <input 
-                                        type="text" 
-                                        className="form-control border-light-subtle" 
-                                        placeholder="City, theme, keywords..."
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                {/* Search bar inside filters */}
+                                <div className="filter-group mb-4">
+                                    <label className="form-label small fw-bold text-dark mb-2">Search Query</label>
+                                    <div className="input-group input-group-sm">
+                                        <span className="input-group-text bg-white border-light-subtle"><i className="bi bi-search text-muted"></i></span>
+                                        <input
+                                            type="text"
+                                            className="form-control border-light-subtle"
+                                            placeholder="City, theme, keywords..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Price range filter */}
+                                <div className="filter-group mb-4">
+                                    <div className="d-flex justify-content-between align-items-center mb-2">
+                                        <span className="small fw-bold text-dark">Max Budget</span>
+                                        <span className="badge bg-light text-success fw-bold">{formatINR(priceLimit)}</span>
+                                    </div>
+                                    <input
+                                        type="range"
+                                        className="form-range custom-range-slider"
+                                        min="20000"
+                                        max="500000"
+                                        step="5000"
+                                        value={priceLimit}
+                                        onChange={(e) => setPriceLimit(Number(e.target.value))}
                                     />
+                                    <div className="d-flex justify-content-between text-muted" style={{ fontSize: '10px' }}>
+                                        <span>₹ 20K</span>
+                                        <span>₹ 5.0L</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Price range filter */}
-                            <div className="filter-group mb-4">
-                                <div className="d-flex justify-content-between align-items-center mb-2">
-                                    <span className="small fw-bold text-dark">Max Budget</span>
-                                    <span className="badge bg-light text-success fw-bold">{formatINR(priceLimit)}</span>
-                                </div>
-                                <input 
-                                    type="range" 
-                                    className="form-range custom-range-slider" 
-                                    min="20000" 
-                                    max="500000" 
-                                    step="5000" 
-                                    value={priceLimit}
-                                    onChange={(e) => setPriceLimit(Number(e.target.value))}
-                                />
-                                <div className="d-flex justify-content-between text-muted" style={{fontSize: '10px'}}>
-                                    <span>₹ 20K</span>
-                                    <span>₹ 5.0L</span>
-                                </div>
-                            </div>
-
-                            {/* Theme checklist */}
-                            <div className="filter-group mb-4">
-                                <span className="small fw-bold text-dark d-block mb-2">Holiday Theme</span>
-                                <div className="d-flex flex-column gap-2">
-                                    {(allThemes.length > 0 ? allThemes : [
-                                        { key: 'bestseller', label: 'Bestseller Packages' },
-                                        { key: 'family', label: 'Family Group Tours' },
-                                        { key: 'honeymoon', label: 'Honeymoon Specials' },
-                                        { key: 'summer', label: 'Summer Specials' },
-                                        { key: 'spiritual', label: 'Spiritual / Pilgrimage' },
-                                        { key: 'exotic', label: 'Exotic & Self Drive' }
-                                    ]).map(theme => (
-                                        <label key={theme.key} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
+                                {/* Region checklist */}
+                                <div className="filter-group mb-4">
+                                    <span className="small fw-bold text-dark d-block mb-2">Region</span>
+                                    <div className="d-flex flex-column gap-2">
+                                        <label className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
                                             <div className="d-flex align-items-center gap-2">
                                                 <input 
                                                     type="checkbox" 
                                                     className="form-check-input m-0 cursor-pointer"
-                                                    checked={selectedThemes.includes(theme.key)}
-                                                    onChange={() => handleThemeChange(theme.key)}
+                                                    checked={selectedRegions.includes('domestic')}
+                                                    onChange={() => handleRegionChange('domestic')}
                                                 />
-                                                <span className="text-muted">{theme.label}</span>
+                                                <span className="text-muted">Domestic (India)</span>
                                             </div>
                                         </label>
-                                    ))}
+                                        <label className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
+                                            <div className="d-flex align-items-center gap-2">
+                                                <input 
+                                                    type="checkbox" 
+                                                    className="form-check-input m-0 cursor-pointer"
+                                                    checked={selectedRegions.includes('international')}
+                                                    onChange={() => handleRegionChange('international')}
+                                                />
+                                                <span className="text-muted">International</span>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Dynamic package attributes from backend */}
-                            {dynamicAttributes.map(attr => (
-                                <div className="filter-group mb-4" key={attr.slug}>
-                                    <span className="small fw-bold text-dark d-block mb-2">{attr.name}</span>
-                                    <div className="d-flex flex-column gap-2" style={{maxHeight: '160px', overflowY: 'auto'}}>
-                                        {attr.values.map(val => (
-                                            <label key={val} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
+                                {/* Theme checklist */}
+                                <div className="filter-group mb-4">
+                                    <span className="small fw-bold text-dark d-block mb-2">Holiday Theme</span>
+                                    <div className="d-flex flex-column gap-2">
+                                        {(allThemes.length > 0 ? allThemes : [
+                                            { key: 'bestseller', label: 'Bestseller Packages' },
+                                            { key: 'family', label: 'Family Group Tours' },
+                                            { key: 'honeymoon', label: 'Honeymoon Specials' },
+                                            { key: 'summer', label: 'Summer Specials' },
+                                            { key: 'spiritual', label: 'Spiritual / Pilgrimage' },
+                                            { key: 'exotic', label: 'Exotic & Self Drive' }
+                                        ]).map(theme => (
+                                            <label key={theme.key} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
                                                 <div className="d-flex align-items-center gap-2">
-                                                    <input 
-                                                        type="checkbox" 
+                                                    <input
+                                                        type="checkbox"
                                                         className="form-check-input m-0 cursor-pointer"
-                                                        checked={(selectedAttributes[attr.slug] || []).includes(val)}
-                                                        onChange={() => handleAttributeChange(attr.slug, val)}
+                                                        checked={selectedThemes.includes(theme.key)}
+                                                        onChange={() => handleThemeChange(theme.key)}
                                                     />
-                                                    <span className="text-muted">{val}</span>
+                                                    <span className="text-muted">{theme.label}</span>
                                                 </div>
                                             </label>
                                         ))}
                                     </div>
                                 </div>
-                            ))}
 
-                            {/* Duration checklist */}
-                            <div className="filter-group">
-                                <span className="small fw-bold text-dark d-block mb-2">Tour Duration</span>
-                                <div className="d-flex flex-column gap-2">
-                                    {[
-                                        { key: 'under-5', label: 'Under 5 Days' },
-                                        { key: '5-8', label: '5 to 8 Days' },
-                                        { key: '8-11', label: '8 to 11 Days' },
-                                        { key: '11-above', label: '11 Days & Above' }
-                                    ].map(dur => (
-                                        <label key={dur.key} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
-                                            <div className="d-flex align-items-center gap-2">
-                                                <input 
-                                                    type="checkbox" 
-                                                    className="form-check-input m-0 cursor-pointer"
-                                                    checked={selectedDurations.includes(dur.key)}
-                                                    onChange={() => handleDurationChange(dur.key)}
-                                                />
-                                                <span className="text-muted">{dur.label}</span>
-                                            </div>
-                                        </label>
-                                    ))}
+                                {/* Dynamic package attributes from backend */}
+                                {dynamicAttributes.map(attr => (
+                                    <div className="filter-group mb-4" key={attr.slug}>
+                                        <span className="small fw-bold text-dark d-block mb-2">{attr.name}</span>
+                                        <div className="d-flex flex-column gap-2" style={{ maxHeight: '160px', overflowY: 'auto' }}>
+                                            {attr.values.map(val => (
+                                                <label key={val} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
+                                                    <div className="d-flex align-items-center gap-2">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input m-0 cursor-pointer"
+                                                            checked={(selectedAttributes[attr.slug] || []).includes(val)}
+                                                            onChange={() => handleAttributeChange(attr.slug, val)}
+                                                        />
+                                                        <span className="text-muted">{val}</span>
+                                                    </div>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {/* Duration checklist */}
+                                <div className="filter-group">
+                                    <span className="small fw-bold text-dark d-block mb-2">Tour Duration</span>
+                                    <div className="d-flex flex-column gap-2">
+                                        {[
+                                            { key: 'under-5', label: 'Under 5 Days' },
+                                            { key: '5-8', label: '5 to 8 Days' },
+                                            { key: '8-11', label: '8 to 11 Days' },
+                                            { key: '11-above', label: '11 Days & Above' }
+                                        ].map(dur => (
+                                            <label key={dur.key} className="checkbox-item d-flex justify-content-between align-items-center cursor-pointer small">
+                                                <div className="d-flex align-items-center gap-2">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="form-check-input m-0 cursor-pointer"
+                                                        checked={selectedDurations.includes(dur.key)}
+                                                        onChange={() => handleDurationChange(dur.key)}
+                                                    />
+                                                    <span className="text-muted">{dur.label}</span>
+                                                </div>
+                                            </label>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
                             </div>
 
                             <div className="filter-drawer-footer d-lg-none">
@@ -543,7 +598,7 @@ function PackagesListContent() {
                     )}
 
                     {/* COLUMN 2: PACKAGE LIST (col-lg-8) */}
-                    <main className="col-lg-8">
+                    <main className="col-lg-9">
                         <div className="packages-list-container">
                             {sortedPackages.length === 0 ? (
                                 <div className="packages-empty-state">
@@ -556,21 +611,21 @@ function PackagesListContent() {
                                 </div>
                             ) : (
                                 sortedPackages.map(pkg => (
-                                    <article className="package-card-premium" key={pkg.id}>
+                                    <Link href={`/packages/${pkg.slug}`} className="package-card-premium text-decoration-none text-dark" key={pkg.id}>
                                         {/* Card Image */}
                                         <div className="card-img-side">
-                                            <img 
-                                                src={pkg.image || '/assets/img/grentours_placeholder.png'} 
-                                                alt={pkg.title} 
-                                                onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} 
+                                            <img
+                                                src={pkg.image || '/assets/img/grentours_placeholder.png'}
+                                                alt={pkg.title}
+                                                onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }}
                                             />
                                             {pkg.themes && pkg.themes.length > 0 && (
                                                 <span className="card-ribbon">{pkg.themes[0]}</span>
                                             )}
                                             {/* Compare Toggle Button */}
-                                            <button 
+                                            <button
                                                 className={`card-wishlist-btn ${compareList.some(item => item.id === pkg.id) ? 'active' : ''}`}
-                                                onClick={() => toggleCompare(pkg)}
+                                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleCompare(pkg); }}
                                                 title="Compare this package"
                                             >
                                                 <i className={`bi ${compareList.some(item => item.id === pkg.id) ? 'bi-check-circle-fill' : 'bi-plus-circle'}`}></i>
@@ -589,10 +644,8 @@ function PackagesListContent() {
                                                         <span className="tag-badge outline">{pkg.tourType}</span>
                                                     )}
                                                 </div>
-                                                <h3>
-                                                    <Link href={`/packages/${pkg.slug}`}>
-                                                        {pkg.title}
-                                                    </Link>
+                                                <h3 className="text-dark">
+                                                    {pkg.title}
                                                 </h3>
                                                 <div className="card-ratings">
                                                     <span className="rating-stars">
@@ -641,11 +694,16 @@ function PackagesListContent() {
                                             </div>
 
                                             <div className="inclusions-row mt-3">
-                                                {pkg.inclusions.map(inc => (
+                                                {pkg.inclusions.slice(0, 5).map(inc => (
                                                     <span key={inc} className="inclusion-item">
                                                         <i className="bi bi-check-circle-fill"></i> {inc}
                                                     </span>
                                                 ))}
+                                                {pkg.inclusions.length > 5 && (
+                                                    <span className="inclusion-item text-success fw-bold">
+                                                        <i className="bi bi-plus-circle-fill"></i> {pkg.inclusions.length - 5} more
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
 
@@ -657,18 +715,15 @@ function PackagesListContent() {
                                                 <span className="price-subtitle">per person (excl. GST)</span>
                                             </div>
                                             <div className="card-actions-stack">
-                                                <Link href={`/packages/${pkg.slug}`} className="action-btn-primary">
+                                                <span className="action-btn-primary text-center">
                                                     View Details
-                                                </Link>
-                                                <button className="action-btn-secondary" onClick={() => alert('Opening consultation form...')}>
-                                                    Enquire Now
-                                                </button>
+                                                </span>
                                             </div>
                                         </div>
-                                    </article>
+                                    </Link>
                                 ))
                             )}
-                            
+
                             {/* Loading More Indicator */}
                             {loadingMore && (
                                 <div className="text-center py-5">
@@ -693,15 +748,15 @@ function PackagesListContent() {
 
             {/* Floating Comparison Drawer */}
             {compareList.length > 0 && (
-                <div className="comparison-drawer show position-fixed bottom-0 start-0 w-100 bg-white border-top shadow-lg p-3" style={{zIndex: 999}}>
+                <div className="comparison-drawer show position-fixed bottom-0 start-0 w-100 bg-white border-top shadow-lg p-3" style={{ zIndex: 999 }}>
                     <div className="container-xl d-flex justify-content-between align-items-center flex-wrap gap-3">
                         <div className="d-flex align-items-center gap-3">
                             <span className="fw-bold text-dark small">{compareList.length} / 3 packages selected</span>
                             <div className="d-flex gap-2">
                                 {compareList.map(item => (
                                     <div key={item.id} className="badge bg-light text-dark p-2 border border-light-subtle d-flex align-items-center gap-2 rounded-3">
-                                        <span className="text-truncate" style={{maxWidth: '120px'}}>{item.title}</span>
-                                        <button className="btn-close p-0" style={{fontSize: '8px'}} onClick={() => toggleCompare(item)}></button>
+                                        <span className="text-truncate" style={{ maxWidth: '120px' }}>{item.title}</span>
+                                        <button className="btn-close p-0" style={{ fontSize: '8px' }} onClick={() => toggleCompare(item)}></button>
                                     </div>
                                 ))}
                             </div>
@@ -720,7 +775,7 @@ function PackagesListContent() {
 
             {/* Compare Modal */}
             {showCompareDialog && (
-                <div className="modal fade show d-block" style={{background: 'rgba(0,0,0,0.5)', zIndex: 1050}}>
+                <div className="modal fade show d-block" style={{ background: 'rgba(0,0,0,0.5)', zIndex: 1050 }}>
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content rounded-4 border-0 shadow-lg">
                             <div className="modal-header border-bottom p-3">
@@ -732,7 +787,7 @@ function PackagesListContent() {
                                     {compareList.map(item => (
                                         <div className="col-md-4" key={item.id}>
                                             <div className="card h-100 rounded-3 border border-light-subtle">
-                                                <img src={item.image || '/assets/img/grentours_placeholder.png'} alt={item.title} className="card-img-top" style={{height: '120px', objectFit: 'cover'}} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                <img src={item.image || '/assets/img/grentours_placeholder.png'} alt={item.title} className="card-img-top" style={{ height: '120px', objectFit: 'cover' }} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
                                                 <div className="card-body p-3">
                                                     <h6 className="fw-bold mb-2 text-dark">{item.title}</h6>
                                                     <div className="text-success fw-bold mb-2">{formatINR(item.price)}</div>

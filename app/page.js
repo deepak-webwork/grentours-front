@@ -9,8 +9,9 @@ import TravelMediaSection from '../components/home/TravelMediaSection';
 import { getMediaUrl } from '../lib/media';
 
 export default function HomePage() {
-    // Offers tabs state: 'tours' or 'hotels'
-    const [offersTab, setOffersTab] = useState('tours');
+    // Offers tabs state: 'domestic' or 'international'
+    const [toursTab, setToursTab] = useState('domestic');
+    const [hotelsTab, setHotelsTab] = useState('domestic');
 
     // Visa destinations filter: 'e-visa', 'stamped', 'arrival'
     const [visaFilter, setVisaFilter] = useState('e-visa');
@@ -38,7 +39,8 @@ export default function HomePage() {
 
     // Scroll refs for custom smooth scrolls
     const themeScrollRef = useRef(null);
-    const pkgScrollRef = useRef(null);
+    const tourScrollRef = useRef(null);
+    const hotelScrollRef = useRef(null);
     const destScrollRef = useRef(null);
     const visaScrollRef = useRef(null);
 
@@ -283,9 +285,12 @@ export default function HomePage() {
         }
     };
 
-    // Filter packages by type
-    const dbTours = packages.filter(p => p.package_type === 'tour');
-    const dbHotels = packages.filter(p => p.package_type === 'hotel');
+    // Filter packages by type and domestic/international (domestic = India, international = outside India)
+    const domesticTours = packages.filter(p => p.package_type === 'tour' && p.country && p.country.toLowerCase() === 'india');
+    const internationalTours = packages.filter(p => p.package_type === 'tour' && (!p.country || p.country.toLowerCase() !== 'india'));
+
+    const domesticHotels = packages.filter(p => p.package_type === 'hotel' && p.country && p.country.toLowerCase() === 'india');
+    const internationalHotels = packages.filter(p => p.package_type === 'hotel' && (!p.country || p.country.toLowerCase() !== 'india'));
 
     // Distribute ads into Slot 1 (Promo) and Slot 2 (Sidebar) using odd/even indices
     const promoAds = advertisements.filter((_, idx) => idx % 2 === 0);
@@ -466,182 +471,204 @@ export default function HomePage() {
                                     </div>
                                 </div>
 
-                                {/* TRAVEL OFFERS */}
+                                {/* TOUR PACKAGES */}
                                 <div className="ft-card-section" data-aos="fade-up">
                                     <div className="ft-section-header">
-                                        <h2>Latest Travel Offers</h2>
-                                        <Link href={offersTab === 'tours' ? '/packages' : '/hotels'}>
+                                        <h2>Fixed Group Departure</h2>
+                                        <Link href={`/packages?region=${toursTab}`}>
                                             View All <i className="bi bi-arrow-right"></i>
                                         </Link>
                                     </div>
 
-                                    {/* Tabs: Tour Packages | Hotels */}
+                                    {/* Tabs: Domestic | International */}
                                     <div className="ft-pkg-tabs">
-                                        <button className={`ft-pkg-tab ${offersTab === 'tours' ? 'active' : ''}`} onClick={() => setOffersTab('tours')}>
-                                            Tour Packages
+                                        <button className={`ft-pkg-tab ${toursTab === 'domestic' ? 'active' : ''}`} onClick={() => setToursTab('domestic')}>
+                                            Domestic
                                         </button>
-                                        <button className={`ft-pkg-tab ${offersTab === 'hotels' ? 'active' : ''}`} onClick={() => setOffersTab('hotels')}>
-                                            Hotels
+                                        <button className={`ft-pkg-tab ${toursTab === 'international' ? 'active' : ''}`} onClick={() => setToursTab('international')}>
+                                            International
                                         </button>
                                     </div>
 
                                     {/* Tour Packages row */}
-                                    {offersTab === 'tours' && (
-                                        <div className="ft-pkg-slider" id="toursRow">
-                                            <button className="ft-pkg-slide-btn prev-btn" onClick={() => handleScroll(pkgScrollRef, -290)}>
-                                                <i className="bi bi-chevron-left"></i>
-                                            </button>
-                                            <div className="ft-pkg-row" id="pkgScrollEl" ref={pkgScrollRef}>
-                                                {loading ? (
-                                                    <>
-                                                        {[1, 2, 3, 4].map((i) => (
-                                                            <div className="ft-skeleton-card" key={i}>
-                                                                <div className="ft-skeleton-card-img"></div>
-                                                                <div className="ft-skeleton-card-body">
-                                                                    <div className="ft-skeleton-line title"></div>
-                                                                    <div className="ft-skeleton-line meta"></div>
-                                                                    <div className="ft-skeleton-line meta" style={{ width: '45%' }}></div>
-                                                                    <div className="d-flex justify-content-between align-items-center mt-2">
-                                                                        <div className="ft-skeleton-line price"></div>
-                                                                        <div className="ft-skeleton-line btn"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                    </>
-                                                ) : dbTours.length > 0 ? (
-                                                    dbTours.map((pkg) => (
-                                                        <div className="ft-pkg-card" key={pkg.id}>
-                                                            <div className="ft-pkg-card-img">
-                                                                <img src={getPackageImage(pkg.image)} alt={pkg.title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                                <div className="ft-pkg-badge-wrap">
-                                                                    {pkg.tags && pkg.tags.map(tag => (
-                                                                        <span key={tag.id} className={`ft-pkg-badge ${tag.color || 'red'}`}>
-                                                                            {tag.name}
-                                                                        </span>
-                                                                    ))}
-                                                                    <span className="ft-pkg-badge blue">{pkg.duration_nights} Nights</span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="ft-pkg-card-body">
-                                                                <div className="ft-pkg-card-title">{pkg.title}</div>
-                                                                <div className="ft-pkg-meta">
-                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-geo-alt"></i> {pkg.location || (pkg.destination ? pkg.destination.name : 'Explore')}</span>
-                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-moon-stars"></i> {pkg.duration_nights}N / {pkg.duration_days}D</span>
-                                                                    <span className="ft-pkg-meta-item">
-                                                                        <i className="bi bi-people"></i> {
-                                                                            (() => {
-                                                                                if (pkg.attribute_values && pkg.attribute_values.length > 0) {
-                                                                                    const tourTypeAttr = pkg.attribute_values.find(
-                                                                                        av => av.attribute && (av.attribute.name === 'Tour Type' || av.attribute.slug === 'tour-type')
-                                                                                    );
-                                                                                    if (tourTypeAttr) {
-                                                                                        return tourTypeAttr.value;
-                                                                                    }
-                                                                                }
-                                                                                if (pkg.tags && pkg.tags.length > 0) {
-                                                                                    const relevantTag = pkg.tags.find(t => 
-                                                                                        t.name.toLowerCase().includes('tour') || 
-                                                                                        t.name.toLowerCase().includes('special') || 
-                                                                                        t.name.toLowerCase().includes('family') || 
-                                                                                        t.name.toLowerCase().includes('couple')
-                                                                                    );
-                                                                                    if (relevantTag) {
-                                                                                        return relevantTag.name;
-                                                                                    }
-                                                                                    return pkg.tags[0].name;
-                                                                                }
-                                                                                return 'Group Tour';
-                                                                            })()
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                                <div className="ft-pkg-card-footer">
-                                                                    <div>
-                                                                        <div className="ft-pkg-price-label">Starting From</div>
-                                                                        <div className="ft-pkg-price">₹ {pkg.price.toLocaleString('en-IN')} <span>/ person</span></div>
-                                                                    </div>
-                                                                    <Link href={`/packages/${pkg.slug}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
-                                                                        view details
-                                                                    </Link>
+                                    <div className="ft-pkg-slider" id="toursRow">
+                                        <button className="ft-pkg-slide-btn prev-btn" onClick={() => handleScroll(tourScrollRef, -290)}>
+                                            <i className="bi bi-chevron-left"></i>
+                                        </button>
+                                        <div className="ft-pkg-row" id="tourScrollEl" ref={tourScrollRef}>
+                                            {loading ? (
+                                                <>
+                                                    {[1, 2, 3, 4].map((i) => (
+                                                        <div className="ft-skeleton-card" key={i}>
+                                                            <div className="ft-skeleton-card-img"></div>
+                                                            <div className="ft-skeleton-card-body">
+                                                                <div className="ft-skeleton-line title"></div>
+                                                                <div className="ft-skeleton-line meta"></div>
+                                                                <div className="ft-skeleton-line meta" style={{ width: '45%' }}></div>
+                                                                <div className="d-flex justify-content-between align-items-center mt-2">
+                                                                    <div className="ft-skeleton-line price"></div>
+                                                                    <div className="ft-skeleton-line btn"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    ))
-                                                ) : (
-                                                    <div className="w-100 text-center py-4 text-muted">
-                                                        No tour packages available at the moment.
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <button className="ft-pkg-slide-btn next-btn" onClick={() => handleScroll(pkgScrollRef, 290)}>
-                                                <i className="bi bi-chevron-right"></i>
-                                            </button>
+                                                    ))}
+                                                </>
+                                            ) : (toursTab === 'domestic' ? domesticTours : internationalTours).length > 0 ? (
+                                                (toursTab === 'domestic' ? domesticTours : internationalTours).map((pkg) => (
+                                                    <Link href={`/packages/${pkg.slug}`} className="ft-pkg-card text-decoration-none" key={pkg.id}>
+                                                        <div className="ft-pkg-card-img">
+                                                            <img src={getPackageImage(pkg.image)} alt={pkg.title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                            <div className="ft-pkg-badge-wrap">
+                                                                {pkg.tags && pkg.tags.map(tag => (
+                                                                    <span key={tag.id} className={`ft-pkg-badge ${tag.color || 'red'}`}>
+                                                                        {tag.name}
+                                                                    </span>
+                                                                ))}
+                                                                <span className="ft-pkg-badge blue">{pkg.duration_nights} Nights</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="ft-pkg-card-body">
+                                                            <div className="ft-pkg-card-title">{pkg.title}</div>
+                                                            <div className="ft-pkg-meta">
+                                                                <span className="ft-pkg-meta-item"><i className="bi bi-geo-alt"></i> {pkg.location || (pkg.destination ? pkg.destination.name : 'Explore')}</span>
+                                                                <span className="ft-pkg-meta-item"><i className="bi bi-moon-stars"></i> {pkg.duration_nights}N / {pkg.duration_days}D</span>
+                                                                <span className="ft-pkg-meta-item">
+                                                                    <i className="bi bi-people"></i> {
+                                                                        (() => {
+                                                                            if (pkg.attribute_values && pkg.attribute_values.length > 0) {
+                                                                                const tourTypeAttr = pkg.attribute_values.find(
+                                                                                    av => av.attribute && (av.attribute.name === 'Tour Type' || av.attribute.slug === 'tour-type')
+                                                                                );
+                                                                                if (tourTypeAttr) {
+                                                                                    return tourTypeAttr.value;
+                                                                                }
+                                                                            }
+                                                                            if (pkg.tags && pkg.tags.length > 0) {
+                                                                                const relevantTag = pkg.tags.find(t => 
+                                                                                    t.name.toLowerCase().includes('tour') || 
+                                                                                    t.name.toLowerCase().includes('special') || 
+                                                                                    t.name.toLowerCase().includes('family') || 
+                                                                                    t.name.toLowerCase().includes('couple')
+                                                                                );
+                                                                                if (relevantTag) {
+                                                                                    return relevantTag.name;
+                                                                                }
+                                                                                return pkg.tags[0].name;
+                                                                            }
+                                                                            return 'Group Tour';
+                                                                        })()
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                            <div className="ft-pkg-card-footer">
+                                                                <div>
+                                                                    <div className="ft-pkg-price-label">Starting From</div>
+                                                                    <div className="ft-pkg-price">₹ {pkg.price.toLocaleString('en-IN')} <span>/ person</span></div>
+                                                                </div>
+                                                                <span className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
+                                                                    view details
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                ))
+                                            ) : (
+                                                <div className="w-100 text-center py-4 text-muted">
+                                                    No tour packages available at the moment.
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
+
+                                        <button className="ft-pkg-slide-btn next-btn" onClick={() => handleScroll(tourScrollRef, 290)}>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* HOTELS */}
+                                <div className="ft-card-section" data-aos="fade-up">
+                                    <div className="ft-section-header">
+                                        <h2>Hotels</h2>
+                                        <Link href={`/hotels?region=${hotelsTab}`}>
+                                            View All <i className="bi bi-arrow-right"></i>
+                                        </Link>
+                                    </div>
+
+                                    {/* Tabs: Domestic | International */}
+                                    <div className="ft-pkg-tabs">
+                                        <button className={`ft-pkg-tab ${hotelsTab === 'domestic' ? 'active' : ''}`} onClick={() => setHotelsTab('domestic')}>
+                                            Domestic
+                                        </button>
+                                        <button className={`ft-pkg-tab ${hotelsTab === 'international' ? 'active' : ''}`} onClick={() => setHotelsTab('international')}>
+                                            International
+                                        </button>
+                                    </div>
 
                                     {/* Hotels row */}
-                                    {offersTab === 'hotels' && (
-                                        <div id="hotelsRow" style={{ display: 'block' }}>
-                                            <div className="ft-pkg-row">
-                                                {loading ? (
-                                                    <>
-                                                        {[1, 2, 3, 4].map((i) => (
-                                                            <div className="ft-skeleton-card" key={i}>
-                                                                <div className="ft-skeleton-card-img"></div>
-                                                                <div className="ft-skeleton-card-body">
-                                                                    <div className="ft-skeleton-line title"></div>
-                                                                    <div className="ft-skeleton-line meta"></div>
-                                                                    <div className="ft-skeleton-line meta" style={{ width: '45%' }}></div>
-                                                                    <div className="d-flex justify-content-between align-items-center mt-2">
-                                                                        <div className="ft-skeleton-line price"></div>
-                                                                        <div className="ft-skeleton-line btn"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                    </>
-                                                ) : dbHotels.length > 0 ? (
-                                                    dbHotels.map((pkg) => (
-                                                        <div className="ft-pkg-card" key={pkg.id}>
-                                                            <div className="ft-pkg-card-img">
-                                                                <img src={getPackageImage(pkg.image)} alt={pkg.title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                                <div className="ft-pkg-badge-wrap">
-                                                                    {pkg.tags && pkg.tags.map(tag => (
-                                                                        <span key={tag.id} className={`ft-pkg-badge ${tag.color || 'red'}`}>
-                                                                            {tag.name}
-                                                                        </span>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                            <div className="ft-pkg-card-body">
-                                                                <div className="ft-pkg-card-title">{pkg.title}</div>
-                                                                <div className="ft-pkg-meta">
-                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-geo-alt"></i> {pkg.location || (pkg.destination ? pkg.destination.name : 'Explore')}</span>
-                                                                    <span className="ft-pkg-meta-item"><i className="bi bi-star-fill" style={{ color: '#f59e0b' }}></i> {pkg.tags && pkg.tags.length > 0 ? pkg.tags[0].name : 'Hotel'}</span>
-                                                                </div>
-                                                                <div className="ft-pkg-card-footer">
-                                                                    <div>
-                                                                        <div className="ft-pkg-price-label">Per Night</div>
-                                                                        <div className="ft-pkg-price">₹ {pkg.price.toLocaleString('en-IN')}</div>
-                                                                    </div>
-                                                                    <Link href={`/hotels/${pkg.slug}`} className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
-                                                                        view details
-                                                                    </Link>
+                                    <div className="ft-pkg-slider" id="hotelsRow">
+                                        <button className="ft-pkg-slide-btn prev-btn" onClick={() => handleScroll(hotelScrollRef, -290)}>
+                                            <i className="bi bi-chevron-left"></i>
+                                        </button>
+                                        <div className="ft-pkg-row" id="hotelScrollEl" ref={hotelScrollRef}>
+                                            {loading ? (
+                                                <>
+                                                    {[1, 2, 3, 4].map((i) => (
+                                                        <div className="ft-skeleton-card" key={i}>
+                                                            <div className="ft-skeleton-card-img"></div>
+                                                            <div className="ft-skeleton-card-body">
+                                                                <div className="ft-skeleton-line title"></div>
+                                                                <div className="ft-skeleton-line meta"></div>
+                                                                <div className="ft-skeleton-line meta" style={{ width: '45%' }}></div>
+                                                                <div className="d-flex justify-content-between align-items-center mt-2">
+                                                                    <div className="ft-skeleton-line price"></div>
+                                                                    <div className="ft-skeleton-line btn"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    ))
-                                                ) : (
-                                                    <div className="w-100 text-center py-4 text-muted">
-                                                        No hotels available at the moment.
-                                                    </div>
-                                                )}
-                                            </div>
+                                                    ))}
+                                                </>
+                                            ) : (hotelsTab === 'domestic' ? domesticHotels : internationalHotels).length > 0 ? (
+                                                (hotelsTab === 'domestic' ? domesticHotels : internationalHotels).map((pkg) => (
+                                                    <Link href={`/hotels/${pkg.slug}`} className="ft-pkg-card text-decoration-none" key={pkg.id}>
+                                                        <div className="ft-pkg-card-img">
+                                                            <img src={getPackageImage(pkg.image)} alt={pkg.title} onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
+                                                            <div className="ft-pkg-badge-wrap">
+                                                                {pkg.tags && pkg.tags.map(tag => (
+                                                                    <span key={tag.id} className={`ft-pkg-badge ${tag.color || 'red'}`}>
+                                                                        {tag.name}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                        <div className="ft-pkg-card-body">
+                                                            <div className="ft-pkg-card-title">{pkg.title}</div>
+                                                            <div className="ft-pkg-meta">
+                                                                <span className="ft-pkg-meta-item"><i className="bi bi-geo-alt"></i> {pkg.location || (pkg.destination ? pkg.destination.name : 'Explore')}</span>
+                                                                <span className="ft-pkg-meta-item"><i className="bi bi-star-fill" style={{ color: '#f59e0b' }}></i> {pkg.tags && pkg.tags.length > 0 ? pkg.tags[0].name : 'Hotel'}</span>
+                                                            </div>
+                                                            <div className="ft-pkg-card-footer">
+                                                                <div>
+                                                                    <div className="ft-pkg-price-label">Per Night</div>
+                                                                    <div className="ft-pkg-price">₹ {pkg.price.toLocaleString('en-IN')}</div>
+                                                                </div>
+                                                                <span className="ft-view-btn text-decoration-none text-center d-flex align-items-center justify-content-center">
+                                                                    view details
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                ))
+                                            ) : (
+                                                <div className="w-100 text-center py-4 text-muted">
+                                                    No hotels available at the moment.
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
 
+                                        <button className="ft-pkg-slide-btn next-btn" onClick={() => handleScroll(hotelScrollRef, 290)}>
+                                            <i className="bi bi-chevron-right"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* TOP DESTINATIONS GRID */}
@@ -1068,7 +1095,7 @@ export default function HomePage() {
                                 <h3>{activeReel.title}</h3>
                                 <p>{activeReel.desc}</p>
                                 <div className="reels-modal-cta">
-                                    <a href="https://wa.me/912261234567" target="_blank" className="ft-btn-primary text-decoration-none">
+                                    <a href="https://wa.me/919967023911" target="_blank" className="ft-btn-primary text-decoration-none">
                                         Book This Experience
                                     </a>
                                 </div>

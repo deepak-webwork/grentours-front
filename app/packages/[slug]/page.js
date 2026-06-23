@@ -80,6 +80,7 @@ export default function PackageDetailPage() {
         pkg.durationText ? { label: 'Duration', val: pkg.durationText, icon: 'bi-clock' } : null,
         pkg.packageType ? { label: 'Type', val: pkg.packageType.replace(/_/g, ' '), icon: 'bi-compass' } : null,
         pkg.location ? { label: 'Destination', val: pkg.location, icon: 'bi-geo-alt' } : null,
+        pkg.departureDate ? { label: 'Departure Date', val: pkg.departureDate, icon: 'bi-calendar-event' } : null,
     ].filter(Boolean);
 
     return (
