@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { openEnquiryModal, getApiUrl, submitGeneralEnquiry } from '../lib/submitEnquiry';
 import TravelMediaSection from '../components/home/TravelMediaSection';
+import { getMediaUrl } from '../lib/media';
 
 export default function HomePage() {
     // Offers tabs state: 'tours' or 'hotels'
@@ -137,65 +138,11 @@ export default function HomePage() {
         });
     }, []);
 
-    const getThemeImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
-
-    const getDestinationImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
-
-    const getPackageImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
-
-    const getAdImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
-
-    const getBlogImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
+    const getThemeImage = (url) => getMediaUrl(url);
+    const getDestinationImage = (url) => getMediaUrl(url);
+    const getPackageImage = (url) => getMediaUrl(url);
+    const getAdImage = (url) => getMediaUrl(url);
+    const getBlogImage = (url) => getMediaUrl(url);
 
     const getEmbedUrl = (reel) => {
         if (!reel) return '';
@@ -415,7 +362,7 @@ export default function HomePage() {
                                     </div>
                                 </div>
 
-                                {promoSlides && promoSlides.length > 0 ? (
+                                {promoSlides && promoSlides.length > 0 && (
                                     <div className="ft-promo-card">
                                         {promoSlides.length > 1 ? (
                                             <Swiper
@@ -429,7 +376,7 @@ export default function HomePage() {
                                                     <SwiperSlide key={i}>
                                                         <Link href={slide.link_url || '#'} className="d-block w-100 h-100">
                                                             <div className="ft-promo-img">
-                                                                <img src={getAdImage(slide.image)} alt={slide.title} />
+                                                                 <img src={getAdImage(slide.image)} alt={slide.title} />
                                                             </div>
                                                         </Link>
                                                     </SwiperSlide>
@@ -443,16 +390,10 @@ export default function HomePage() {
                                             </Link>
                                         )}
                                     </div>
-                                ) : (
-                                    <div className="ft-promo-card">
-                                        <div className="ft-promo-img">
-                                            <img src="/assets/img/bali-20526.png" alt="Bali Offer Banner" />
-                                        </div>
-                                    </div>
                                 )}
 
                                 {/* Partner/Airline Banner */}
-                                {sidebarSlides && sidebarSlides.length > 0 ? (
+                                {sidebarSlides && sidebarSlides.length > 0 && (
                                     <div className="ft-sidebar-ad">
                                         {sidebarSlides.length > 1 ? (
                                             <Swiper
@@ -466,7 +407,7 @@ export default function HomePage() {
                                                     <SwiperSlide key={i}>
                                                         <Link href={slide.link_url || '#'} className="d-block w-100 h-100">
                                                             <div className="ft-sidebar-ad-img">
-                                                                <img src={getAdImage(slide.image)} alt={slide.title} />
+                                                                 <img src={getAdImage(slide.image)} alt={slide.title} />
                                                             </div>
                                                         </Link>
                                                     </SwiperSlide>
@@ -479,12 +420,6 @@ export default function HomePage() {
                                                 </div>
                                             </Link>
                                         )}
-                                    </div>
-                                ) : (
-                                    <div className="ft-sidebar-ad">
-                                        <div className="ft-sidebar-ad-img">
-                                            <img src="/assets/img/AIR_Banner_f2_1.webp" alt="Partner Airline Banner" />
-                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -534,7 +469,7 @@ export default function HomePage() {
                                 {/* TRAVEL OFFERS */}
                                 <div className="ft-card-section" data-aos="fade-up">
                                     <div className="ft-section-header">
-                                        <h2>Travel Offers by Grentours</h2>
+                                        <h2>Latest Travel Offers</h2>
                                         <Link href={offersTab === 'tours' ? '/packages' : '/hotels'}>
                                             View All <i className="bi bi-arrow-right"></i>
                                         </Link>

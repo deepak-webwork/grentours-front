@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import { getMediaUrl } from '../../../lib/media';
 
 export default function BlogDetailPage() {
     const params = useParams();
@@ -59,17 +60,7 @@ export default function BlogDetailPage() {
         });
     }, [slug]);
 
-    const getBlogImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
+    const getBlogImage = (url) => getMediaUrl(url);
 
     if (error) {
         return (

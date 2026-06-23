@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ListFilterHeader from '../../components/listing/ListFilterHeader';
+import { getMediaUrl } from '../../lib/media';
 
 export default function BlogsListPage() {
     const [blogs, setBlogs] = useState([]);
@@ -78,17 +79,7 @@ export default function BlogsListPage() {
         }
     }, [offset]);
 
-    const getBlogImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
+    const getBlogImage = (url) => getMediaUrl(url);
 
     const filteredBlogs = blogs.filter(blog => {
         return !searchQuery || 

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ListFilterHeader from '../../components/listing/ListFilterHeader';
+import { getMediaUrl } from '../../lib/media';
 
 export default function VisaListPage() {
     const [visaFilter, setVisaFilter] = useState('all');
@@ -79,17 +80,7 @@ export default function VisaListPage() {
         }
     }, [offset]);
 
-    const getImageUrl = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/') || url.startsWith('assets/')) {
-            return url.startsWith('/') ? url : `/${url}`;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url.startsWith('/') ? '' : '/'}${url}`;
-    };
+    const getImageUrl = (url) => getMediaUrl(url);
 
     const resetFilters = () => {
         setVisaFilter('all');

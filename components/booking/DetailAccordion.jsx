@@ -20,7 +20,7 @@ function PlanItem({ plan, isOpen, onToggle }) {
             </div>
             {isOpen && (
                 <div className="day-body">
-                    <p>{plan.desc}</p>
+                    <div dangerouslySetInnerHTML={{ __html: plan.desc }} />
                     {(plan.meals || plan.accommodation) && (
                         <div className="day-body-meta">
                             {plan.meals && (
@@ -50,7 +50,7 @@ function FaqItem({ faq, isOpen, onToggle }) {
                 <span>{faq.question}</span>
                 <i className="bi bi-chevron-down day-chevron" />
             </div>
-            {isOpen && <div className="day-body"><p>{faq.answer}</p></div>}
+            {isOpen && <div className="day-body"><div dangerouslySetInnerHTML={{ __html: faq.answer }} /></div>}
         </div>
     );
 }

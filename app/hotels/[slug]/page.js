@@ -162,7 +162,7 @@ export default function HotelDetailPage() {
                             {hotel.description && (
                                 <div className="details-card">
                                     <h2>About This Property</h2>
-                                    <p className="about-tour-text">{hotel.description}</p>
+                                    <div className="about-tour-text" dangerouslySetInnerHTML={{ __html: hotel.description }} />
                                 </div>
                             )}
 
@@ -173,7 +173,7 @@ export default function HotelDetailPage() {
                                         {hotel.tripHighlights.map((h, i) => (
                                             <li key={i}>
                                                 <i className="bi bi-check-circle-fill" />
-                                                <span>{h}</span>
+                                                <span dangerouslySetInnerHTML={{ __html: h }} />
                                             </li>
                                         ))}
                                     </ul>
@@ -201,7 +201,7 @@ export default function HotelDetailPage() {
                                         {hotel.inclusions.map((item, i) => (
                                             <li key={i}>
                                                 <i className="bi bi-check-lg" />
-                                                <span>{item}</span>
+                                                <span dangerouslySetInnerHTML={{ __html: item }} />
                                             </li>
                                         ))}
                                     </ul>
@@ -215,7 +215,7 @@ export default function HotelDetailPage() {
                                         {hotel.exclusions.map((item, i) => (
                                             <li key={i}>
                                                 <i className="bi bi-x-circle" />
-                                                <span>{item}</span>
+                                                <span dangerouslySetInnerHTML={{ __html: item }} />
                                             </li>
                                         ))}
                                     </ul>

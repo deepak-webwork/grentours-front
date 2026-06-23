@@ -3,19 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';import { getMediaUrl } from '../../../lib/media';
 
-const getImageUrl = (url) => {
-    if (!url) return '/assets/img/grentours_placeholder.png';
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-        return url;
-    }
-    if (url.startsWith('/assets/img/') || url.startsWith('/assets/images/')) {
-        return url;
-    }
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-    return `${apiUrl}${url}`;
-};
+const getImageUrl = (url) => getMediaUrl(url);
 
 export default function RelatedVisasSwiper({ relatedVisas }) {
     if (!relatedVisas || relatedVisas.length === 0) return null;

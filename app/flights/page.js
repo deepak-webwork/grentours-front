@@ -8,6 +8,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 // Import swiper styles if needed locally
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { getMediaUrl } from '../../lib/media';
 
 const TRIP_TYPE_MAP = {
     'one-way': 'one_way',
@@ -73,17 +74,7 @@ export default function FlightsPage() {
     }, []);
 
     // Helper to resolve image paths
-    const getAdImage = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
+    const getAdImage = (url) => getMediaUrl(url);
 
     // Distribute ads into Promo and Sidebar slots (even/odd indices)
     const promoAds = advertisements.filter((_, idx) => idx % 2 === 0);

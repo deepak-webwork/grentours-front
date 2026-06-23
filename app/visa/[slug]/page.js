@@ -4,6 +4,7 @@ import VisaInquiryForm from './VisaInquiryForm';
 import VisaTypesSwiper from './VisaTypesSwiper';
 import PopularPackagesSwiper from './PopularPackagesSwiper';
 import RelatedVisasSwiper from './RelatedVisasSwiper';
+import { getMediaUrl } from '../../../lib/media';
 
 
 async function getVisaData(slug) {
@@ -65,17 +66,7 @@ export default async function VisaDetailPage({ params }) {
         ? relatedResponse.destinations.filter(v => v.slug !== slug && v.category === activeCategory)
         : [];
 
-    const getImageUrl = (url) => {
-        if (!url) return '/assets/img/grentours_placeholder.png';
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-            return url;
-        }
-        if (url.startsWith('/assets/img/') || url.startsWith('/assets/images/')) {
-            return url;
-        }
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        return `${apiUrl}${url}`;
-    };
+    const getImageUrl = (url) => getMediaUrl(url);
 
     const getCategoryBadgeClass = (category) => {
         switch (category) {

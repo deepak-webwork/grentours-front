@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ListFilterHeader from '../../components/listing/ListFilterHeader';
+import { getMediaUrl } from '../../lib/media';
 
 function PackagesListContent() {
     const searchParams = useSearchParams();
@@ -131,17 +132,7 @@ function PackagesListContent() {
         const durationDays = pkg.duration_days || 5;
         const durationNights = pkg.duration_nights || (durationDays - 1);
         
-        const getImageUrl = (url) => {
-            if (!url) return '/assets/img/grentours_placeholder.png';
-            if (url.startsWith('http://') || url.startsWith('https://')) {
-                return url;
-            }
-            if (url.startsWith('/assets/') || url.startsWith('assets/')) {
-                return url.startsWith('/') ? url : `/${url}`;
-            }
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-            return `${apiUrl}${url.startsWith('/') ? '' : '/'}${url}`;
-        };
+        const getImageUrl = (url) => getMediaUrl(url);
 
         const themes = Array.isArray(pkg.themes) 
             ? pkg.themes.map(t => t.slug || t.name?.toLowerCase()) 
