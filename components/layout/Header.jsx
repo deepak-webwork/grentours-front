@@ -126,7 +126,7 @@ export default function Header() {
                                     onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }}
                                 />
                                 <img
-                                    src="/assets/img/iata.png"
+                                    src="/assets/img/iata1.png"
                                     alt="IATA Accredited"
                                     className="ft-iata-logo"
                                     onError={(e) => { e.currentTarget.style.display = 'none'; }}

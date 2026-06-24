@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, FreeMode } from 'swiper/modules';
+import { Navigation, FreeMode, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -34,6 +34,32 @@ export default function TravelMediaSection({
             desc: item.description || item.desc || title,
             isLandscape,
         });
+    };
+
+    const getEmbedUrl = (url, id) => {
+        if (!url) {
+            if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&rel=0&playsinline=1`;
+            return '';
+        }
+        
+        // YouTube parsing
+        const ytPattern = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/ ]{11})/i;
+        const ytMatch = url.match(ytPattern);
+        if (ytMatch && ytMatch[1]) {
+            const videoId = ytMatch[1];
+            return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&playsinline=1`;
+        }
+        
+        // Instagram parsing
+        const igPattern = /(?:instagram\.com\/(?:reel|p)\/)([^"&?\/ ]+)/i;
+        const igMatch = url.match(igPattern);
+        if (igMatch && igMatch[1]) {
+            const reelId = igMatch[1];
+            return `https://www.instagram.com/reel/${reelId}/embed/`;
+        }
+
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}autoplay=1&mute=1&rel=0`;
     };
 
     return (
@@ -84,11 +110,15 @@ export default function TravelMediaSection({
                                     <i className="bi bi-chevron-left"></i>
                                 </button>
                                 <Swiper
-                                    modules={[Navigation, FreeMode]}
+                                    modules={[Navigation, Autoplay]}
                                     className="tm-swiper tm-swiper--reels"
                                     slidesPerView={2.15}
                                     spaceBetween={12}
-                                    freeMode
+                                    autoplay={{
+                                        delay: 3000,
+                                        disableOnInteraction: false,
+                                        pauseOnMouseEnter: true,
+                                    }}
                                     navigation={{ prevEl: '.tm-nav-reels-prev', nextEl: '.tm-nav-reels-next' }}
                                     breakpoints={{
                                         576: { slidesPerView: 2.5, spaceBetween: 14 },
@@ -106,6 +136,8 @@ export default function TravelMediaSection({
                                         : reels.map((reel, idx) => {
                                             const title = reel.title || reel.reel_title || 'Travel Reel';
                                             const imgUrl = reel.thumbnail || '/assets/img/grentours_placeholder.png';
+                                            const embedUrl = getEmbedUrl(reel.video_url, reel.id);
+
                                             return (
                                                 <SwiperSlide key={reel.id || idx}>
                                                     <article
@@ -115,11 +147,43 @@ export default function TravelMediaSection({
                                                         tabIndex={0}
                                                         onKeyDown={(e) => e.key === 'Enter' && openReel(reel, false)}
                                                     >
-                                                        <img src={imgUrl} alt={title} loading="lazy" onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                        <div className="tm-reel-overlay" />
-                                                        <span className="tm-reel-play"><i className="bi bi-play-fill"></i></span>
-                                                        <span className="tm-reel-badge">SHORT</span>
-                                                        <div className="tm-reel-meta">
+                                                        <img 
+                                                            src={imgUrl} 
+                                                            alt={title} 
+                                                            loading="lazy" 
+                                                            style={{
+                                                                width: '100%',
+                                                                height: '100%',
+                                                                objectFit: 'cover',
+                                                                display: 'block'
+                                                            }}
+                                                            onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} 
+                                                        />
+
+                                                        {embedUrl && (
+                                                            <iframe
+                                                                src={embedUrl}
+                                                                title={title}
+                                                                frameBorder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                allowFullScreen
+                                                                style={{
+                                                                    position: 'absolute',
+                                                                    top: 0,
+                                                                    left: 0,
+                                                                    width: '100%',
+                                                                    height: '100%',
+                                                                    pointerEvents: 'none',
+                                                                    border: 'none',
+                                                                    zIndex: 2,
+                                                                    backgroundColor: 'transparent',
+                                                                }}
+                                                            ></iframe>
+                                                        )}
+                                                        <div className="tm-reel-overlay" style={{ zIndex: 3 }} />
+                                                        <span className="tm-reel-play" style={{ zIndex: 4 }}><i className="bi bi-play-fill"></i></span>
+                                                        <span className="tm-reel-badge" style={{ zIndex: 4 }}>SHORT</span>
+                                                        <div className="tm-reel-meta" style={{ zIndex: 4 }}>
                                                             <h4>{title}</h4>
                                                         </div>
                                                     </article>
@@ -153,11 +217,15 @@ export default function TravelMediaSection({
                                     <i className="bi bi-chevron-left"></i>
                                 </button>
                                 <Swiper
-                                    modules={[Navigation, FreeMode]}
+                                    modules={[Navigation, Autoplay]}
                                     className="tm-swiper tm-swiper--videos"
                                     slidesPerView={1.15}
                                     spaceBetween={14}
-                                    freeMode
+                                    autoplay={{
+                                        delay: 4000,
+                                        disableOnInteraction: false,
+                                        pauseOnMouseEnter: true,
+                                    }}
                                     navigation={{ prevEl: '.tm-nav-videos-prev', nextEl: '.tm-nav-videos-next' }}
                                     breakpoints={{
                                         576: { slidesPerView: 1.6, spaceBetween: 14 },
@@ -176,6 +244,8 @@ export default function TravelMediaSection({
                                             const title = video.title || video.video_title || 'Travel Video';
                                             const desc = video.description || title;
                                             const imgUrl = video.thumbnail || '/assets/img/grentours_placeholder.png';
+                                            const embedUrl = getEmbedUrl(video.video_url, video.id);
+
                                             return (
                                                 <SwiperSlide key={video.id || idx}>
                                                     <article
@@ -186,8 +256,41 @@ export default function TravelMediaSection({
                                                         onKeyDown={(e) => e.key === 'Enter' && openReel(video, true)}
                                                     >
                                                         <div className="tm-video-thumb">
-                                                            <img src={imgUrl} alt={title} loading="lazy" onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} />
-                                                            <span className="tm-video-play"><i className="bi bi-play-fill"></i></span>
+                                                            <img 
+                                                                src={imgUrl} 
+                                                                alt={title} 
+                                                                loading="lazy" 
+                                                                style={{
+                                                                    width: '100%',
+                                                                    height: '100%',
+                                                                    objectFit: 'cover',
+                                                                    display: 'block'
+                                                                }}
+                                                                onError={(e) => { e.target.src = '/assets/img/grentours_placeholder.png'; }} 
+                                                            />
+
+                                                            {embedUrl && (
+                                                                <iframe
+                                                                    src={embedUrl}
+                                                                    title={title}
+                                                                    frameBorder="0"
+                                                                    loading="lazy"
+                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                    allowFullScreen
+                                                                    style={{
+                                                                        position: 'absolute',
+                                                                        top: 0,
+                                                                        left: 0,
+                                                                        width: '100%',
+                                                                        height: '100%',
+                                                                        pointerEvents: 'none',
+                                                                        border: 'none',
+                                                                        zIndex: 2,
+                                                                        backgroundColor: 'transparent',
+                                                                    }}
+                                                                ></iframe>
+                                                            )}
+                                                            <span className="tm-video-play" style={{ zIndex: 4 }}><i className="bi bi-play-fill"></i></span>
                                                         </div>
                                                         <div className="tm-video-body">
                                                             <h4>{title}</h4>

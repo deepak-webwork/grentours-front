@@ -148,11 +148,32 @@ export default function HomePage() {
 
     const getEmbedUrl = (reel) => {
         if (!reel) return '';
-        if (reel.video_url) {
-            const separator = reel.video_url.includes('?') ? '&' : '?';
-            return `${reel.video_url}${separator}autoplay=1&mute=0&rel=0`;
+        const url = reel.video_url || '';
+        
+        // YouTube parsing
+        const ytPattern = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/ ]{11})/i;
+        const ytMatch = url.match(ytPattern);
+        if (ytMatch && ytMatch[1]) {
+            const videoId = ytMatch[1];
+            return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}&controls=1&rel=0&playsinline=1`;
         }
-        return `https://www.youtube.com/embed/${reel.id}?autoplay=1&mute=0&rel=0`;
+        
+        // Instagram parsing
+        const igPattern = /(?:instagram\.com\/(?:reel|p)\/)([^"&?\/ ]+)/i;
+        const igMatch = url.match(igPattern);
+        if (igMatch && igMatch[1]) {
+            const reelId = igMatch[1];
+            return `https://www.instagram.com/reel/${reelId}/embed/`;
+        }
+
+        // Fallback for direct links or custom embed urls
+        if (url) {
+            const separator = url.includes('?') ? '&' : '?';
+            return `${url}${separator}autoplay=1&mute=0&rel=0&playsinline=1`;
+        }
+
+        // Fallback if only id is present
+        return `https://www.youtube.com/embed/${reel.id}?autoplay=1&mute=0&loop=1&playlist=${reel.id}&controls=1&rel=0&playsinline=1`;
     };
 
     useEffect(() => {
