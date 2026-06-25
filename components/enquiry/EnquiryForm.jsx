@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { buildMonthOptions, submitGeneralEnquiry } from '../../lib/submitEnquiry';
+import { buildMonthOptions, submitGeneralEnquiry, validateEnquiryForm } from '../../lib/submitEnquiry';
 
 const DEFAULT_INTERESTS = [
     'Europe Tours',
@@ -57,6 +57,18 @@ export default function EnquiryForm({ variant = 'modal', onSuccess, onCancel }) 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMsg('');
+
+        const validationError = validateEnquiryForm({
+            name: form.name,
+            phone: form.phone,
+            email: form.email,
+            message: form.message,
+        });
+        if (validationError) {
+            setErrorMsg(validationError);
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {
@@ -121,9 +133,11 @@ export default function EnquiryForm({ variant = 'modal', onSuccess, onCancel }) 
                     <label>Mobile Number *</label>
                     <input
                         type="tel"
-                        placeholder="+91 XXXXX XXXXX"
+                        placeholder="10-digit mobile number"
                         value={form.phone}
-                        onChange={(e) => updateField('phone', e.target.value)}
+                        onChange={(e) => updateField('phone', e.target.value.replace(/\D/g, '').slice(0, 10))}
+                        inputMode="numeric"
+                        maxLength={10}
                         required
                     />
                 </div>

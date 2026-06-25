@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { openEnquiryModal, getApiUrl, submitGeneralEnquiry } from '../lib/submitEnquiry';
+import { openEnquiryModal, getApiUrl, submitGeneralEnquiry, PHONE_REGEX, normalizePhone } from '../lib/submitEnquiry';
 import TravelMediaSection from '../components/home/TravelMediaSection';
 import { getMediaUrl } from '../lib/media';
 
@@ -274,20 +274,61 @@ export default function HomePage() {
     const handleMiceEnquirySubmit = async (e) => {
         e.preventDefault();
         setMiceError('');
+
+        const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const trimmedContact = (miceForm.contactPerson || '').trim();
+        const trimmedPhone = normalizePhone(miceForm.phone);
+        const trimmedEmail = (miceForm.email || '').trim();
+        const trimmedCompany = (miceForm.company || '').trim();
+
+        if (!trimmedCompany) {
+            setMiceError('Please enter your company name.');
+            return;
+        }
+        if (!trimmedContact || trimmedContact.length < 2) {
+            setMiceError('Please enter contact person\'s full name (at least 2 characters).');
+            return;
+        }
+        if (!trimmedPhone) {
+            setMiceError('Please enter phone number.');
+            return;
+        }
+        if (!PHONE_REGEX.test(trimmedPhone)) {
+            setMiceError('Please enter a valid 10-digit mobile number.');
+            return;
+        }
+        if (!trimmedEmail) {
+            setMiceError('Please enter email address.');
+            return;
+        }
+        if (!EMAIL_REGEX.test(trimmedEmail)) {
+            setMiceError('Please enter a valid email address.');
+            return;
+        }
+        if (!miceForm.eventType) {
+            setMiceError('Please select event type.');
+            return;
+        }
+        if (!miceForm.attendees) {
+            setMiceError('Please select attendees range.');
+            return;
+        }
+
         setMiceSubmitting(true);
 
         const message = [
             `MICE / Corporate Enquiry`,
-            `Company: ${miceForm.company}`,
+            `Company: ${trimmedCompany}`,
             `Event Type: ${miceForm.eventType}`,
             `Attendees: ${miceForm.attendees}`,
         ].join('\n');
 
         try {
             await submitGeneralEnquiry({
-                name: miceForm.contactPerson,
-                phone: miceForm.phone,
-                email: miceForm.email,
+                name: trimmedContact,
+                phone: trimmedPhone,
+                email: trimmedEmail,
                 interest: 'MICE / Corporate Travel',
                 month: 'Select Month',
                 message,
@@ -1193,9 +1234,11 @@ export default function HomePage() {
                                                     type="tel"
                                                     required
                                                     style={{ border: '1.5px solid #e0e0e0', borderRadius: '7px', padding: '9px 12px', fontSize: '12.5px', width: '100%', color: '#333', outline: 'none', background: '#fafafa' }}
-                                                    placeholder="+91 XXXXX XXXXX"
+                                                    placeholder="10-digit mobile number"
                                                     value={miceForm.phone}
-                                                    onChange={(e) => setMiceForm({ ...miceForm, phone: e.target.value })}
+                                                    onChange={(e) => setMiceForm({ ...miceForm, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
+                                                    inputMode="numeric"
+                                                    maxLength={10}
                                                 />
                                             </div>
                                         </div>

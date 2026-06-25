@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const LOGO_SRC = '/assets/img/logo-w.png';
+const LOGO_SRC = '/assets/img/logow.png';
 const LOGO_FALLBACK = '/assets/img/grentours_placeholder.png';
 
 const DEFAULT_SETTINGS = {

@@ -9,6 +9,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { getMediaUrl } from '../../lib/media';
+import { SERVER_ERROR_MESSAGE, PHONE_REGEX, normalizePhone } from '../../lib/submitEnquiry';
 
 const TRIP_TYPE_MAP = {
     'one-way': 'one_way',
@@ -23,7 +24,6 @@ const TRAVEL_CLASS_MAP = {
     'First Class': 'first_class',
 };
 
-const PHONE_REGEX = /^[0-9+\-\s()]{7,20}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function todayDateString() {
@@ -108,7 +108,7 @@ export default function FlightsPage() {
         const trimmedName = name.trim();
         const trimmedFrom = leavingFrom.trim();
         const trimmedTo = goingTo.trim();
-        const trimmedPhone = phone.trim();
+        const trimmedPhone = normalizePhone(phone);
         const trimmedEmail = email.trim();
         const today = todayDateString();
 
@@ -125,7 +125,7 @@ export default function FlightsPage() {
         }
         if (!trimmedName || trimmedName.length < 2) return 'Please enter your full name (at least 2 characters).';
         if (!trimmedPhone) return 'Please enter your phone number.';
-        if (!PHONE_REGEX.test(trimmedPhone)) return 'Please enter a valid phone number (7–20 digits).';
+        if (!PHONE_REGEX.test(trimmedPhone)) return 'Please enter a valid 10-digit mobile number.';
         if (!trimmedEmail) return 'Please enter your email address.';
         if (!EMAIL_REGEX.test(trimmedEmail)) return 'Please enter a valid email address.';
         if (parseInt(infants, 10) > parseInt(adults, 10)) {
@@ -149,7 +149,7 @@ export default function FlightsPage() {
 
         const payload = {
             name: name.trim(),
-            mobile: phone.trim(),
+            mobile: normalizePhone(phone),
             email: email.trim() || null,
             leaving_from: leavingFrom.trim(),
             going_to: goingTo.trim(),
@@ -165,16 +165,28 @@ export default function FlightsPage() {
 
         try {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-            const response = await fetch(`${apiUrl}/api/v1/enquiries/flight`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
+            let response;
+            try {
+                response = await fetch(`${apiUrl}/api/v1/enquiries/flight`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+            } catch {
+                setErrorMsg(SERVER_ERROR_MESSAGE);
+                return;
+            }
 
-            const data = await response.json();
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                setErrorMsg(response.status >= 500 ? SERVER_ERROR_MESSAGE : 'Failed to submit enquiry. Please try again.');
+                return;
+            }
 
             if (response.ok && data.success) {
                 setSubmittedData({
@@ -194,11 +206,16 @@ export default function FlightsPage() {
                 const errorDetails = data.errors
                     ? Object.values(data.errors).flat().join(' ')
                     : '';
-                setErrorMsg(errorDetails || data.message || 'Something went wrong. Please try again.');
+                const message = errorDetails || data.message || 'Something went wrong. Please try again.';
+                const isServerError = response.status >= 500
+                    || /Error:/i.test(message)
+                    || /submission failed/i.test(message)
+                    || /could not complete processing/i.test(message);
+                setErrorMsg(isServerError ? SERVER_ERROR_MESSAGE : message);
             }
         } catch (err) {
             console.error('Submission error:', err);
-            setErrorMsg('Failed to connect to the server. Please check your connection.');
+            setErrorMsg(err.message || SERVER_ERROR_MESSAGE);
         } finally {
             setIsSubmitting(false);
         }
@@ -427,9 +444,11 @@ export default function FlightsPage() {
                                             <input 
                                                 type="tel" 
                                                 className="flight-form-input" 
-                                                placeholder="Enter phone number" 
+                                                placeholder="10-digit mobile number" 
                                                 value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
+                                                onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                                inputMode="numeric"
+                                                maxLength={10}
                                                 required
                                             />
                                             <i className="bi bi-telephone"></i>

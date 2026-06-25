@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { submitGeneralEnquiry } from '../../../lib/submitEnquiry';
+import { submitGeneralEnquiry, PHONE_REGEX, normalizePhone } from '../../../lib/submitEnquiry';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function VisaInquiryForm({ countryName }) {
     const [formData, setFormData] = useState({
@@ -13,24 +15,54 @@ export default function VisaInquiryForm({ countryName }) {
     });
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [formSubmitting, setFormSubmitting] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        const nextValue = name === 'phone' ? value.replace(/\D/g, '').slice(0, 10) : value;
         setFormData(prev => ({
             ...prev,
-            [name]: value
+            [name]: nextValue
         }));
+        if (errorMsg) setErrorMsg('');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMsg('');
+
+        const trimmedName = formData.name.trim();
+        const trimmedPhone = normalizePhone(formData.phone);
+        const trimmedEmail = formData.email.trim();
+
+        if (!trimmedName || trimmedName.length < 2) {
+            setErrorMsg('Please enter your full name (at least 2 characters).');
+            return;
+        }
+        if (!trimmedPhone) {
+            setErrorMsg('Please enter your phone number.');
+            return;
+        }
+        if (!PHONE_REGEX.test(trimmedPhone)) {
+            setErrorMsg('Please enter a valid 10-digit mobile number.');
+            return;
+        }
+        if (!trimmedEmail) {
+            setErrorMsg('Please enter your email address.');
+            return;
+        }
+        if (!EMAIL_REGEX.test(trimmedEmail)) {
+            setErrorMsg('Please enter a valid email address.');
+            return;
+        }
+
         setFormSubmitting(true);
 
         try {
             await submitGeneralEnquiry({
-                name: formData.name,
-                phone: formData.phone,
-                email: formData.email,
+                name: trimmedName,
+                phone: trimmedPhone,
+                email: trimmedEmail,
                 interest: `${countryName || 'Visa'} Visa`,
                 month: formData.travelMonth,
                 message: formData.message,
@@ -39,7 +71,7 @@ export default function VisaInquiryForm({ countryName }) {
             setFormSubmitted(true);
         } catch (err) {
             console.error('Error submitting enquiry:', err);
-            alert(err.message || 'Failed to submit enquiry.');
+            setErrorMsg(err.message || 'Failed to submit enquiry.');
         } finally {
             setFormSubmitting(false);
         }
@@ -60,6 +92,7 @@ export default function VisaInquiryForm({ countryName }) {
                     className="btn btn-primary btn-sm mt-3 px-4 py-2" 
                     onClick={() => {
                         setFormSubmitted(false);
+                        setErrorMsg('');
                         setFormData({
                             name: '',
                             email: '',
@@ -78,6 +111,11 @@ export default function VisaInquiryForm({ countryName }) {
 
     return (
         <form onSubmit={handleSubmit} className="visa-form">
+            {errorMsg && (
+                <div className="alert alert-danger py-2 mb-3" role="alert" style={{ fontSize: '0.85rem', borderRadius: '8px' }}>
+                    <i className="bi bi-exclamation-triangle-fill me-2"></i> {errorMsg}
+                </div>
+            )}
             <div className="floating-group">
                 <input 
                     type="text" 
@@ -100,6 +138,8 @@ export default function VisaInquiryForm({ countryName }) {
                     className="floating-input" 
                     placeholder=" "
                     value={formData.phone}
+                    inputMode="numeric"
+                    maxLength={10}
                     onChange={handleInputChange}
                     required 
                 />

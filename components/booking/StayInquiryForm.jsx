@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { submitGeneralEnquiry } from '../../lib/submitEnquiry';
+import { submitGeneralEnquiry, validateEnquiryForm } from '../../lib/submitEnquiry';
 
 export default function StayInquiryForm({
     packageId,
@@ -37,9 +37,38 @@ export default function StayInquiryForm({
         });
     };
 
+    const updateField = (field, value) => {
+        setForm((prev) => ({ ...prev, [field]: value }));
+        if (errorMsg) setErrorMsg('');
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMsg('');
+
+        const validationError = validateEnquiryForm({
+            name: form.name,
+            phone: form.phone,
+            email: form.email,
+            message: form.message,
+        });
+        if (validationError) {
+            setErrorMsg(validationError);
+            return;
+        }
+        if (!form.date) {
+            setErrorMsg('Please select a start date.');
+            return;
+        }
+        if (!form.endDate) {
+            setErrorMsg('Please select an end date.');
+            return;
+        }
+        if (form.endDate <= form.date) {
+            setErrorMsg('End date must be after start date.');
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {
@@ -96,7 +125,7 @@ export default function StayInquiryForm({
                             type="text"
                             placeholder="Your full name"
                             value={form.name}
-                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            onChange={(e) => updateField('name', e.target.value)}
                             required
                         />
                     </div>
@@ -109,9 +138,11 @@ export default function StayInquiryForm({
                             <i className="bi bi-telephone"></i>
                             <input
                                 type="tel"
-                                placeholder="+91 XXXXX XXXXX"
+                                placeholder="10-digit mobile number"
                                 value={form.phone}
-                                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                                onChange={(e) => updateField('phone', e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                inputMode="numeric"
+                                maxLength={10}
                                 required
                             />
                         </div>
@@ -124,7 +155,7 @@ export default function StayInquiryForm({
                                 type="email"
                                 placeholder="name@email.com"
                                 value={form.email}
-                                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                onChange={(e) => updateField('email', e.target.value)}
                             />
                         </div>
                     </div>
@@ -139,7 +170,7 @@ export default function StayInquiryForm({
                                 type="date"
                                 min={today}
                                 value={form.date}
-                                onChange={(e) => setForm({ ...form, date: e.target.value })}
+                                onChange={(e) => updateField('date', e.target.value)}
                                 required
                             />
                         </div>
@@ -152,7 +183,7 @@ export default function StayInquiryForm({
                                 type="date"
                                 min={form.date || today}
                                 value={form.endDate}
-                                onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+                                onChange={(e) => updateField('endDate', e.target.value)}
                                 required
                             />
                         </div>
@@ -195,7 +226,7 @@ export default function StayInquiryForm({
                             placeholder="Room type, meal plan, early check-in..."
                             value={form.message}
                             maxLength={2000}
-                            onChange={(e) => setForm({ ...form, message: e.target.value })}
+                            onChange={(e) => updateField('message', e.target.value)}
                         />
                     </div>
                 </div>

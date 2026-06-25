@@ -262,7 +262,7 @@ export default function HotelDetailPage() {
                                 <StayInquiryForm
                                     packageId={hotel.id}
                                     packageTitle={hotel.title}
-                                    enquiryType="package"
+                                    enquiryType="hotel"
                                     title="Book This Stay"
                                     dateLabel="Check-in Date"
                                     submitLabel="Send Inquiry"
